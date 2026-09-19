@@ -1,17 +1,14 @@
 # Handy Book
 
-Five installable HTML apps. Same six steps: name or photo → confirm the bike → pick a part → factory page → follow those pages → invoice.
+Phone-first web app that opens the factory motorcycle manual page for a part.
 
-Manuals stay in the store as written. This demo uses one Honda CB650R 2021 record.
+Run: `npx serve` → `/counter/`.
 
-Open `architecture.html` for the system map.
+- Identify
+- Confirm
+- Pick
+- Book
+- Follow
+- Invoice
 
-## Run
-
-Open `index.html`, or from this folder:
-
-```
-npx serve
-```
-
-Then: Bench, Night, Stack, Counter, Pocket.
+Store: `store/`. Credits: `store/CREDITS.md`, `store/manuals/SOURCES.md`. Prototypes: `prototypes.html`.
