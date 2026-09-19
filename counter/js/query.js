@@ -26,30 +26,57 @@ function tokens(value) {
     .filter(Boolean);
 }
 
-function fieldsOf(bike) {
+function textFieldsOf(bike) {
   const aliases = Array.isArray(bike.aliases) ? bike.aliases : [];
-  return [bike.make, bike.model, bike.year, ...aliases];
+  return [bike.make, bike.model, ...aliases];
+}
+
+function yearFoldOf(bike) {
+  return fold(bike.year);
+}
+
+function tokenHit(hayToken, queryToken, yearFold) {
+  if (yearFold && hayToken === yearFold) return hayToken === queryToken;
+  return hayToken === queryToken || hayToken.includes(queryToken);
+}
+
+function overlapCount(hay, qTokens, yearFold) {
+  return qTokens.filter((qt) => hay.some((ht) => tokenHit(ht, qt, yearFold))).length;
+}
+
+function haystackOf(bike) {
+  const yearFold = yearFoldOf(bike);
+  const hay = [];
+  for (const field of textFieldsOf(bike)) hay.push(...tokens(field));
+  if (yearFold) hay.push(yearFold);
+  return { hay, yearFold };
 }
 
 function rankBike(bike, qFold, qTokens) {
   const aliases = Array.isArray(bike.aliases) ? bike.aliases : [];
+  const { hay, yearFold } = haystackOf(bike);
+  const overlap = overlapCount(hay, qTokens, yearFold);
+
   for (const alias of aliases) {
-    if (fold(alias) === qFold) return RANK_EXACT_ALIAS;
+    if (fold(alias) === qFold) return { rank: RANK_EXACT_ALIAS, overlap };
   }
 
   let best = Infinity;
-  for (const field of fieldsOf(bike)) {
+  for (const field of textFieldsOf(bike)) {
     const folded = fold(field);
     if (!folded) continue;
     if (folded.startsWith(qFold)) best = Math.min(best, RANK_PREFIX);
     else if (folded.includes(qFold)) best = Math.min(best, RANK_SUBSTRING);
   }
-  if (best !== Infinity) return best;
+  if (yearFold && yearFold.startsWith(qFold) && qFold.length === yearFold.length) {
+    best = Math.min(best, RANK_PREFIX);
+  }
+  if (best !== Infinity) return { rank: best, overlap };
 
-  const hay = [];
-  for (const field of fieldsOf(bike)) hay.push(...tokens(field));
-  const hit = qTokens.some((qt) => hay.some((ht) => ht === qt || ht.includes(qt)));
-  return hit ? RANK_TOKEN : Infinity;
+  if (qTokens.length && overlap === qTokens.length) {
+    return { rank: RANK_TOKEN, overlap };
+  }
+  return { rank: Infinity, overlap: 0 };
 }
 
 function indexCatalog(catalog) {
@@ -66,6 +93,19 @@ function validateCatalog(catalog) {
   for (const key of TOP_KEYS) {
     if (!(key in catalog)) throw new Error(`loadCatalog: missing ${key}`);
   }
+}
+
+function padPage(n) {
+  return String(n).padStart(4, "0");
+}
+
+function pagesDirOf(manualId) {
+  const dir = manualIndex.get(manualId)?.pagesDir;
+  if (dir) {
+    const value = String(dir);
+    return value.endsWith("/") ? value : `${value}/`;
+  }
+  return `store/manuals/${manualId}/pages/`;
 }
 
 export function asset(path) {
@@ -88,6 +128,10 @@ export function loadCatalog(url = DEFAULT_URL) {
         data = catalog;
         indexCatalog(catalog);
         return catalog;
+      })
+      .catch((err) => {
+        loadPromise = undefined;
+        throw err;
       });
   }
   return loadPromise;
@@ -103,9 +147,12 @@ export function findBikes(text) {
   if (!qFold) return bikes.slice();
   const qTokens = tokens(text ?? "");
   return bikes
-    .map((bike, order) => ({ bike, order, rank: rankBike(bike, qFold, qTokens) }))
+    .map((bike, order) => {
+      const scored = rankBike(bike, qFold, qTokens);
+      return { bike, order, rank: scored.rank, overlap: scored.overlap };
+    })
     .filter((row) => row.rank !== Infinity)
-    .sort((a, b) => a.rank - b.rank || a.order - b.order)
+    .sort((a, b) => a.rank - b.rank || b.overlap - a.overlap || a.order - b.order)
     .map((row) => row.bike);
 }
 
@@ -150,9 +197,9 @@ export function partsFor(bikeId, systemId) {
 }
 
 export function pageUrl(manualId, n) {
-  return asset(`store/manuals/${manualId}/pages/p-${String(n).padStart(4, "0")}.webp`);
+  return asset(`${pagesDirOf(manualId)}p-${padPage(n)}.webp`);
 }
 
 export function thumbUrl(manualId, n) {
-  return asset(`store/manuals/${manualId}/pages/t-${String(n).padStart(4, "0")}.webp`);
+  return asset(`${pagesDirOf(manualId)}t-${padPage(n)}.webp`);
 }

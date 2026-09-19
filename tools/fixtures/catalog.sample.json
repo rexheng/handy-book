@@ -69,6 +69,29 @@
       "pagesDir": "store/manuals/yamaha-mt-07-2021-om/pages/",
       "toc": [{ "title": "PERIODIC MAINTENANCE AND ADJUSTMENT", "page": 40 }],
       "source": "https://www.yamaha-motor.eu/manuals"
+    },
+    {
+      "id": "kawasaki-z650-2020-om",
+      "bikeId": "kawasaki-z650-2020",
+      "title": "OWNER'S MANUAL Z650",
+      "kind": "owner",
+      "publisher": "Kawasaki Heavy Industries, Ltd.",
+      "file": "store/manuals/kawasaki-z650-2020-om/manual.pdf",
+      "pages": 196,
+      "pagesDir": "store/manuals/kawasaki-z650-2020-om/renders",
+      "toc": [{ "title": "MAINTENANCE AND ADJUSTMENT", "page": 90 }],
+      "source": "https://www.kawasaki.com/en-us/service/owners-manuals"
+    },
+    {
+      "id": "suzuki-sv650-2019-om",
+      "bikeId": "suzuki-sv650-2019",
+      "title": "OWNER'S MANUAL SV650",
+      "kind": "owner",
+      "publisher": "Suzuki Motor Corporation",
+      "file": "store/manuals/suzuki-sv650-2019-om/manual.pdf",
+      "pages": 140,
+      "toc": [{ "title": "INSPECTION AND MAINTENANCE", "page": 50 }],
+      "source": "https://www.globalsuzuki.com/motorcycle/owners-manuals"
     }
   ],
   "systems": [

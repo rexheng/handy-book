@@ -81,13 +81,31 @@
         "suzuki-sv650-2019"
       ]);
 
-      check("findBikes honda 650 token overlap → CB650R", findBikes("honda 650")[0]?.id, "honda-cb650r-2021");
+      check("findBikes honda 2021 token tier → CB650R first", findBikes("honda 2021")[0]?.id, "honda-cb650r-2021");
+      check("findBikes honda 2021 token tier only Honda", ids(findBikes("honda 2021")), ["honda-cb650r-2021"]);
+      check("findBikes yamaha 2021 token tier → MT-07", ids(findBikes("yamaha 2021")), ["yamaha-mt-07-2021"]);
+      check("findBikes kawasaki 650 all-token → Z650 first", findBikes("kawasaki 650")[0]?.id, "kawasaki-z650-2020");
+      check("findBikes kawasaki 650 all-token only Z650", ids(findBikes("kawasaki 650")), ["kawasaki-z650-2020"]);
+      check("findBikes suzuki 650 all-token → SV650 first", findBikes("suzuki 650")[0]?.id, "suzuki-sv650-2019");
+      check("findBikes suzuki 650 all-token only SV650", ids(findBikes("suzuki 650")), ["suzuki-sv650-2019"]);
+      check("findBikes kawasaki 650 excludes CB650R", ids(findBikes("kawasaki 650")).includes("honda-cb650r-2021"), false);
+      check("findBikes suzuki 650 excludes CB650R", ids(findBikes("suzuki 650")).includes("honda-cb650r-2021"), false);
       check("findBikes cb6 prefix → CB650R", findBikes("cb6")[0]?.id, "honda-cb650r-2021");
+
+      check("findBikes 20 is not a year substring", ids(findBikes("20")), []);
+      check("findBikes 21 is not a year substring", ids(findBikes("21")), []);
+      check("findBikes 021 is not a year substring", ids(findBikes("021")), []);
+      check("findBikes 2021 full year token", ids(findBikes("2021")), ["honda-cb650r-2021", "yamaha-mt-07-2021"]);
+      check("findBikes 2020 full year token", ids(findBikes("2020")), ["kawasaki-z650-2020"]);
+      check("findBikes 2019 full year token", ids(findBikes("2019")), ["suzuki-sv650-2019"]);
+      check("findBikes 649 cc is not a search field", ids(findBikes("649")), []);
 
       check("bike(id) Honda", bike("honda-cb650r-2021")?.model, "CB650R");
       check("bike(id) missing is undefined", bike("nope"), undefined);
 
       check("manual(id) Honda OM", manual("honda-cb650r-2021-om")?.kind, "owner");
+      check("manual(id) Kawasaki OM", manual("kawasaki-z650-2020-om")?.bikeId, "kawasaki-z650-2020");
+      check("manual(id) Suzuki OM", manual("suzuki-sv650-2019-om")?.bikeId, "suzuki-sv650-2019");
       check("manual(id) missing is undefined", manual("nope"), undefined);
 
       check("systems(honda) catalog order with jobs", ids(systems("honda-cb650r-2021")), ["engine", "brakes", "fluids"]);
@@ -118,8 +136,49 @@
         "../store/manuals/honda-cb650r-2021-om/pages/t-0091.webp"
       );
       check("pageUrl p-0001", pageUrl("honda-cb650r-2021-om", 1), "../store/manuals/honda-cb650r-2021-om/pages/p-0001.webp");
+      check(
+        "pageUrl honours pagesDir",
+        pageUrl("kawasaki-z650-2020-om", 90),
+        "../store/manuals/kawasaki-z650-2020-om/renders/p-0090.webp"
+      );
+      check(
+        "thumbUrl honours pagesDir",
+        thumbUrl("kawasaki-z650-2020-om", 90),
+        "../store/manuals/kawasaki-z650-2020-om/renders/t-0090.webp"
+      );
+      check(
+        "pageUrl falls back to contract template",
+        pageUrl("suzuki-sv650-2019-om", 7),
+        "../store/manuals/suzuki-sv650-2019-om/pages/p-0007.webp"
+      );
+      check(
+        "thumbUrl falls back to contract template",
+        thumbUrl("suzuki-sv650-2019-om", 7),
+        "../store/manuals/suzuki-sv650-2019-om/pages/t-0007.webp"
+      );
+      check(
+        "pageUrl equals asset(pagesDir + p-NNNN)",
+        pageUrl("honda-cb650r-2021-om", 91),
+        asset(manual("honda-cb650r-2021-om").pagesDir + "p-0091.webp")
+      );
       check("asset prefixes store path", asset("store/img/bikes/honda-cb650r-2021.webp"), "../store/img/bikes/honda-cb650r-2021.webp");
       check("asset leaves ../ paths", asset("../store/x.webp"), "../store/x.webp");
+
+      {
+        const fresh = await import(`../counter/js/query.js?retry=${Date.now()}`);
+        let rejected = false;
+        try {
+          await fresh.loadCatalog("./fixtures/catalog.missing.json");
+        } catch {
+          rejected = true;
+        }
+        check("loadCatalog 404 rejects", rejected, true);
+        check("rejected load does not publish catalog", fresh.catalog(), null);
+        const recovered = await fresh.loadCatalog("./fixtures/catalog.sample.json");
+        check("loadCatalog retries after 404", Array.isArray(recovered?.bikes) && recovered.bikes.length === 4, true);
+        check("retried catalog() is the loaded catalog", fresh.catalog() === recovered, true);
+        check("retried findBikes sees bikes", fresh.findBikes("")[0]?.id, "honda-cb650r-2021");
+      }
     } catch (err) {
       check("runner threw: " + (err && err.message), false, true);
     }
