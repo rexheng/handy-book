@@ -9,6 +9,8 @@ const CHANNELS = [
   ["other", "Other"],
 ];
 const CHANNEL_IDS = CHANNELS.map(([id]) => id);
+const SVG = "http://www.w3.org/2000/svg";
+const EXT_PATH = "M9 5H5v14h14v-4M14 5h6v6M20 5 11 14";
 
 let root;
 let els;
@@ -33,6 +35,22 @@ function h(tag, attrs) {
   return node;
 }
 
+function extGlyph() {
+  const svg = document.createElementNS(SVG, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("focusable", "false");
+  const path = document.createElementNS(SVG, "path");
+  path.setAttribute("fill", "none");
+  path.setAttribute("stroke", "currentColor");
+  path.setAttribute("stroke-width", "2.4");
+  path.setAttribute("stroke-linecap", "square");
+  path.setAttribute("stroke-linejoin", "miter");
+  path.setAttribute("d", EXT_PATH);
+  svg.append(path);
+  return svg;
+}
+
 function money(n, dash) {
   if (dash) return "—";
   const v = Number(n);
@@ -41,9 +59,13 @@ function money(n, dash) {
   return "$" + v.toFixed(2);
 }
 
+function finite(n) {
+  return Number.isFinite(Number(n));
+}
+
 function totals(price, ship) {
-  const pc = Math.round(Number(price) * 100);
-  const sc = Math.round(Number(ship) * 100);
+  const pc = finite(price) ? Math.round(Number(price) * 100) : 0;
+  const sc = finite(ship) ? Math.round(Number(ship) * 100) : 0;
   const tc = Math.round((pc + sc) * TAX);
   return { price: pc / 100, ship: sc / 100, tax: tc / 100, total: (pc + sc + tc) / 100 };
 }
@@ -52,36 +74,133 @@ function jobOf() {
   return state.jobId ? Q.jobById(state.jobId) : undefined;
 }
 
+function listingNew(job) {
+  if (!job) return null;
+  if (job.new === null) return null;
+  if (job.new && typeof job.new === "object") return job.new;
+  return {
+    from: job.from,
+    url: job.url,
+    price: job.price,
+    currency: job.currency,
+    ship: job.ship,
+    days: job.days,
+    retrieved: job.retrieved,
+    oem: job.oem,
+    oemVerified: job.oemVerified,
+  };
+}
+
+function oemOf(job) {
+  const neu = listingNew(job);
+  if (neu && neu.oem != null && neu.oem !== "") return String(neu.oem);
+  return job && job.oem != null ? String(job.oem) : "";
+}
+
+function oemVerifiedOf(job) {
+  const neu = listingNew(job);
+  if (neu && Object.prototype.hasOwnProperty.call(neu, "oemVerified")) return neu.oemVerified;
+  return job ? job.oemVerified : undefined;
+}
+
+function hrefOf(row) {
+  if (!row || typeof row !== "object") return "";
+  const url = row.url;
+  if (url == null || url === "") return "";
+  return String(url);
+}
+
+function provText(from, retrieved) {
+  const a = from != null && from !== "" ? String(from) : "";
+  const b = retrieved != null && retrieved !== "" ? String(retrieved) : "";
+  if (a && b) return a + " · " + b;
+  return b;
+}
+
+function daysText(days) {
+  if (days == null || days === "") return "";
+  const n = Number(days);
+  if (!Number.isFinite(n)) return "";
+  return n + " d";
+}
+
 function lineOf(job) {
   const ch = state.channel;
   if (ch === "used" && pickUsed >= 0) {
     const row = Array.isArray(job.used) ? job.used[pickUsed] : null;
-    if (row) return { price: row.price, ship: 0, dash: false };
+    if (row && typeof row === "object") {
+      return {
+        price: row.price,
+        ship: 0,
+        dash: !finite(row.price),
+        from: row.from,
+        retrieved: row.retrieved,
+        url: hrefOf(row),
+        shipKnown: true,
+      };
+    }
   }
   if (ch === "other" && pickAlt >= 0 && Array.isArray(job.alts) && job.alts[pickAlt] != null) {
-    return { price: 0, ship: 0, dash: true };
+    const row = job.alts[pickAlt];
+    if (typeof row === "string") {
+      return { price: 0, ship: 0, dash: true, from: "", retrieved: "", url: "", shipKnown: true };
+    }
+    return {
+      price: 0,
+      ship: 0,
+      dash: true,
+      from: row.from,
+      retrieved: row.retrieved,
+      url: hrefOf(row),
+      shipKnown: true,
+    };
   }
-  return { price: job.price, ship: job.ship, dash: false };
+  const neu = listingNew(job);
+  if (neu == null) {
+    return { price: 0, ship: 0, dash: true, from: "", retrieved: "", url: "", shipKnown: false };
+  }
+  return {
+    price: neu.price,
+    ship: neu.ship,
+    dash: !finite(neu.price),
+    from: neu.from,
+    retrieved: neu.retrieved,
+    url: hrefOf(neu),
+    shipKnown: neu.ship != null && neu.ship !== "",
+  };
 }
 
-function ticketLines(job, part, bike, dash, t) {
+function shipText(line, t, dash) {
+  if (dash) return "—";
+  if (!line.shipKnown && (line.ship == null || line.ship === "")) return "";
+  return money(t.ship, false);
+}
+
+function ticketLines(job, part, bike, dash, t, line) {
   const bikeLine = [bike.make, bike.model, bike.year].filter((x) => x != null && x !== "").join(" ");
-  const partLine = [part.name, job.oem].filter((x) => x != null && x !== "").join("  ");
-  return [
+  const partLine = [part.name, oemOf(job)].filter((x) => x != null && x !== "").join("  ");
+  const prov = provText(line.from, line.retrieved);
+  const partAmt = money(t.price, dash);
+  const partRow = prov ? `Part  ${partAmt}  ${prov}` : `Part  ${partAmt}`;
+  const shipAmt = shipText(line, t, dash);
+  const shipRow = shipAmt === "" ? "Ship" : `Ship  ${shipAmt}`;
+  const rows = [
     String(state.ticket || ""),
     bikeLine,
     partLine,
-    `Part  ${money(t.price, dash)}`,
-    `Ship  ${money(t.ship, dash)}`,
+    partRow,
+    shipRow,
     `Tax 8.25%  ${money(t.tax, dash)}`,
     `Total  ${money(t.total, dash)}`,
-  ].filter(Boolean);
+  ];
+  if (line.url) rows.push(line.url);
+  return rows.filter((x) => x != null && x !== "");
 }
 
-function mailtoHref(job, part, bike, dash, t) {
+function mailtoHref(job, part, bike, dash, t, line) {
   const to = String(state.email || "").trim();
   const subject = `Handy Book ${state.ticket}`;
-  const body = ticketLines(job, part, bike, dash, t).join("\n");
+  const body = ticketLines(job, part, bike, dash, t, line).join("\n");
   return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
@@ -94,7 +213,11 @@ function setChannel(ch) {
 
 function listKey(rows) {
   return rows
-    .map((row) => (typeof row === "string" ? row : [row.from, row.where, row.price].join("\0")))
+    .map((row) =>
+      typeof row === "string"
+        ? row
+        : [row.label, row.from, row.where, row.price, row.url, row.retrieved].join("\0")
+    )
     .join("\n");
 }
 
@@ -108,6 +231,22 @@ function syncRowState(box, selected) {
   }
 }
 
+function bindHref(node, url, label) {
+  if (url) {
+    node.setAttribute("href", url);
+    node.setAttribute("target", "_blank");
+    node.setAttribute("rel", "noopener");
+    if (label && node.classList.contains("inv-ext")) node.setAttribute("aria-label", label);
+    node.hidden = false;
+  } else {
+    node.removeAttribute("href");
+    node.removeAttribute("target");
+    node.removeAttribute("rel");
+    node.removeAttribute("aria-label");
+    if (node.classList.contains("inv-ext")) node.hidden = true;
+  }
+}
+
 function fillList(box, rows, selected, onPick) {
   const key = listKey(rows);
   if (box.dataset.rows === key && box.childElementCount === rows.length) {
@@ -117,16 +256,34 @@ function fillList(box, rows, selected, onPick) {
   box.replaceChildren();
   box.dataset.rows = key;
   rows.forEach((row, i) => {
-    const btn = h("button", { type: "button", class: "card inv-row" });
+    const btn = h("div", { class: "card inv-row", role: "button", tabindex: "0", "aria-pressed": "false" });
     if (typeof row === "string") {
       btn.append(h("span", { text: row }));
     } else {
-      const a = h("span", { text: row.from || "" });
-      const b = h("span", { text: row.where || "" });
-      const c = h("span", { class: "inv-amt", text: money(row.price, false) });
-      btn.append(a, b, c);
+      const url = hrefOf(row);
+      const listing = h(url ? "a" : "div", { class: "inv-listing" });
+      if (url) bindHref(listing, url, row.from || row.label || "");
+      const label = row.label != null && row.label !== "" ? row.label : row.from || "";
+      listing.append(h("span", { text: label }));
+      if (row.where) listing.append(h("span", { text: row.where }));
+      if (finite(row.price)) listing.append(h("span", { class: "inv-amt", text: money(row.price, false) }));
+      btn.append(listing);
+      if (url) {
+        const ext = h("a", { class: "btn btn-icon inv-ext" });
+        bindHref(ext, url, row.from || row.label || "");
+        ext.append(extGlyph());
+        btn.append(ext);
+      }
+      const prov = provText(row.from, row.retrieved);
+      if (prov) btn.append(h("div", { class: "inv-prov", text: prov }));
     }
     btn.addEventListener("click", () => onPick(i, btn));
+    btn.addEventListener("keydown", (ev) => {
+      if (ev.target !== btn) return;
+      if (ev.key !== "Enter" && ev.key !== " ") return;
+      ev.preventDefault();
+      onPick(i, btn);
+    });
     box.append(btn);
   });
   syncRowState(box, selected);
@@ -146,6 +303,11 @@ function pickRow(kind, i, node) {
   if (node && document.activeElement !== node) node.focus();
 }
 
+function markOem(node, oem, verified) {
+  node.textContent = oem;
+  node.classList.toggle("is-dash", verified === false);
+}
+
 function paintTicket() {
   if (!els) return;
   const job = jobOf();
@@ -155,21 +317,63 @@ function paintTicket() {
   const line = lineOf(job);
   const t = line.dash ? { price: 0, ship: 0, tax: 0, total: 0 } : totals(line.price, line.ship);
   const dash = line.dash;
+  const oem = oemOf(job);
   els.tixNo.textContent = state.ticket || "";
   els.tixBike.textContent = [bike.make, bike.model, bike.year].filter((x) => x != null && x !== "").join(" ");
   els.tixPart.textContent = part.name || "";
-  els.tixOem.textContent = job.oem || "";
+  markOem(els.tixOem, oem, oemVerifiedOf(job));
   els.amtPart.textContent = money(t.price, dash);
-  els.amtShip.textContent = money(t.ship, dash);
+  els.amtShip.textContent = shipText(line, t, dash);
   els.amtTax.textContent = money(t.tax, dash);
   els.amtTotal.textContent = money(t.total, dash);
-  syncMail(job, part, bike, dash, t);
+  const prov = provText(line.from, line.retrieved);
+  els.tixProv.textContent = prov;
+  els.tixProv.hidden = !prov;
+  syncMail(job, part, bike, dash, t, line);
 }
 
-function syncMail(job, part, bike, dash, t) {
-  const href = mailtoHref(job, part, bike, dash, t);
+function syncMail(job, part, bike, dash, t, line) {
+  const href = mailtoHref(job, part, bike, dash, t, line);
   els.quoteSend.href = href;
   els.send.href = href;
+}
+
+function paintNew(job) {
+  const neu = listingNew(job);
+  const oem = oemOf(job);
+  const verified = oemVerifiedOf(job);
+  if (neu == null) {
+    els.fresh.classList.add("is-oem");
+    els.freshOem.hidden = false;
+    markOem(els.freshOem, oem, verified);
+    els.listing.hidden = true;
+    bindHref(els.listing, "", "");
+    els.from.textContent = "";
+    els.days.textContent = "";
+    els.days.hidden = true;
+    els.price.textContent = "";
+    els.ext.hidden = true;
+    els.ext.removeAttribute("href");
+    els.prov.hidden = true;
+    els.prov.textContent = "";
+    return;
+  }
+  els.fresh.classList.remove("is-oem");
+  els.freshOem.hidden = true;
+  els.freshOem.textContent = "";
+  els.freshOem.classList.remove("is-dash");
+  els.listing.hidden = false;
+  els.from.textContent = neu.from || "";
+  const days = daysText(neu.days);
+  els.days.textContent = days;
+  els.days.hidden = !days;
+  els.price.textContent = money(neu.price, !finite(neu.price));
+  const url = hrefOf(neu);
+  bindHref(els.listing, url, neu.from || oem);
+  bindHref(els.ext, url, neu.from || oem);
+  const prov = provText(neu.from, neu.retrieved);
+  els.prov.textContent = prov;
+  els.prov.hidden = !prov;
 }
 
 function paint() {
@@ -191,7 +395,7 @@ function paint() {
   }
 
   els.name.textContent = part.name || "";
-  els.oem.textContent = job.oem || "";
+  markOem(els.oem, oemOf(job), oemVerifiedOf(job));
   els.stamp.textContent = [bike.model, bike.year].filter((x) => x != null && x !== "").join(" · ");
 
   for (const btn of els.chBtns) {
@@ -207,9 +411,7 @@ function paint() {
 
   if (document.activeElement !== els.email) els.email.value = state.email || "";
 
-  els.from.textContent = job.from || "";
-  els.days.textContent = `${Number(job.days) || 0} d`;
-  els.price.textContent = money(job.price, false);
+  paintNew(job);
 
   const used = Array.isArray(job.used) ? job.used : [];
   const alts = Array.isArray(job.alts) ? job.alts : [];
@@ -227,7 +429,24 @@ function paint() {
   paintTicket();
 }
 
-function drawTicket(ctx, w, h, job, part, bike, dash, t, img) {
+function wrapUrl(ctx, text, maxWidth) {
+  if (!text) return [];
+  const out = [];
+  let cur = "";
+  for (const ch of String(text)) {
+    const next = cur + ch;
+    if (cur && ctx.measureText(next).width > maxWidth) {
+      out.push(cur);
+      cur = ch;
+    } else {
+      cur = next;
+    }
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+
+function drawTicket(ctx, w, h, job, part, bike, dash, t, img, line) {
   ctx.fillStyle = "#ece7dc";
   ctx.fillRect(0, 0, w, h);
   const x = 24;
@@ -284,11 +503,21 @@ function drawTicket(ctx, w, h, job, part, bike, dash, t, img) {
   ctx.font = "800 20px Barlow, sans-serif";
   ctx.fillText(part.name || "", px + 104, py + 28);
   ctx.font = "16px ui-monospace, monospace";
-  ctx.fillText(job.oem || "", px + 104, py + 54);
+  ctx.fillText(oemOf(job), px + 104, py + 54);
+  if (oemVerifiedOf(job) === false) {
+    const oem = oemOf(job);
+    const ow = Math.ceil(ctx.measureText(oem).width) + 10;
+    ctx.setLineDash([4, 3]);
+    ctx.strokeRect(px + 99, py + 50, ow, 22);
+    ctx.setLineDash([]);
+  }
 
+  const prov = provText(line.from, line.retrieved);
+  const partAmt = money(t.price, dash);
+  const partRight = prov ? partAmt + "  " + prov : partAmt;
   const rows = [
-    ["Part", money(t.price, dash)],
-    ["Ship", money(t.ship, dash)],
+    ["Part", partRight],
+    ["Ship", shipText(line, t, dash)],
     ["Tax 8.25%", money(t.tax, dash)],
     ["Total", money(t.total, dash)],
   ];
@@ -306,6 +535,17 @@ function drawTicket(ctx, w, h, job, part, bike, dash, t, img) {
     ctx.fillText(row[1], x + tw - 16, ry);
     ry += 36;
   });
+
+  if (line.url) {
+    ctx.textAlign = "left";
+    ctx.font = "12px ui-monospace, monospace";
+    ctx.fillStyle = "#141414";
+    const urlLines = wrapUrl(ctx, line.url, tw - 32);
+    urlLines.forEach((u) => {
+      ctx.fillText(u, px, ry);
+      ry += 16;
+    });
+  }
 }
 
 async function savePng() {
@@ -331,8 +571,8 @@ async function savePng() {
   }
   const canvas = document.createElement("canvas");
   canvas.width = 780;
-  canvas.height = 520;
-  drawTicket(canvas.getContext("2d"), canvas.width, canvas.height, job, part, bike, line.dash, t, els.photo);
+  canvas.height = line.url ? 680 : 560;
+  drawTicket(canvas.getContext("2d"), canvas.width, canvas.height, job, part, bike, line.dash, t, els.photo, line);
   await new Promise((resolve) => {
     canvas.toBlob((blob) => {
       if (!blob) {
@@ -390,16 +630,22 @@ function mount(node) {
     const bike = Q.bike(job.bikeId) || {};
     const line = lineOf(job);
     const t = line.dash ? { price: 0, ship: 0, tax: 0, total: 0 } : totals(line.price, line.ship);
-    syncMail(job, part, bike, line.dash, t);
+    syncMail(job, part, bike, line.dash, t, line);
   });
   const quoteSend = h("a", { class: "btn btn-primary", text: "Send", href: "mailto:" });
   quote.append(email, quoteSend);
 
   const fresh = h("div", { class: "card inv-new" });
+  const freshOem = h("div", { class: "inv-oem", hidden: true });
+  const listing = h("a", { class: "inv-listing" });
   const from = h("span");
   const days = h("span", { class: "inv-amt" });
   const price = h("span", { class: "inv-amt" });
-  fresh.append(from, days, price);
+  listing.append(from, days, price);
+  const ext = h("a", { class: "btn btn-icon inv-ext", hidden: true });
+  ext.append(extGlyph());
+  const prov = h("div", { class: "inv-prov", hidden: true });
+  fresh.append(freshOem, listing, ext, prov);
 
   const used = h("div", { class: "inv-list", "data-kind": "used" });
   const alts = h("div", { class: "inv-list", "data-kind": "alts" });
@@ -417,12 +663,15 @@ function mount(node) {
     return r;
   }
   const amtPart = h("span", { class: "inv-amt" });
+  const tixProv = h("div", { class: "inv-prov" });
+  const amtPartWrap = h("span", { class: "inv-tix-amt" });
+  amtPartWrap.append(amtPart, tixProv);
   const amtShip = h("span", { class: "inv-amt" });
   const amtTax = h("span", { class: "inv-amt" });
   const amtTotal = h("span", { class: "inv-amt" });
   const totalRow = row("Total", amtTotal);
   totalRow.classList.add("inv-due");
-  ticket.append(tixTop, tixPart, tixOem, row("Part", amtPart), row("Ship", amtShip), row("Tax 8.25%", amtTax), totalRow);
+  ticket.append(tixTop, tixPart, tixOem, row("Part", amtPartWrap), row("Ship", amtShip), row("Tax 8.25%", amtTax), totalRow);
 
   const foot = h("div", { class: "inv-foot" });
   const send = h("a", { class: "btn btn-primary", text: "Send", href: "mailto:" });
@@ -446,9 +695,13 @@ function mount(node) {
     email,
     quoteSend,
     fresh,
+    freshOem,
+    listing,
     from,
     days,
     price,
+    ext,
+    prov,
     used,
     alts,
     tixNo,
@@ -456,6 +709,7 @@ function mount(node) {
     tixPart,
     tixOem,
     amtPart,
+    tixProv,
     amtShip,
     amtTax,
     amtTotal,
