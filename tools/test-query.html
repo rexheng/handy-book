@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>query tests</title>
+  <style>
+    body { font: 16px/1.4 ui-monospace, monospace; margin: 16px; background: #ece7dc; color: #141414; }
+    h1 { font: 800 20px/1 Barlow, sans-serif; text-transform: uppercase; }
+    .ok { color: #0a7a28; }
+    .fail { color: #b42318; }
+    #summary { font-weight: 800; margin: 12px 0; }
+  </style>
+</head>
+<body>
+  <h1>Query layer</h1>
+  <p id="summary">running…</p>
+  <ol id="out"></ol>
+  <script type="module">
+    import {
+      loadCatalog, findBikes, bike, manual, systems, partsFor, part, job, jobById,
+      pageUrl, thumbUrl, catalog, asset
+    } from "../counter/js/query.js";
+
+    const rows = [];
+    const out = document.getElementById("out");
+    const summary = document.getElementById("summary");
+
+    function same(a, b) {
+      return Object.is(a, b) || JSON.stringify(a) === JSON.stringify(b);
+    }
+
+    function check(name, got, expected) {
+      const pass = arguments.length === 3 ? same(got, expected) : !!got;
+      rows.push({ name, pass, got, expected });
+      const li = document.createElement("li");
+      li.className = pass ? "ok" : "fail";
+      li.textContent = (pass ? "PASS " : "FAIL ") + name + (pass ? "" : ` got=${JSON.stringify(got)} expected=${JSON.stringify(expected)}`);
+      out.appendChild(li);
+    }
+
+    function ids(list) {
+      return (list ?? []).map((row) => row.id);
+    }
+
+    try {
+      const first = loadCatalog("./fixtures/catalog.sample.json");
+      const second = loadCatalog("../store/catalog.json");
+      check("loadCatalog memoises the same promise", first === second, true);
+
+      const cat = await first;
+      check("loadCatalog resolves the catalog object", !!cat && Array.isArray(cat.bikes), true);
+      check("catalog() returns the loaded catalog", catalog() === cat, true);
+      check("top-level keys exist", ["bikes", "manuals", "systems", "parts", "jobs"].every((k) => k in cat), true);
+
+      const roster = ids(findBikes(""));
+      check("findBikes empty → roster order", roster, [
+        "honda-cb650r-2021",
+        "yamaha-mt-07-2021",
+        "kawasaki-z650-2020",
+        "suzuki-sv650-2019"
+      ]);
+      check("findBikes whitespace → roster", ids(findBikes("   ")), roster);
+
+      const cb650 = findBikes("cb650");
+      check("findBikes cb650 → CB650R first", cb650[0]?.id, "honda-cb650r-2021");
+      check("findBikes CB650 case-insensitive", findBikes("CB650")[0]?.id, "honda-cb650r-2021");
+
+      const mt07 = findBikes("mt07");
+      check("findBikes mt07 matches MT-07", mt07.some((b) => b.id === "yamaha-mt-07-2021"), true);
+      check("findBikes mt-07 punctuation-insensitive", findBikes("mt-07")[0]?.id, "yamaha-mt-07-2021");
+
+      const sixFifty = ids(findBikes("650"));
+      check("findBikes 650 includes CB650R", sixFifty.includes("honda-cb650r-2021"), true);
+      check("findBikes 650 includes Z650", sixFifty.includes("kawasaki-z650-2020"), true);
+      check("findBikes 650 includes SV650", sixFifty.includes("suzuki-sv650-2019"), true);
+      check("findBikes 650 excludes MT-07", sixFifty.includes("yamaha-mt-07-2021"), false);
+      check("findBikes 650 roster order among substring hits", sixFifty, [
+        "honda-cb650r-2021",
+        "kawasaki-z650-2020",
+        "suzuki-sv650-2019"
+      ]);
+
+      check("findBikes honda 650 token overlap → CB650R", findBikes("honda 650")[0]?.id, "honda-cb650r-2021");
+      check("findBikes cb6 prefix → CB650R", findBikes("cb6")[0]?.id, "honda-cb650r-2021");
+
+      check("bike(id) Honda", bike("honda-cb650r-2021")?.model, "CB650R");
+      check("bike(id) missing is undefined", bike("nope"), undefined);
+
+      check("manual(id) Honda OM", manual("honda-cb650r-2021-om")?.kind, "owner");
+      check("manual(id) missing is undefined", manual("nope"), undefined);
+
+      check("systems(honda) catalog order with jobs", ids(systems("honda-cb650r-2021")), ["engine", "brakes", "fluids"]);
+      check("systems(yamaha) only systems with jobs", ids(systems("yamaha-mt-07-2021")), ["engine"]);
+      check("systems(z650) none", ids(systems("kawasaki-z650-2020")), []);
+
+      check("partsFor(honda, engine) catalog order", ids(partsFor("honda-cb650r-2021", "engine")), ["oil-filter", "spark-plugs"]);
+      check("partsFor(honda, brakes)", ids(partsFor("honda-cb650r-2021", "brakes")), ["front-brake-pads"]);
+      check("partsFor(yamaha, brakes) none", ids(partsFor("yamaha-mt-07-2021", "brakes")), []);
+      check("partsFor(yamaha, engine)", ids(partsFor("yamaha-mt-07-2021", "engine")), ["oil-filter"]);
+
+      check("part(id) oil-filter", part("oil-filter")?.systemId, "engine");
+      check("part(id) missing is undefined", part("air-filter"), undefined);
+
+      check("job(bike, part) honda pads", job("honda-cb650r-2021", "front-brake-pads")?.oem, "06455-MKN-D51");
+      check("job(yamaha, pads) undefined", job("yamaha-mt-07-2021", "front-brake-pads"), undefined);
+      check("jobById", jobById("honda-cb650r-2021/front-brake-pads")?.pages, [91, 92]);
+      check("jobById missing is undefined", jobById("nope"), undefined);
+
+      check(
+        "pageUrl zero-pad 4",
+        pageUrl("honda-cb650r-2021-om", 91),
+        "../store/manuals/honda-cb650r-2021-om/pages/p-0091.webp"
+      );
+      check(
+        "thumbUrl zero-pad 4",
+        thumbUrl("honda-cb650r-2021-om", 91),
+        "../store/manuals/honda-cb650r-2021-om/pages/t-0091.webp"
+      );
+      check("pageUrl p-0001", pageUrl("honda-cb650r-2021-om", 1), "../store/manuals/honda-cb650r-2021-om/pages/p-0001.webp");
+      check("asset prefixes store path", asset("store/img/bikes/honda-cb650r-2021.webp"), "../store/img/bikes/honda-cb650r-2021.webp");
+      check("asset leaves ../ paths", asset("../store/x.webp"), "../store/x.webp");
+    } catch (err) {
+      check("runner threw: " + (err && err.message), false, true);
+    }
+
+    const passed = rows.filter((r) => r.pass).length;
+    const total = rows.length;
+    const line = `${passed}/${total}`;
+    summary.textContent = line;
+    summary.className = passed === total ? "ok" : "fail";
+    document.title = `query tests ${line}`;
+    document.body.dataset.passed = String(passed);
+    document.body.dataset.total = String(total);
+  </script>
+</body>
+</html>

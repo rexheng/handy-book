@@ -1,0 +1,216 @@
+{
+  "bikes": [
+    {
+      "id": "honda-cb650r-2021",
+      "make": "Honda",
+      "model": "CB650R",
+      "year": 2021,
+      "cc": 649,
+      "aliases": ["cb650r", "cb 650 r", "cb650", "honda cb650r"],
+      "image": "store/img/bikes/honda-cb650r-2021.webp",
+      "thumb": "store/img/bikes/honda-cb650r-2021-thumb.webp",
+      "manualId": "honda-cb650r-2021-om"
+    },
+    {
+      "id": "yamaha-mt-07-2021",
+      "make": "Yamaha",
+      "model": "MT-07",
+      "year": 2021,
+      "cc": 689,
+      "aliases": ["mt-07", "mt07", "mt 07", "yamaha mt-07"],
+      "image": "store/img/bikes/yamaha-mt-07-2021.webp",
+      "thumb": "store/img/bikes/yamaha-mt-07-2021-thumb.webp",
+      "manualId": "yamaha-mt-07-2021-om"
+    },
+    {
+      "id": "kawasaki-z650-2020",
+      "make": "Kawasaki",
+      "model": "Z650",
+      "year": 2020,
+      "cc": 649,
+      "aliases": ["z650", "z 650", "kawasaki z650"],
+      "image": "store/img/bikes/kawasaki-z650-2020.webp",
+      "thumb": "store/img/bikes/kawasaki-z650-2020-thumb.webp",
+      "manualId": "kawasaki-z650-2020-om"
+    },
+    {
+      "id": "suzuki-sv650-2019",
+      "make": "Suzuki",
+      "model": "SV650",
+      "year": 2019,
+      "cc": 645,
+      "aliases": ["sv650", "sv 650", "suzuki sv650"],
+      "image": "store/img/bikes/suzuki-sv650-2019.webp",
+      "thumb": "store/img/bikes/suzuki-sv650-2019-thumb.webp",
+      "manualId": "suzuki-sv650-2019-om"
+    }
+  ],
+  "manuals": [
+    {
+      "id": "honda-cb650r-2021-om",
+      "bikeId": "honda-cb650r-2021",
+      "title": "OWNER'S MANUAL CB650R",
+      "kind": "owner",
+      "publisher": "Honda Motor Co., Ltd.",
+      "file": "store/manuals/honda-cb650r-2021-om/manual.pdf",
+      "pages": 180,
+      "pagesDir": "store/manuals/honda-cb650r-2021-om/pages/",
+      "toc": [{ "title": "MAINTENANCE", "page": 84 }],
+      "source": "https://www.honda.co.uk/motorcycles/owners/manuals.html"
+    },
+    {
+      "id": "yamaha-mt-07-2021-om",
+      "bikeId": "yamaha-mt-07-2021",
+      "title": "OWNER'S MANUAL MT-07",
+      "kind": "owner",
+      "publisher": "Yamaha Motor Co., Ltd.",
+      "file": "store/manuals/yamaha-mt-07-2021-om/manual.pdf",
+      "pages": 108,
+      "pagesDir": "store/manuals/yamaha-mt-07-2021-om/pages/",
+      "toc": [{ "title": "PERIODIC MAINTENANCE AND ADJUSTMENT", "page": 40 }],
+      "source": "https://www.yamaha-motor.eu/manuals"
+    }
+  ],
+  "systems": [
+    {
+      "id": "engine",
+      "name": "Engine",
+      "image": "store/img/systems/engine.webp",
+      "thumb": "store/img/systems/engine-thumb.webp"
+    },
+    {
+      "id": "brakes",
+      "name": "Brakes",
+      "image": "store/img/systems/brakes.webp",
+      "thumb": "store/img/systems/brakes-thumb.webp"
+    },
+    {
+      "id": "fluids",
+      "name": "Fluids",
+      "image": "store/img/systems/fluids.webp",
+      "thumb": "store/img/systems/fluids-thumb.webp"
+    }
+  ],
+  "parts": [
+    {
+      "id": "engine-oil",
+      "systemId": "fluids",
+      "name": "Engine oil",
+      "image": "store/img/parts/engine-oil.webp",
+      "thumb": "store/img/parts/engine-oil-thumb.webp"
+    },
+    {
+      "id": "oil-filter",
+      "systemId": "engine",
+      "name": "Oil filter",
+      "image": "store/img/parts/oil-filter.webp",
+      "thumb": "store/img/parts/oil-filter-thumb.webp"
+    },
+    {
+      "id": "spark-plugs",
+      "systemId": "engine",
+      "name": "Spark plugs",
+      "image": "store/img/parts/spark-plugs.webp",
+      "thumb": "store/img/parts/spark-plugs-thumb.webp"
+    },
+    {
+      "id": "front-brake-pads",
+      "systemId": "brakes",
+      "name": "Front brake pads",
+      "image": "store/img/parts/front-brake-pads.webp",
+      "thumb": "store/img/parts/front-brake-pads-thumb.webp"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "honda-cb650r-2021/oil-filter",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "oil-filter",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "15412-MKN-D01",
+      "title": "Engine Oil / Oil Filter",
+      "pages": [88, 89],
+      "printedPage": "80",
+      "steps": [{ "page": 88 }, { "page": 89 }],
+      "related": [{ "page": 84, "title": "MAINTENANCE" }],
+      "price": 12.40,
+      "ship": 6.50,
+      "days": 2,
+      "from": "Honda dealer",
+      "used": [{ "from": "eBay Motors", "price": 8, "note": "OEM cartridge", "where": "Ships US" }],
+      "alts": ["Dealer parts desk"]
+    },
+    {
+      "id": "honda-cb650r-2021/spark-plugs",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "spark-plugs",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "SILMAR9A9S",
+      "title": "Spark Plugs",
+      "pages": [96, 97],
+      "printedPage": "88",
+      "steps": [{ "page": 96 }, { "page": 97 }],
+      "related": [{ "page": 84, "title": "MAINTENANCE" }],
+      "price": 18.90,
+      "ship": 6.50,
+      "days": 2,
+      "from": "Honda dealer",
+      "used": [],
+      "alts": ["Dealer parts desk"]
+    },
+    {
+      "id": "honda-cb650r-2021/front-brake-pads",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "front-brake-pads",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "06455-MKN-D51",
+      "title": "Front Brake Pads",
+      "pages": [91, 92],
+      "printedPage": "91",
+      "steps": [{ "page": 91 }, { "page": 92 }],
+      "related": [{ "page": 84, "title": "MAINTENANCE" }],
+      "price": 48.20,
+      "ship": 6.50,
+      "days": 2,
+      "from": "Honda dealer",
+      "used": [{ "from": "eBay Motors", "price": 25, "note": "one axle set", "where": "Ships US" }],
+      "alts": ["Dealer parts desk"]
+    },
+    {
+      "id": "honda-cb650r-2021/engine-oil",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "engine-oil",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "08216-99974",
+      "title": "Engine Oil",
+      "pages": [86, 87],
+      "printedPage": "78",
+      "steps": [{ "page": 86 }, { "page": 87 }],
+      "related": [{ "page": 88, "title": "Engine Oil / Oil Filter" }],
+      "price": 32.00,
+      "ship": 8.00,
+      "days": 1,
+      "from": "Honda dealer",
+      "used": [],
+      "alts": ["Dealer parts desk"]
+    },
+    {
+      "id": "yamaha-mt-07-2021/oil-filter",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "oil-filter",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "5GH-13440-60-00",
+      "title": "Engine oil and oil filter cartridge",
+      "pages": [48, 49],
+      "printedPage": "4-9",
+      "steps": [{ "page": 48 }, { "page": 49 }],
+      "related": [{ "page": 40, "title": "PERIODIC MAINTENANCE AND ADJUSTMENT" }],
+      "price": 11.80,
+      "ship": 6.50,
+      "days": 2,
+      "from": "Yamaha dealer",
+      "used": [{ "from": "eBay Motors", "price": 7, "note": "OEM cartridge", "where": "Ships US" }],
+      "alts": ["Dealer parts desk"]
+    }
+  ]
+}
