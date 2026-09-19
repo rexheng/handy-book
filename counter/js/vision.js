@@ -3,8 +3,21 @@
  * Ultralytics YOLOv8-cls → ONNX Runtime Web.
  *
  * Preprocess matches ultralytics classify_transforms(224):
- * RGB → Resize(shorter edge = imgsz, bilinear) → CenterCrop(imgsz)
- * → CHW float32 / 255, mean 0 std 1 (no ImageNet normalize).
+ * RGB → Resize(shorter edge = imgsz, bilinear + antialias, Pillow triangle
+ * filter) → CenterCrop(imgsz) → CHW float32 / 255, mean 0 std 1.
+ *
+ * classifyPart(imageSource) → top-5 of
+ *   { className, score, partIds, partId, ambiguous? }
+ *   partIds  — catalog ids from classes.json `map` (always an array)
+ *   partId   — set only when partIds.length === 1 AND score >= 0.35;
+ *              otherwise null (multi-id classes such as brake_pad, and
+ *              low-confidence rows, never auto-resolve)
+ *   ambiguous — true when classes.json lists the class (brake_clutch_lever:
+ *              mapped to clutch-lever; catalog has no brake-lever id)
+ *
+ * loadPartModel(options) resolves to { provider, meta }. Recreates the
+ * InferenceSession when executionProviders change. A function as the first
+ * argument is treated as onProgress (legacy).
  */
 
 const ORT_WASM =
@@ -23,10 +36,17 @@ const CLASSES_URL = new URL(
   import.meta.url
 ).href;
 
+/** Auto-resolve catalog id only at/above this softmax score, and only if unique. */
+const SCORE_FLOOR = 0.35;
+
+const PRECISION_BITS = 22;
+
 let ortMod = null;
 let session = null;
 let meta = null;
 let loadedProvider = null;
+let requestedEpKey = null;
+let modelBuf = null;
 
 function progress(onProgress, value, detail) {
   if (typeof onProgress === "function") onProgress(value, detail);
@@ -38,6 +58,17 @@ function hasSharedArrayBuffer() {
   } catch {
     return false;
   }
+}
+
+function epKey(providers) {
+  return (providers && providers.length ? providers : ["wasm"]).join(",");
+}
+
+function parseLoadArgs(options, extra) {
+  if (typeof options === "function") {
+    return { onProgress: options, ...(extra || {}) };
+  }
+  return options && typeof options === "object" ? options : {};
 }
 
 async function loadOrt(preferWebgpu) {
@@ -105,10 +136,184 @@ async function ensureImage(imageSource) {
   return imageSource;
 }
 
+/** Python 3 round-half-even (torchvision CenterCrop uses round()). */
+function pyRound(x) {
+  const n = Math.floor(x);
+  const f = x - n;
+  if (f < 0.5) return n;
+  if (f > 0.5) return n + 1;
+  return n % 2 === 0 ? n : n + 1;
+}
+
+/**
+ * Pillow bilinear (triangle, support=1) coefficients.
+ * Port of precompute_coeffs in Pillow 11 libImaging/Resample.c.
+ */
+function pillowCoeffs(inSize, outSize) {
+  const scale = inSize / outSize;
+  const filterscale = scale < 1 ? 1 : scale;
+  const support = filterscale;
+  const ksize = Math.ceil(support) * 2 + 1;
+  const bounds = new Int32Array(outSize * 2);
+  const kk = new Float64Array(outSize * ksize);
+  for (let xx = 0; xx < outSize; xx++) {
+    const center = (xx + 0.5) * scale;
+    const ss = 1 / filterscale;
+    let xmin = Math.trunc(center - support + 0.5);
+    if (xmin < 0) xmin = 0;
+    let xmax = Math.trunc(center + support + 0.5);
+    if (xmax > inSize) xmax = inSize;
+    xmax -= xmin;
+    let ww = 0;
+    const kOff = xx * ksize;
+    for (let x = 0; x < xmax; x++) {
+      const t = (x + xmin - center + 0.5) * ss;
+      const at = t < 0 ? -t : t;
+      const w = at < 1 ? 1 - at : 0;
+      kk[kOff + x] = w;
+      ww += w;
+    }
+    if (ww !== 0) {
+      for (let x = 0; x < xmax; x++) kk[kOff + x] /= ww;
+    }
+    bounds[xx * 2] = xmin;
+    bounds[xx * 2 + 1] = xmax;
+  }
+  return { bounds, kk, ksize };
+}
+
+function normalizeCoeffs8(kk, n) {
+  const scale = 1 << PRECISION_BITS;
+  const out = new Int32Array(n);
+  for (let i = 0; i < n; i++) {
+    const w = kk[i];
+    out[i] = w < 0 ? Math.trunc(w * scale - 0.5) : Math.trunc(w * scale + 0.5);
+  }
+  return out;
+}
+
+function clip8(ss) {
+  const v = Math.floor(ss / (1 << PRECISION_BITS));
+  if (v < 0) return 0;
+  if (v > 255) return 255;
+  return v;
+}
+
+/** Two-pass Pillow bilinear resize of an RGBA buffer. */
+function pillowBilinearResize(src, srcW, srcH, dstW, dstH) {
+  let data = src;
+  let w = srcW;
+  let h = srcH;
+  const bias = 1 << (PRECISION_BITS - 1);
+
+  if (dstW !== srcW) {
+    const { bounds, kk, ksize } = pillowCoeffs(srcW, dstW);
+    const ki = normalizeCoeffs8(kk, dstW * ksize);
+    const next = new Uint8ClampedArray(dstW * h * 4);
+    for (let yy = 0; yy < h; yy++) {
+      const sRow = yy * srcW * 4;
+      const dRow = yy * dstW * 4;
+      for (let xx = 0; xx < dstW; xx++) {
+        const xmin = bounds[xx * 2];
+        const xmax = bounds[xx * 2 + 1];
+        const kOff = xx * ksize;
+        let r = bias;
+        let g = bias;
+        let b = bias;
+        let a = bias;
+        for (let x = 0; x < xmax; x++) {
+          const k = ki[kOff + x];
+          const o = sRow + (x + xmin) * 4;
+          r += data[o] * k;
+          g += data[o + 1] * k;
+          b += data[o + 2] * k;
+          a += data[o + 3] * k;
+        }
+        const d = dRow + xx * 4;
+        next[d] = clip8(r);
+        next[d + 1] = clip8(g);
+        next[d + 2] = clip8(b);
+        next[d + 3] = clip8(a);
+      }
+    }
+    data = next;
+    w = dstW;
+  }
+
+  if (dstH !== srcH) {
+    const { bounds, kk, ksize } = pillowCoeffs(h, dstH);
+    const ki = normalizeCoeffs8(kk, dstH * ksize);
+    const next = new Uint8ClampedArray(w * dstH * 4);
+    for (let yy = 0; yy < dstH; yy++) {
+      const ymin = bounds[yy * 2];
+      const ymax = bounds[yy * 2 + 1];
+      const kOff = yy * ksize;
+      const dRow = yy * w * 4;
+      for (let xx = 0; xx < w; xx++) {
+        let r = bias;
+        let g = bias;
+        let b = bias;
+        let a = bias;
+        for (let y = 0; y < ymax; y++) {
+          const k = ki[kOff + y];
+          const o = (y + ymin) * w * 4 + xx * 4;
+          r += data[o] * k;
+          g += data[o + 1] * k;
+          b += data[o + 2] * k;
+          a += data[o + 3] * k;
+        }
+        const d = dRow + xx * 4;
+        next[d] = clip8(r);
+        next[d + 1] = clip8(g);
+        next[d + 2] = clip8(b);
+        next[d + 3] = clip8(a);
+      }
+    }
+    data = next;
+    h = dstH;
+  }
+
+  return { data, w, h };
+}
+
+async function readRgba(imageSource) {
+  const { w, h } = sourceSize(imageSource);
+  if (!w || !h) throw new Error("empty image");
+
+  let bmp = null;
+  try {
+    if (typeof createImageBitmap === "function") {
+      bmp = await createImageBitmap(imageSource, {
+        colorSpaceConversion: "none",
+        resizeQuality: "high",
+      });
+    }
+  } catch {
+    bmp = null;
+  }
+
+  const src = bmp || imageSource;
+  const sw = bmp ? bmp.width : w;
+  const sh = bmp ? bmp.height : h;
+  const canvas = document.createElement("canvas");
+  canvas.width = sw;
+  canvas.height = sh;
+  const ctx = canvas.getContext("2d", {
+    willReadFrequently: true,
+    colorSpace: "srgb",
+  });
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(src, 0, 0);
+  const { data } = ctx.getImageData(0, 0, sw, sh);
+  if (bmp && typeof bmp.close === "function") bmp.close();
+  return { data, w: sw, h: sh };
+}
+
 /** Torchvision Resize(int) + CenterCrop(int), then CHW float32 0–1. */
-function preprocess(imageSource, imgsz, mean, std) {
-  const { w: srcW, h: srcH } = sourceSize(imageSource);
-  if (!srcW || !srcH) throw new Error("empty image");
+async function preprocess(imageSource, imgsz, mean, std) {
+  const rgba = await readRgba(imageSource);
+  const srcW = rgba.w;
+  const srcH = rgba.h;
 
   let rw;
   let rh;
@@ -120,25 +325,21 @@ function preprocess(imageSource, imgsz, mean, std) {
     rw = Math.trunc((imgsz * srcW) / srcH);
   }
 
-  const canvas = document.createElement("canvas");
-  canvas.width = rw;
-  canvas.height = rh;
-  const ctx = canvas.getContext("2d", { willReadFrequently: true });
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = "high";
-  ctx.drawImage(imageSource, 0, 0, rw, rh);
-
-  const sx = Math.round((rw - imgsz) / 2);
-  const sy = Math.round((rh - imgsz) / 2);
-  const { data } = ctx.getImageData(sx, sy, imgsz, imgsz);
+  const resized = pillowBilinearResize(rgba.data, srcW, srcH, rw, rh);
+  const sx = pyRound((resized.w - imgsz) / 2);
+  const sy = pyRound((resized.h - imgsz) / 2);
 
   const hw = imgsz * imgsz;
   const tensor = new Float32Array(3 * hw);
-  for (let i = 0; i < hw; i++) {
-    const o = i * 4;
-    tensor[i] = (data[o] / 255 - mean[0]) / std[0];
-    tensor[hw + i] = (data[o + 1] / 255 - mean[1]) / std[1];
-    tensor[2 * hw + i] = (data[o + 2] / 255 - mean[2]) / std[2];
+  for (let y = 0; y < imgsz; y++) {
+    const srcRow = ((y + sy) * resized.w + sx) * 4;
+    for (let x = 0; x < imgsz; x++) {
+      const i = y * imgsz + x;
+      const o = srcRow + x * 4;
+      tensor[i] = (resized.data[o] / 255 - mean[0]) / std[0];
+      tensor[hw + i] = (resized.data[o + 1] / 255 - mean[1]) / std[1];
+      tensor[2 * hw + i] = (resized.data[o + 2] / 255 - mean[2]) / std[2];
+    }
   }
   return tensor;
 }
@@ -173,16 +374,37 @@ function toProbs(raw) {
   return softmax(raw);
 }
 
-function topK(probs, k, classes, map) {
+function partIdsFor(map, className) {
+  const raw = map && Object.prototype.hasOwnProperty.call(map, className)
+    ? map[className]
+    : null;
+  if (raw == null) return [];
+  if (Array.isArray(raw)) return raw.filter((id) => typeof id === "string" && id);
+  if (typeof raw === "string" && raw) return [raw];
+  return [];
+}
+
+function isAmbiguous(metaObj, className) {
+  const a = metaObj && metaObj.ambiguous;
+  if (!a) return false;
+  if (Array.isArray(a)) return a.includes(className);
+  if (typeof a === "object") return Boolean(a[className]);
+  return false;
+}
+
+function topK(probs, k, classes, map, metaObj) {
   const idx = Array.from(probs.keys()).sort((a, b) => probs[b] - probs[a]);
   const n = Math.min(k, idx.length);
   const out = [];
   for (let i = 0; i < n; i++) {
     const className = classes[idx[i]];
-    const partId = Object.prototype.hasOwnProperty.call(map, className)
-      ? map[className]
-      : null;
-    out.push({ className, partId, score: probs[idx[i]] });
+    const score = probs[idx[i]];
+    const partIds = partIdsFor(map, className);
+    const partId =
+      partIds.length === 1 && score >= SCORE_FLOOR ? partIds[0] : null;
+    const row = { className, score, partIds, partId };
+    if (isAmbiguous(metaObj, className)) row.ambiguous = true;
+    out.push(row);
   }
   return out;
 }
@@ -191,28 +413,56 @@ function topK(probs, k, classes, map) {
  * Lazy-load ORT + the ONNX weights. Default EP is WASM (numThreads=1 when
  * SharedArrayBuffer / cross-origin isolation is missing). Pass
  * { executionProviders: ["webgpu", "wasm"] } to try WebGPU first.
+ * Recreates the session when the requested provider list changes.
+ *
+ * @param {Function|{onProgress?: Function, executionProviders?: string[]}} [options]
+ * @param {{executionProviders?: string[]}} [extra] when options is onProgress
+ * @returns {Promise<{provider: string, meta: object}>}
  */
-export async function loadPartModel(onProgress, opts = {}) {
-  if (session && meta) {
+export async function loadPartModel(options = {}, extra = {}) {
+  const opts = parseLoadArgs(options, extra);
+  const onProgress = opts.onProgress;
+  const providers = opts.executionProviders?.length
+    ? opts.executionProviders
+    : ["wasm"];
+  const key = epKey(providers);
+
+  if (session && meta && requestedEpKey === key) {
     progress(onProgress, 1, loadedProvider);
     return { provider: loadedProvider, meta };
   }
 
-  const wantGpu = (opts.executionProviders || ["wasm"]).includes("webgpu");
+  if (session) {
+    try {
+      if (typeof session.release === "function") await session.release();
+    } catch {
+      /* ignore */
+    }
+    session = null;
+    loadedProvider = null;
+  }
+
+  const wantGpu = providers.includes("webgpu");
   progress(onProgress, 0.05, "ort");
   ortMod = await loadOrt(wantGpu);
   progress(onProgress, 0.2, "ort");
 
-  const [modelBuf, classesJson] = await Promise.all([
-    fetchWithProgress(MODEL_URL, onProgress, [0.2, 0.85]),
-    fetch(CLASSES_URL).then((r) => {
-      if (!r.ok) throw new Error(`classes.json ${r.status}`);
-      return r.json();
-    }),
-  ]);
-  meta = classesJson;
+  if (!modelBuf || !meta) {
+    const [buf, classesJson] = await Promise.all([
+      modelBuf
+        ? Promise.resolve(modelBuf)
+        : fetchWithProgress(MODEL_URL, onProgress, [0.2, 0.85]),
+      meta
+        ? Promise.resolve(meta)
+        : fetch(CLASSES_URL).then((r) => {
+            if (!r.ok) throw new Error(`classes.json ${r.status}`);
+            return r.json();
+          }),
+    ]);
+    modelBuf = buf;
+    meta = classesJson;
+  }
 
-  const providers = opts.executionProviders || ["wasm"];
   let lastErr;
   for (const ep of providers) {
     try {
@@ -230,8 +480,10 @@ export async function loadPartModel(onProgress, opts = {}) {
     }
   }
   if (!session) {
+    requestedEpKey = null;
     throw lastErr || new Error("no execution provider worked");
   }
+  requestedEpKey = key;
 
   const imgsz = meta.imgsz || 224;
   const zeros = new Float32Array(3 * imgsz * imgsz);
@@ -241,10 +493,6 @@ export async function loadPartModel(onProgress, opts = {}) {
   return { provider: loadedProvider, meta };
 }
 
-export function partModelInfo() {
-  return { provider: loadedProvider, meta, ready: Boolean(session) };
-}
-
 /** @param {HTMLImageElement | HTMLCanvasElement | ImageBitmap} imageSource */
 export async function classifyPart(imageSource) {
   if (!session || !meta) await loadPartModel();
@@ -252,14 +500,14 @@ export async function classifyPart(imageSource) {
   const imgsz = meta.imgsz || 224;
   const mean = meta.normalize?.mean || [0, 0, 0];
   const std = meta.normalize?.std || [1, 1, 1];
-  const chw = preprocess(img, imgsz, mean, std);
+  const chw = await preprocess(img, imgsz, mean, std);
   const input = new ortMod.Tensor("float32", chw, [1, 3, imgsz, imgsz]);
   const t0 = performance.now();
   const out = await session.run({ [session.inputNames[0]]: input });
   const ms = performance.now() - t0;
   const raw = out[session.outputNames[0]].data;
   const probs = toProbs(raw);
-  const top = topK(probs, 5, meta.classes, meta.map || {});
+  const top = topK(probs, 5, meta.classes, meta.map || {}, meta);
   top.ms = ms;
   return top;
 }

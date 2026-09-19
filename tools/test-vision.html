@@ -61,6 +61,22 @@
       width: auto; padding: 10px 10px; font-size: .7rem; background: #fff;
       min-height: 44px;
     }
+    #parity {
+      margin-top: 18px; background: #fff; border: 3px solid #141414;
+      display: none;
+    }
+    #parity table { width: 100%; border-collapse: collapse; font-size: .68rem; }
+    #parity th, #parity td {
+      border-bottom: 2px solid #141414; padding: 6px 8px; text-align: left;
+      font-weight: 600; text-transform: uppercase;
+    }
+    #parity th { font-weight: 800; background: #ffe600; }
+    #parity tr.ok td:last-child { color: #1a7f37; }
+    #parity tr.bad td:last-child { color: #c1121f; }
+    #parity-status {
+      font-weight: 800; text-transform: uppercase; letter-spacing: .06em;
+      font-size: .8rem; padding: 10px 8px; border-bottom: 3px solid #141414;
+    }
   </style>
 </head>
 <body>
@@ -77,9 +93,18 @@
     <div class="cam"><img id="preview" alt="" hidden></div>
     <ol id="top"></ol>
     <div class="samples" id="samples"></div>
+    <section id="parity">
+      <p id="parity-status">PARITY</p>
+      <table>
+        <thead>
+          <tr><th>image</th><th>py</th><th>js</th><th>Δ</th><th></th></tr>
+        </thead>
+        <tbody id="parity-body"></tbody>
+      </table>
+    </section>
   </main>
   <script type="module">
-    import { loadPartModel, classifyPart, partModelInfo } from "../counter/js/vision.js";
+    import { loadPartModel, classifyPart } from "../counter/js/vision.js";
 
     const samples = [
       ["spark_plug.jpg", "plug"],
@@ -103,6 +128,7 @@
     const fileEl = document.getElementById("file");
     const sampleBox = document.getElementById("samples");
     let providers = ["wasm"];
+    let provider = "";
 
     function setEp(ep) {
       providers = ep === "webgpu" ? ["webgpu", "wasm"] : ["wasm"];
@@ -113,14 +139,28 @@
     async function boot() {
       status.textContent = "LOAD";
       try {
-        const { provider } = await loadPartModel((pct, detail) => {
-          status.textContent = `${Math.round((pct || 0) * 100)} ${detail || ""}`;
-        }, { executionProviders: providers });
+        const loaded = await loadPartModel({
+          onProgress: (pct, detail) => {
+            status.textContent = `${Math.round((pct || 0) * 100)} ${detail || ""}`;
+          },
+          executionProviders: providers,
+        });
+        provider = loaded.provider;
         status.textContent = provider.toUpperCase();
+        await runParity();
       } catch (err) {
         status.textContent = String(err);
         console.error(err);
       }
+    }
+
+    function idsLabel(row) {
+      const ids = (row.partIds && row.partIds.length)
+        ? row.partIds.join(" ")
+        : "—";
+      const auto = row.partId || "—";
+      const amb = row.ambiguous ? " AMB" : "";
+      return `${ids} · ${auto}${amb}`;
     }
 
     async function run(img) {
@@ -128,8 +168,7 @@
       const top = await classifyPart(img);
       const wall = Math.round(performance.now() - t0);
       const inf = Math.round(top.ms || 0);
-      const info = partModelInfo();
-      status.textContent = `${(info.provider || "").toUpperCase()}  ${inf}ms inf  ${wall}ms wall`;
+      status.textContent = `${(provider || "").toUpperCase()}  ${inf}ms inf  ${wall}ms wall`;
       topEl.replaceChildren();
       for (const row of top) {
         const li = document.createElement("li");
@@ -137,7 +176,7 @@
         left.textContent = row.className.replaceAll("_", " ");
         const id = document.createElement("div");
         id.className = "id";
-        id.textContent = row.partId || "—";
+        id.textContent = idsLabel(row);
         const right = document.createElement("div");
         right.textContent = row.score.toFixed(3);
         const wrap = document.createElement("div");
@@ -153,22 +192,96 @@
       preview.src = url;
     }
 
+    async function bitmapFromUrl(url) {
+      const blob = await fetch(url).then((r) => {
+        if (!r.ok) throw new Error(`${url} ${r.status}`);
+        return r.blob();
+      });
+      return createImageBitmap(blob, { colorSpaceConversion: "none", resizeQuality: "high" });
+    }
+
+    async function runParity() {
+      const box = document.getElementById("parity");
+      const body = document.getElementById("parity-body");
+      const line = document.getElementById("parity-status");
+      let ref;
+      try {
+        const res = await fetch("../store/model/reference.json");
+        if (!res.ok) return;
+        ref = await res.json();
+      } catch {
+        return;
+      }
+      const images = ref.images || [];
+      if (!images.length) return;
+      box.style.display = "block";
+      line.textContent = "PARITY …";
+      body.replaceChildren();
+      let pass = 0;
+      const rows = [];
+      for (const rec of images) {
+        const url = `./test-imgs/${rec.file}`;
+        let bmp;
+        try {
+          bmp = await bitmapFromUrl(url);
+        } catch (err) {
+          console.error(err);
+          continue;
+        }
+        const top = await classifyPart(bmp);
+        if (typeof bmp.close === "function") bmp.close();
+        const js = top[0];
+        const dScore = Math.abs((js?.score || 0) - rec.score);
+        const same = js && js.className === rec.className && dScore <= 0.02;
+        if (same) pass += 1;
+        rows.push({
+          file: rec.file,
+          pyClass: rec.className,
+          pyScore: rec.score,
+          jsClass: js?.className || "",
+          jsScore: js?.score || 0,
+          dScore,
+          ok: same,
+        });
+        const tr = document.createElement("tr");
+        tr.className = same ? "ok" : "bad";
+        tr.dataset.file = rec.file;
+        tr.dataset.ok = same ? "1" : "0";
+        const cells = [
+          rec.file.replace(".jpg", ""),
+          `${rec.className} ${rec.score.toFixed(3)}`,
+          `${js?.className || "—"} ${(js?.score || 0).toFixed(3)}`,
+          dScore.toFixed(3),
+          same ? "Y" : "N",
+        ];
+        for (const t of cells) {
+          const td = document.createElement("td");
+          td.textContent = t;
+          tr.append(td);
+        }
+        body.append(tr);
+      }
+      const n = rows.length;
+      line.textContent = `PARITY ${pass}/${n}  Δ≤0.02`;
+      line.dataset.pass = String(pass);
+      line.dataset.n = String(n);
+      window.__parity = { pass, n, rows };
+    }
+
     fileEl.addEventListener("change", () => {
       const f = fileEl.files && fileEl.files[0];
       if (!f) return;
       show(URL.createObjectURL(f));
     });
 
-    document.getElementById("epWasm").addEventListener("click", () => {
-      sessionStorage.setItem("ep", "wasm");
-      location.reload();
+    document.getElementById("epWasm").addEventListener("click", async () => {
+      setEp("wasm");
+      await boot();
     });
-    document.getElementById("epGpu").addEventListener("click", () => {
-      sessionStorage.setItem("ep", "webgpu");
-      location.reload();
+    document.getElementById("epGpu").addEventListener("click", async () => {
+      setEp("webgpu");
+      await boot();
     });
-
-    if (sessionStorage.getItem("ep") === "webgpu") setEp("webgpu");
 
     for (const [file, label] of samples) {
       const b = document.createElement("button");

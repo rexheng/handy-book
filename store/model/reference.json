@@ -1,0 +1,436 @@
+{
+  "imgsz": 224,
+  "onnx": "store/model/moto-parts-30cls.onnx",
+  "preprocess": "ultralytics.classify_transforms(224) = torchvision Resize(224, bilinear, antialias=True) + CenterCrop(224) + ToTensor + Normalize(0,1)",
+  "images": [
+    {
+      "file": "battery.jpg",
+      "className": "brake_light_switch",
+      "index": 5,
+      "score": 0.460997,
+      "top5": [
+        {
+          "className": "brake_light_switch",
+          "index": 5,
+          "score": 0.460997
+        },
+        {
+          "className": "battery_terminal",
+          "index": 2,
+          "score": 0.194813
+        },
+        {
+          "className": "shock_absorbers",
+          "index": 27,
+          "score": 0.141374
+        },
+        {
+          "className": "fuse_box",
+          "index": 20,
+          "score": 0.061358
+        },
+        {
+          "className": "chain",
+          "index": 11,
+          "score": 0.033587
+        }
+      ]
+    },
+    {
+      "file": "brake_pad.jpg",
+      "className": "brake_pad",
+      "index": 7,
+      "score": 0.99976,
+      "top5": [
+        {
+          "className": "brake_pad",
+          "index": 7,
+          "score": 0.99976
+        },
+        {
+          "className": "gear_lever",
+          "index": 22,
+          "score": 0.000227
+        },
+        {
+          "className": "battery_terminal",
+          "index": 2,
+          "score": 1.1e-05
+        },
+        {
+          "className": "brake_clutch_lever",
+          "index": 4,
+          "score": 1e-06
+        },
+        {
+          "className": "alternator",
+          "index": 1,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "file": "chain.jpg",
+      "className": "chain_sprocket",
+      "index": 12,
+      "score": 0.780648,
+      "top5": [
+        {
+          "className": "chain_sprocket",
+          "index": 12,
+          "score": 0.780648
+        },
+        {
+          "className": "chain",
+          "index": 11,
+          "score": 0.039397
+        },
+        {
+          "className": "brake_clutch_lever",
+          "index": 4,
+          "score": 0.033857
+        },
+        {
+          "className": "brake_pad",
+          "index": 7,
+          "score": 0.026583
+        },
+        {
+          "className": "spark_plug",
+          "index": 28,
+          "score": 0.025329
+        }
+      ]
+    },
+    {
+      "file": "clutch_plate.jpg",
+      "className": "piston",
+      "index": 25,
+      "score": 0.419456,
+      "top5": [
+        {
+          "className": "piston",
+          "index": 25,
+          "score": 0.419456
+        },
+        {
+          "className": "brake_clutch_cable",
+          "index": 3,
+          "score": 0.199798
+        },
+        {
+          "className": "disc",
+          "index": 17,
+          "score": 0.065046
+        },
+        {
+          "className": "gear_box",
+          "index": 21,
+          "score": 0.059856
+        },
+        {
+          "className": "radiator",
+          "index": 26,
+          "score": 0.050983
+        }
+      ]
+    },
+    {
+      "file": "disc.jpg",
+      "className": "disc",
+      "index": 17,
+      "score": 0.991249,
+      "top5": [
+        {
+          "className": "disc",
+          "index": 17,
+          "score": 0.991249
+        },
+        {
+          "className": "chain_sprocket",
+          "index": 12,
+          "score": 0.007305
+        },
+        {
+          "className": "forks",
+          "index": 18,
+          "score": 0.001113
+        },
+        {
+          "className": "chain",
+          "index": 11,
+          "score": 0.000108
+        },
+        {
+          "className": "swingarm",
+          "index": 29,
+          "score": 4.6e-05
+        }
+      ]
+    },
+    {
+      "file": "forks.jpg",
+      "className": "handlebar",
+      "index": 23,
+      "score": 0.526648,
+      "top5": [
+        {
+          "className": "handlebar",
+          "index": 23,
+          "score": 0.526648
+        },
+        {
+          "className": "disc",
+          "index": 17,
+          "score": 0.243657
+        },
+        {
+          "className": "air_fin",
+          "index": 0,
+          "score": 0.08372
+        },
+        {
+          "className": "brake_oil_reservoir",
+          "index": 6,
+          "score": 0.062459
+        },
+        {
+          "className": "swingarm",
+          "index": 29,
+          "score": 0.014857
+        }
+      ]
+    },
+    {
+      "file": "fuel_tank.jpg",
+      "className": "brake_oil_reservoir",
+      "index": 6,
+      "score": 0.787163,
+      "top5": [
+        {
+          "className": "brake_oil_reservoir",
+          "index": 6,
+          "score": 0.787163
+        },
+        {
+          "className": "fuel_tank",
+          "index": 19,
+          "score": 0.125446
+        },
+        {
+          "className": "handlebar",
+          "index": 23,
+          "score": 0.06729
+        },
+        {
+          "className": "brake_clutch_lever",
+          "index": 4,
+          "score": 0.010268
+        },
+        {
+          "className": "battery_terminal",
+          "index": 2,
+          "score": 0.003051
+        }
+      ]
+    },
+    {
+      "file": "gear_lever.jpg",
+      "className": "brake_pedal",
+      "index": 8,
+      "score": 0.989658,
+      "top5": [
+        {
+          "className": "brake_pedal",
+          "index": 8,
+          "score": 0.989658
+        },
+        {
+          "className": "gear_lever",
+          "index": 22,
+          "score": 0.00984
+        },
+        {
+          "className": "chain",
+          "index": 11,
+          "score": 0.000413
+        },
+        {
+          "className": "forks",
+          "index": 18,
+          "score": 8.5e-05
+        },
+        {
+          "className": "handlebar",
+          "index": 23,
+          "score": 3e-06
+        }
+      ]
+    },
+    {
+      "file": "handlebar.jpg",
+      "className": "brake_clutch_lever",
+      "index": 4,
+      "score": 0.95374,
+      "top5": [
+        {
+          "className": "brake_clutch_lever",
+          "index": 4,
+          "score": 0.95374
+        },
+        {
+          "className": "brake_oil_reservoir",
+          "index": 6,
+          "score": 0.03188
+        },
+        {
+          "className": "handlebar",
+          "index": 23,
+          "score": 0.004395
+        },
+        {
+          "className": "radiator",
+          "index": 26,
+          "score": 0.002952
+        },
+        {
+          "className": "brake_clutch_cable",
+          "index": 3,
+          "score": 0.0019
+        }
+      ]
+    },
+    {
+      "file": "ngk_plugs.jpg",
+      "className": "spark_plug",
+      "index": 28,
+      "score": 0.996528,
+      "top5": [
+        {
+          "className": "spark_plug",
+          "index": 28,
+          "score": 0.996528
+        },
+        {
+          "className": "brake_light_switch",
+          "index": 5,
+          "score": 0.002499
+        },
+        {
+          "className": "shock_absorbers",
+          "index": 27,
+          "score": 0.000453
+        },
+        {
+          "className": "gear_lever",
+          "index": 22,
+          "score": 0.000151
+        },
+        {
+          "className": "alternator",
+          "index": 1,
+          "score": 0.000132
+        }
+      ]
+    },
+    {
+      "file": "piston.jpg",
+      "className": "brake_oil_reservoir",
+      "index": 6,
+      "score": 0.954477,
+      "top5": [
+        {
+          "className": "brake_oil_reservoir",
+          "index": 6,
+          "score": 0.954477
+        },
+        {
+          "className": "handlebar",
+          "index": 23,
+          "score": 0.030226
+        },
+        {
+          "className": "gear_lever",
+          "index": 22,
+          "score": 0.004245
+        },
+        {
+          "className": "piston",
+          "index": 25,
+          "score": 0.004225
+        },
+        {
+          "className": "camshaft",
+          "index": 9,
+          "score": 0.001568
+        }
+      ]
+    },
+    {
+      "file": "radiator.jpg",
+      "className": "disc",
+      "index": 17,
+      "score": 0.487504,
+      "top5": [
+        {
+          "className": "disc",
+          "index": 17,
+          "score": 0.487504
+        },
+        {
+          "className": "radiator",
+          "index": 26,
+          "score": 0.152038
+        },
+        {
+          "className": "air_fin",
+          "index": 0,
+          "score": 0.138922
+        },
+        {
+          "className": "brake_pedal",
+          "index": 8,
+          "score": 0.102568
+        },
+        {
+          "className": "forks",
+          "index": 18,
+          "score": 0.060438
+        }
+      ]
+    },
+    {
+      "file": "spark_plug.jpg",
+      "className": "spark_plug",
+      "index": 28,
+      "score": 0.996536,
+      "top5": [
+        {
+          "className": "spark_plug",
+          "index": 28,
+          "score": 0.996536
+        },
+        {
+          "className": "brake_pedal",
+          "index": 8,
+          "score": 0.0022
+        },
+        {
+          "className": "gear_lever",
+          "index": 22,
+          "score": 0.000428
+        },
+        {
+          "className": "camshaft",
+          "index": 9,
+          "score": 0.000236
+        },
+        {
+          "className": "brake_clutch_cable",
+          "index": 3,
+          "score": 0.000232
+        }
+      ]
+    }
+  ]
+}
