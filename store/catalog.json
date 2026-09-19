@@ -1648,12 +1648,20 @@
       "oemVerified": false,
       "title": "Tires (Inspecting/Replacing)",
       "pages": [
-        78
+        78,
+        79,
+        80
       ],
       "printedPage": "76",
       "steps": [
         {
           "page": 78
+        },
+        {
+          "page": 79
+        },
+        {
+          "page": 80
         }
       ],
       "related": [
@@ -1855,7 +1863,8 @@
         87,
         88,
         89,
-        90
+        90,
+        91
       ],
       "printedPage": "6-20",
       "steps": [
@@ -1870,6 +1879,9 @@
         },
         {
           "page": 90
+        },
+        {
+          "page": 91
         }
       ],
       "related": [
@@ -1903,7 +1915,8 @@
         87,
         88,
         89,
-        90
+        90,
+        91
       ],
       "printedPage": "6-20",
       "steps": [
@@ -1918,6 +1931,9 @@
         },
         {
           "page": 90
+        },
+        {
+          "page": 91
         }
       ],
       "related": [
@@ -2310,7 +2326,8 @@
         113,
         114,
         115,
-        116
+        116,
+        117
       ],
       "printedPage": "6-46",
       "steps": [
@@ -2325,6 +2342,9 @@
         },
         {
           "page": 116
+        },
+        {
+          "page": 117
         }
       ],
       "related": [],
@@ -2407,7 +2427,8 @@
       "pages": [
         60,
         61,
-        62
+        62,
+        63
       ],
       "printedPage": "7-11",
       "steps": [
@@ -2419,6 +2440,9 @@
         },
         {
           "page": 62
+        },
+        {
+          "page": 63
         }
       ],
       "related": [
@@ -2454,7 +2478,8 @@
       "pages": [
         60,
         61,
-        62
+        62,
+        63
       ],
       "printedPage": "7-11",
       "steps": [
@@ -2466,6 +2491,9 @@
         },
         {
           "page": 62
+        },
+        {
+          "page": 63
         }
       ],
       "related": [
@@ -2829,12 +2857,16 @@
       "oemVerified": false,
       "title": "Vehicle lights",
       "pages": [
-        82
+        82,
+        83
       ],
       "printedPage": "7-33",
       "steps": [
         {
           "page": 82
+        },
+        {
+          "page": 83
         }
       ],
       "related": [],
@@ -2922,7 +2954,8 @@
         128,
         129,
         130,
-        131
+        131,
+        132
       ],
       "printedPage": "126",
       "steps": [
@@ -2937,6 +2970,9 @@
         },
         {
           "page": 131
+        },
+        {
+          "page": 132
         }
       ],
       "related": [
@@ -2976,7 +3012,8 @@
       "pages": [
         129,
         130,
-        131
+        131,
+        132
       ],
       "printedPage": "127",
       "steps": [
@@ -2988,6 +3025,9 @@
         },
         {
           "page": 131
+        },
+        {
+          "page": 132
         }
       ],
       "related": [
@@ -3190,7 +3230,8 @@
         142,
         143,
         144,
-        145
+        145,
+        146
       ],
       "printedPage": "139",
       "steps": [
@@ -3208,6 +3249,9 @@
         },
         {
           "page": 145
+        },
+        {
+          "page": 146
         }
       ],
       "related": [],
@@ -3268,7 +3312,8 @@
         158,
         159,
         160,
-        161
+        161,
+        162
       ],
       "printedPage": "155",
       "steps": [
@@ -3286,6 +3331,9 @@
         },
         {
           "page": 161
+        },
+        {
+          "page": 162
         }
       ],
       "related": [],
@@ -3358,7 +3406,8 @@
       "title": "Headlight",
       "pages": [
         162,
-        163
+        163,
+        164
       ],
       "printedPage": "160",
       "steps": [
@@ -3367,6 +3416,9 @@
         },
         {
           "page": 163
+        },
+        {
+          "page": 164
         }
       ],
       "related": [],
@@ -3389,7 +3441,8 @@
       "title": "Seats",
       "pages": [
         100,
-        101
+        101,
+        102
       ],
       "printedPage": "98",
       "steps": [
@@ -3398,6 +3451,9 @@
         },
         {
           "page": 101
+        },
+        {
+          "page": 102
         }
       ],
       "related": [],
@@ -3419,12 +3475,16 @@
       "oemVerified": false,
       "title": "Clutch",
       "pages": [
-        140
+        140,
+        141
       ],
       "printedPage": "138",
       "steps": [
         {
           "page": 140
+        },
+        {
+          "page": 141
         }
       ],
       "related": [
