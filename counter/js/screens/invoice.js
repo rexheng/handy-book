@@ -17,7 +17,7 @@ let pickUsed = -1;
 let pickAlt = -1;
 
 function bounce() {
-  queueMicrotask(() => go(state.bikeId ? "follow" : "identify"));
+  queueMicrotask(() => go(state.bikeId ? "pick" : "identify", { replace: true }));
 }
 
 function h(tag, attrs) {
@@ -92,12 +92,32 @@ function setChannel(ch) {
   paint();
 }
 
+function listKey(rows) {
+  return rows
+    .map((row) => (typeof row === "string" ? row : [row.from, row.where, row.price].join("\0")))
+    .join("\n");
+}
+
+function syncRowState(box, selected) {
+  const kids = box.children;
+  for (let i = 0; i < kids.length; i++) {
+    const on = i === selected;
+    kids[i].classList.toggle("selected", on);
+    kids[i].classList.toggle("btn-primary", on);
+    kids[i].setAttribute("aria-pressed", on ? "true" : "false");
+  }
+}
+
 function fillList(box, rows, selected, onPick) {
+  const key = listKey(rows);
+  if (box.dataset.rows === key && box.childElementCount === rows.length) {
+    syncRowState(box, selected);
+    return;
+  }
   box.replaceChildren();
+  box.dataset.rows = key;
   rows.forEach((row, i) => {
     const btn = h("button", { type: "button", class: "card inv-row" });
-    if (selected === i) btn.classList.add("btn-primary");
-    btn.setAttribute("aria-pressed", selected === i ? "true" : "false");
     if (typeof row === "string") {
       btn.append(h("span", { text: row }));
     } else {
@@ -106,9 +126,44 @@ function fillList(box, rows, selected, onPick) {
       const c = h("span", { class: "inv-amt", text: money(row.price, false) });
       btn.append(a, b, c);
     }
-    btn.addEventListener("click", () => onPick(i));
+    btn.addEventListener("click", () => onPick(i, btn));
     box.append(btn);
   });
+  syncRowState(box, selected);
+}
+
+function clearList(box) {
+  box.replaceChildren();
+  delete box.dataset.rows;
+}
+
+function pickRow(kind, i, node) {
+  if (kind === "used") pickUsed = i;
+  else pickAlt = i;
+  const box = kind === "used" ? els.used : els.alts;
+  syncRowState(box, i);
+  paintTicket();
+  if (node && document.activeElement !== node) node.focus();
+}
+
+function paintTicket() {
+  if (!els) return;
+  const job = jobOf();
+  if (!job) return;
+  const part = Q.part(job.partId) || {};
+  const bike = Q.bike(job.bikeId) || Q.bike(state.bikeId) || {};
+  const line = lineOf(job);
+  const t = line.dash ? { price: 0, ship: 0, tax: 0, total: 0 } : totals(line.price, line.ship);
+  const dash = line.dash;
+  els.tixNo.textContent = state.ticket || "";
+  els.tixBike.textContent = [bike.make, bike.model, bike.year].filter((x) => x != null && x !== "").join(" ");
+  els.tixPart.textContent = part.name || "";
+  els.tixOem.textContent = job.oem || "";
+  els.amtPart.textContent = money(t.price, dash);
+  els.amtShip.textContent = money(t.ship, dash);
+  els.amtTax.textContent = money(t.tax, dash);
+  els.amtTotal.textContent = money(t.total, dash);
+  syncMail(job, part, bike, dash, t);
 }
 
 function syncMail(job, part, bike, dash, t) {
@@ -125,9 +180,6 @@ function paint() {
   const bike = Q.bike(job.bikeId) || Q.bike(state.bikeId) || {};
   const ch = state.channel;
   const src = Q.asset(part.thumb || part.image);
-  const line = lineOf(job);
-  const t = line.dash ? { price: 0, ship: 0, tax: 0, total: 0 } : totals(line.price, line.ship);
-  const dash = line.dash;
 
   els.photo.alt = part.name || "";
   if (src) {
@@ -162,32 +214,17 @@ function paint() {
   const used = Array.isArray(job.used) ? job.used : [];
   const alts = Array.isArray(job.alts) ? job.alts : [];
   if (ch === "used") {
-    fillList(els.used, used, pickUsed, (i) => {
-      pickUsed = i;
-      paint();
-    });
+    fillList(els.used, used, pickUsed, (i, btn) => pickRow("used", i, btn));
   } else {
-    els.used.replaceChildren();
+    clearList(els.used);
   }
   if (ch === "other") {
-    fillList(els.alts, alts, pickAlt, (i) => {
-      pickAlt = i;
-      paint();
-    });
+    fillList(els.alts, alts, pickAlt, (i, btn) => pickRow("other", i, btn));
   } else {
-    els.alts.replaceChildren();
+    clearList(els.alts);
   }
 
-  els.tixNo.textContent = state.ticket || "";
-  els.tixBike.textContent = [bike.make, bike.model, bike.year].filter((x) => x != null && x !== "").join(" ");
-  els.tixPart.textContent = part.name || "";
-  els.tixOem.textContent = job.oem || "";
-  els.amtPart.textContent = money(t.price, dash);
-  els.amtShip.textContent = money(t.ship, dash);
-  els.amtTax.textContent = money(t.tax, dash);
-  els.amtTotal.textContent = money(t.total, dash);
-
-  syncMail(job, part, bike, dash, t);
+  paintTicket();
 }
 
 function drawTicket(ctx, w, h, job, part, bike, dash, t, img) {

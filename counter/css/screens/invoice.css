@@ -127,6 +127,12 @@
   border-radius: 0;
 }
 
+[data-screen="invoice"] .inv-row.selected,
+[data-screen="invoice"] .inv-row[aria-pressed="true"] {
+  background: var(--ink);
+  color: #fff;
+}
+
 [data-screen="invoice"] .inv-list[data-kind="alts"] .inv-row {
   grid-template-columns: 1fr;
 }
