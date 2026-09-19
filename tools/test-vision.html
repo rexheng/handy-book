@@ -97,7 +97,7 @@
       <p id="parity-status">PARITY</p>
       <table>
         <thead>
-          <tr><th>image</th><th>py</th><th>js</th><th>Δ</th><th></th></tr>
+          <tr><th>image</th><th>py</th><th>js</th><th>Δ</th><th>part</th><th></th></tr>
         </thead>
         <tbody id="parity-body"></tbody>
       </table>
@@ -241,17 +241,21 @@
           jsClass: js?.className || "",
           jsScore: js?.score || 0,
           dScore,
+          partId: js?.partId ?? null,
+          partIds: js?.partIds || [],
           ok: same,
         });
         const tr = document.createElement("tr");
         tr.className = same ? "ok" : "bad";
         tr.dataset.file = rec.file;
         tr.dataset.ok = same ? "1" : "0";
+        tr.dataset.partId = js?.partId || "";
         const cells = [
           rec.file.replace(".jpg", ""),
           `${rec.className} ${rec.score.toFixed(3)}`,
           `${js?.className || "—"} ${(js?.score || 0).toFixed(3)}`,
           dScore.toFixed(3),
+          js?.partId || "—",
           same ? "Y" : "N",
         ];
         for (const t of cells) {

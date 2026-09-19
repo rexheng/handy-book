@@ -8,7 +8,9 @@
  *
  * classifyPart(imageSource) → top-5 of
  *   { className, score, partIds, partId, ambiguous? }
- *   partIds  — catalog ids from classes.json `map` (always an array)
+ *   partIds  — catalog ids from classes.json `map` (always an array).
+ *              A class maps to a part only when the photographed object
+ *              IS that part (brake_pad→pads; radiator/reservoir/fuel_tank→[]).
  *   partId   — set only when partIds.length === 1 AND score >= 0.35;
  *              otherwise null (multi-id classes such as brake_pad, and
  *              low-confidence rows, never auto-resolve)

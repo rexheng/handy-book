@@ -38,7 +38,7 @@
     "brake_clutch_cable": [],
     "brake_clutch_lever": ["clutch-lever"],
     "brake_light_switch": [],
-    "brake_oil_reservoir": ["brake-fluid"],
+    "brake_oil_reservoir": [],
     "brake_pad": ["front-brake-pads", "rear-brake-pads"],
     "brake_pedal": [],
     "camshaft": [],
