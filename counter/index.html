@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#e85d04">
+  <title>Handy Book</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="../shared/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&family=Big+Shoulders+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/flow.css">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family: Barlow, system-ui, sans-serif;
+      background: repeating-linear-gradient(0deg, #ece7dc 0 24px, #e4dfd2 24px 25px), #ece7dc;
+      color: #141414; min-height: 100dvh;
+    }
+    .ticket { background: #e85d04; color: #fff; padding: 10px 16px; display:flex; justify-content:space-between; align-items:center; font-weight: 800; letter-spacing: .08em; }
+    .ticket b { font-family: "Big Shoulders Display", sans-serif; font-size: 1.6rem; letter-spacing: 0; }
+    main { max-width: 720px; margin: 0 auto; padding: 16px 14px 32px; }
+    h1 { font-family: "Big Shoulders Display", sans-serif; font-size: clamp(2.2rem, 8vw, 3.4rem); text-transform: uppercase; line-height: .9; margin: 12px 0 16px; }
+    label { font-weight: 800; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; }
+    input[type=text], input[type=email] {
+      width:100%; margin: 8px 0 14px; border: 3px solid #141414; padding: 12px 10px; font: inherit; font-size: 1.2rem; background: #fff;
+    }
+    button {
+      font: inherit; font-weight: 800; text-transform: uppercase; border: 3px solid #141414;
+      background: #ffe600; padding: 14px 12px; cursor: pointer;
+    }
+    button.primary { background: #141414; color:#fff; }
+    .sys, .partcard { background:#fff; border: 3px solid #141414; }
+    .sys.open { background:#e85d04; color:#fff; }
+    .cam { height: 180px; background:#141414; margin-bottom: 12px; }
+    .cam [data-photo] { width:100%; height:100%; }
+    nav { display:grid; grid-template-columns: repeat(5,1fr); gap:8px; margin-top: 16px; }
+    nav button { font-size:.7rem; padding:10px 4px; background:#fff; }
+    .verbatim { background:#fff; border: 3px solid #141414; }
+    .flow-steps { font-weight: 800; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <div class="ticket"><span>HANDY BOOK</span><b>A-17</b></div>
+  <main>
+    <div class="flow-steps">
+      <span data-step="identify" class="now">1 Name</span>
+      <span data-step="confirm">2 Confirm</span>
+      <span data-step="pick">3 Part</span>
+      <span data-step="library">4 Bin</span>
+      <span data-step="repair">5 Pick</span>
+      <span data-step="invoice">6 Ticket</span>
+    </div>
+    <screen id="identify" class="on">
+      <h1>Parts window</h1>
+      <label for="q">Model</label>
+      <input id="q" type="text" placeholder="HONDA CB650R">
+      <div class="row" style="grid-template-columns:1fr 1fr">
+        <button class="primary" id="find">Pull ticket</button>
+        <button id="camBtn">Photo ID</button>
+      </div>
+      <input id="file" type="file" accept="image/*" capture="environment" hidden>
+      <p id="scanNote" class="hint" hidden>SCAN</p>
+    </screen>
+    <screen id="confirm">
+      <h1 id="bikeName"></h1>
+      <div class="cam sil" data-photo></div>
+      <p id="bikeMeta"></p>
+      <div class="row" style="grid-template-columns:1fr 1fr">
+        <button class="primary" data-act="yes">Yes</button>
+        <button data-act="no">No</button>
+      </div>
+    </screen>
+    <screen id="pick">
+      <h1>Which part?</h1>
+      <div id="sysGrid" class="sysgrid"></div>
+      <div id="partGrid" class="partgrid"></div>
+    </screen>
+    <screen id="library">
+      <h1>Manual bin</h1>
+      <div class="lib-track"><div class="lib-bar" id="libBar"></div></div>
+      <div class="lib-log" id="libLog"></div>
+      <div id="libPage" hidden></div>
+    </screen>
+    <screen id="repair">
+      <h1>Pick</h1>
+      <div id="repairBody"></div>
+    </screen>
+    <screen id="invoice">
+      <h1>Ticket</h1>
+      <div id="invoiceBody"></div>
+    </screen>
+    <nav id="nav" hidden>
+      <button data-go="confirm">Bike</button>
+      <button data-go="pick">Part</button>
+      <button data-go="library">Bin</button>
+      <button data-go="repair">Pick</button>
+      <button data-go="invoice">Ticket</button>
+    </nav>
+  </main>
+  <script src="../shared/data.js"></script>
+  <script src="../shared/flow.js"></script>
+  <script>HandyFlow.bind({});</script>
+</body>
+</html>

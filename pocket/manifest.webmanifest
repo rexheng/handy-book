@@ -1,0 +1,9 @@
+{
+  "name": "Handy Book — Pocket",
+  "short_name": "Pocket",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#e7eed8",
+  "theme_color": "#2f3b24",
+  "icons": [{ "src": "../shared/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

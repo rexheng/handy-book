@@ -1,0 +1,9 @@
+{
+  "name": "Handy Book — Stack",
+  "short_name": "Stack",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f3ead8",
+  "theme_color": "#5b2c2c",
+  "icons": [{ "src": "../shared/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Handy Book — how it fits</title>
+  <link rel="icon" href="shared/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#1c1916; --paper:#efe6d6; --rule:#c9b79a; --card:#f7f1e6; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      padding: 28px 20px 64px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    a { color: inherit; }
+    .back { font-size: .9rem; }
+    h1 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: -.03em;
+      margin: 18px 0 8px;
+    }
+    .lead { color:#5c5348; max-width: 52ch; }
+    h2 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 1.35rem;
+      margin: 36px 0 12px;
+    }
+    .chart {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      padding: 16px 12px;
+      overflow: auto;
+    }
+    .note {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .78rem;
+      color:#6a6156;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <p class="back"><a href="index.html">← Prototypes</a></p>
+  <h1>How it fits</h1>
+  <p class="lead">Name or photo the bike. Confirm it. Pick a part. Open the factory page. Follow those pages. Get the part.</p>
+
+  <h2>What you do</h2>
+  <div class="chart">
+    <pre class="mermaid">
+flowchart LR
+  A[Name or photo] --> B[Is this the bike?]
+  B -->|No| A
+  B -->|Yes| C[Which part?]
+  C --> D[Open the book]
+  D --> E[Follow the pages]
+  E --> F[Quote, buy, used, invoice]
+    </pre>
+  </div>
+
+  <h2>How the system is built</h2>
+  <div class="chart">
+    <pre class="mermaid">
+flowchart TB
+  subgraph In["Phone"]
+    CAM[Camera or typed model]
+    ID[Identity match]
+    UI[Factory page on screen]
+    INV[Parts and invoice]
+  end
+  subgraph Store["Manuals store — MongoDB"]
+    PDF[Verbatim shop manuals]
+  end
+  subgraph Find["Query layer — Elasticsearch"]
+    Q[Page, section, figure lookup]
+  end
+  CAM --> ID
+  ID --> Q
+  Store --> Q
+  Q --> UI
+  UI --> INV
+    </pre>
+  </div>
+  <p class="note">MongoDB holds the manuals. Elasticsearch finds the page. The app never replaces the book with generated repair text.</p>
+
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "neutral",
+      flowchart: { curve: "linear", htmlLabels: true }
+    });
+  </script>
+</body>
+</html>

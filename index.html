@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Handy Book — prototypes</title>
+  <link rel="icon" href="shared/icon.svg">
+  <style>
+    :root { --ink:#1c1916; --paper:#efe6d6; --rule:#c9b79a; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 100dvh;
+      padding: 28px 20px 48px;
+    }
+    h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      letter-spacing: -0.03em;
+    }
+    p { margin-top: 6px; color: #5c5348; max-width: 42ch; }
+    .arch {
+      display:inline-block;
+      margin-top: 14px;
+      color: inherit;
+      font-weight: 500;
+    }
+    ol {
+      list-style: none;
+      margin-top: 28px;
+      display: grid;
+      gap: 12px;
+      max-width: 640px;
+    }
+    a.card {
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid var(--rule);
+      background: #f7f1e6;
+      padding: 12px 14px;
+      min-height: 88px;
+    }
+    a.card:hover { background: #fffaf1; }
+    .swatch { height: 64px; border: 1px solid #0003; }
+    .b { background: #c4a574; }
+    .n { background: #111; }
+    .s { background: #ead9c0; }
+    .c { background: #ff6a00; }
+    .p { background: #dfe6cf; }
+    strong { font-size: 1.05rem; }
+    span { display:block; color:#6a6156; font-size:.9rem; margin-top:2px; }
+    em { font-style: normal; font-variant-numeric: tabular-nums; color:#6a6156; }
+    .chart {
+      max-width: 640px;
+      margin-top: 28px;
+      border: 1px solid var(--rule);
+      background: #f7f1e6;
+      padding: 14px 10px;
+      overflow: auto;
+    }
+    h2 { font-family: Fraunces, Georgia, serif; font-size: 1.2rem; margin-bottom: 8px; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Handy Book</h1>
+  <p>Five looks. Same six steps: name or photo, confirm the bike, pick a part, open the factory page, follow those pages, get the part.</p>
+  <a class="arch" href="architecture.html">System map and demo path →</a>
+  <ol>
+    <li><a class="card" href="bench/"><i class="swatch b"></i><div><strong>Bench</strong><span>Shop table</span></div><em>01</em></a></li>
+    <li><a class="card" href="night/"><i class="swatch n"></i><div><strong>Night</strong><span>One page at a time</span></div><em>02</em></a></li>
+    <li><a class="card" href="stack/"><i class="swatch s"></i><div><strong>Stack</strong><span>Bound shop manual</span></div><em>03</em></a></li>
+    <li><a class="card" href="counter/"><i class="swatch c"></i><div><strong>Counter</strong><span>Parts window</span></div><em>04</em></a></li>
+    <li><a class="card" href="pocket/"><i class="swatch p"></i><div><strong>Pocket</strong><span>Folded card</span></div><em>05</em></a></li>
+  </ol>
+  <div class="chart">
+    <h2>Demo path</h2>
+    <pre class="mermaid">
+flowchart LR
+  A[Name or photo] --> B[Confirm]
+  B --> C[Which part?]
+  C --> D[Factory page]
+  D --> E[Pages in order]
+  E --> F[Invoice]
+    </pre>
+  </div>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "neutral", flowchart: { curve: "linear" } });
+  </script>
+</body>
+</html>

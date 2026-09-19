@@ -1,0 +1,9 @@
+{
+  "name": "Handy Book — Bench",
+  "short_name": "Bench",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#e8d5b5",
+  "theme_color": "#3d2b1f",
+  "icons": [{ "src": "../shared/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

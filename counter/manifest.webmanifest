@@ -1,0 +1,9 @@
+{
+  "name": "Handy Book — Counter",
+  "short_name": "Counter",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f4f1ea",
+  "theme_color": "#e85d04",
+  "icons": [{ "src": "../shared/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
