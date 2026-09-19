@@ -1,0 +1,9 @@
+name = "handy-book"
+compatibility_date = "2026-09-19"
+pages_build_output_dir = "."
+
+# Public Elasticsearch endpoint only. The API key is a secret:
+#   npx wrangler pages secret put ELASTIC_API_KEY --project-name handy-book
+# Local: copy .dev.vars.example → .dev.vars
+[vars]
+ELASTIC_URL = ""

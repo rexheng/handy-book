@@ -6,3 +6,5 @@ Thumbs.db
 node_modules/
 tools/hf-moto-parts/
 .firecrawl/
+.dev.vars
+.wrangler/

@@ -1,0 +1,4 @@
+# Copy to .dev.vars (gitignored). Used by `npx wrangler pages dev .`
+# Never commit real values.
+ELASTIC_URL=https://YOUR-PROJECT.es.REGION.azure.elastic.cloud
+ELASTIC_API_KEY=

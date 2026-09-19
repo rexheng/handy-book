@@ -1,0 +1,5 @@
+/store/manuals/:manual/pages/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/store/img/*
+  Cache-Control: public, max-age=31536000, immutable
