@@ -8,7 +8,28 @@ function paintTicket() {
   if (el) el.textContent = state.ticket;
 }
 
+function firstGo() {
+  const hash = location.hash.slice(1) || "identify";
+  if (hash !== "identify" && (state.bikeId == null || state.bikeId === "")) {
+    go("identify", { replace: true });
+    return;
+  }
+  go(hash, { replace: true });
+}
+
+function registerSw() {
+  if (!("serviceWorker" in navigator)) return;
+  navigator.serviceWorker.register("sw.js").catch((err) => {
+    console.warn("sw register failed", err);
+  });
+}
+
 async function boot() {
+  paintTicket();
+  on("state", (patch) => {
+    if (patch && Object.prototype.hasOwnProperty.call(patch, "ticket")) paintTicket();
+  });
+
   try {
     await loadCatalog();
   } catch (err) {
@@ -23,20 +44,8 @@ async function boot() {
     }
   }
 
-  paintTicket();
-  on("state", (patch) => {
-    if (patch && Object.prototype.hasOwnProperty.call(patch, "ticket")) paintTicket();
-  });
-
-  if ("serviceWorker" in navigator) {
-    try {
-      await navigator.serviceWorker.register("sw.js");
-    } catch (err) {
-      console.warn("sw register failed", err);
-    }
-  }
-
-  go(location.hash.slice(1) || "identify", { replace: true });
+  firstGo();
+  registerSw();
 }
 
 boot();
