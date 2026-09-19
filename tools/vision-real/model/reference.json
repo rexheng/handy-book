@@ -1,6 +1,6 @@
 {
   "imgsz": 224,
-  "onnx": "store/model/moto-parts-30cls.onnx",
+  "onnx": "tools/vision-real/model/moto-parts-30cls.onnx",
   "preprocess": "ultralytics.classify_transforms(224) = torchvision Resize(224, bilinear, antialias=True) + CenterCrop(224) + ToTensor + Normalize(0,1)",
   "images": [
     {

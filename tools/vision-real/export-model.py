@@ -1,8 +1,10 @@
 """Export AswinG5/moto-parts-30cls (YOLOv8-cls) to ONNX for in-browser inference.
 
-Also writes store/model/reference.json: Python ONNX Runtime top-1 on
-tools/test-imgs, using PIL/torchvision preprocessing identical to
-Ultralytics classify_transforms(224) (bilinear + antialias, centre-crop).
+Parked with the real vision module (not shipped in the Counter app).
+Also writes tools/vision-real/model/reference.json: Python ONNX Runtime
+top-1 on tools/vision-real/test-imgs, using PIL/torchvision preprocessing
+identical to Ultralytics classify_transforms(224) (bilinear + antialias,
+centre-crop).
 """
 
 from __future__ import annotations
@@ -12,12 +14,13 @@ import json
 import shutil
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[1]
 PT_PATH = ROOT / "tools" / "hf-moto-parts" / "motopartscls.pt"
-OUT_DIR = ROOT / "store" / "model"
+OUT_DIR = HERE / "model"
 ONNX_NAME = "moto-parts-30cls.onnx"
 ONNX_PATH = OUT_DIR / ONNX_NAME
-TEST_DIR = ROOT / "tools" / "test-imgs"
+TEST_DIR = HERE / "test-imgs"
 REF_PATH = OUT_DIR / "reference.json"
 IMGSZ = 224
 
@@ -114,7 +117,7 @@ def write_reference(onnx_path: Path = ONNX_PATH) -> Path:
 
     payload = {
         "imgsz": IMGSZ,
-        "onnx": "store/model/moto-parts-30cls.onnx",
+        "onnx": "tools/vision-real/model/moto-parts-30cls.onnx",
         "preprocess": "ultralytics.classify_transforms(224) = torchvision Resize(224, bilinear, antialias=True) + CenterCrop(224) + ToTensor + Normalize(0,1)",
         "images": images,
     }
@@ -129,7 +132,7 @@ def main() -> None:
     parser.add_argument(
         "--reference-only",
         action="store_true",
-        help="skip ONNX export; only write store/model/reference.json",
+        help="skip ONNX export; only write tools/vision-real/model/reference.json",
     )
     parser.add_argument(
         "--export-only",

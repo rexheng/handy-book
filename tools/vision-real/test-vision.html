@@ -104,7 +104,7 @@
     </section>
   </main>
   <script type="module">
-    import { loadPartModel, classifyPart } from "../counter/js/vision.js";
+    import { loadPartModel, classifyPart } from "./vision.js";
 
     const samples = [
       ["spark_plug.jpg", "plug"],
@@ -206,7 +206,7 @@
       const line = document.getElementById("parity-status");
       let ref;
       try {
-        const res = await fetch("../store/model/reference.json");
+        const res = await fetch("./model/reference.json");
         if (!res.ok) return;
         ref = await res.json();
       } catch {
