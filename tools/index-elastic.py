@@ -3,6 +3,10 @@
 
 Idempotent: explicit mappings, then POST /_bulk with stable _id values.
 Reads ELASTIC_URL and ELASTIC_API_KEY from the environment. Never prints the key.
+
+  python tools/index-elastic.py --dry-run   # build docs from catalog.json, no network
+  python tools/index-elastic.py             # PUT mappings + _bulk
+  python tools/index-elastic.py --reset     # delete+recreate indexes, then bulk
 """
 from __future__ import annotations
 
@@ -22,6 +26,7 @@ INDEX_PARTS = "hb-parts"
 INDEX_SYSTEMS = "hb-systems"
 INDEX_JOBS = "hb-jobs"
 INDEX_PAGES = "hb-pages"
+INDEX_NAMES = (INDEX_BIKES, INDEX_PARTS, INDEX_SYSTEMS, INDEX_JOBS, INDEX_PAGES)
 
 TEXT_KW = {
     "type": "text",
@@ -30,6 +35,17 @@ TEXT_KW = {
 KW = {"type": "keyword"}
 KW_STORE = {"type": "keyword", "doc_values": False}
 MONEY = {"type": "scaled_float", "scaling_factor": 100}
+DATE_DAY = {"type": "date", "format": "yyyy-MM-dd||strict_date_optional_time||epoch_millis"}
+
+# Commerce provenance objects (DATA-CONTRACT "Commerce provenance"): retrieve + filter
+# by retailer / retrieved date; urls are display-only.
+PROVENANCE_LISTING = {
+    "from": KW,
+    "url": KW_STORE,
+    "price": MONEY,
+    "currency": KW,
+    "retrieved": DATE_DAY,
+}
 
 MAPPINGS = {
     INDEX_BIKES: {
@@ -101,12 +117,17 @@ MAPPINGS = {
             "oem": KW,
             "oemVerified": {"type": "boolean"},
             "title": TEXT_KW,
+            # Multi-value integer: every job document sends `pages` as an array of
+            # 1-based PDF indices. Elasticsearch integer fields accept multiple
+            # values; this is intentional (not a scalar). Do not "fix" to a single int.
             "pages": {"type": "integer"},
             "printedPage": KW,
             "steps": {
                 "type": "nested",
                 "properties": {
                     "page": {"type": "integer"},
+                    # crop is a 4-float array [x, y, w, h] (fractions 0–1 of the page).
+                    # Mapped as float; ES keeps the 4 values in `_source`. Not queried as a box.
                     "crop": {"type": "float"},
                 },
             },
@@ -121,16 +142,31 @@ MAPPINGS = {
             "ship": MONEY,
             "days": {"type": "integer"},
             "from": KW,
+            "new": {
+                "type": "object",
+                "properties": {
+                    **PROVENANCE_LISTING,
+                    "ship": MONEY,
+                    "days": {"type": "integer"},
+                    "oem": KW,
+                    "oemVerified": {"type": "boolean"},
+                },
+            },
             "used": {
                 "type": "nested",
                 "properties": {
-                    "from": KW,
-                    "price": MONEY,
+                    **PROVENANCE_LISTING,
                     "note": {"type": "text"},
                     "where": KW,
                 },
             },
-            "alts": KW,
+            "alts": {
+                "type": "nested",
+                "properties": {
+                    "label": TEXT_KW,
+                    **PROVENANCE_LISTING,
+                },
+            },
             "bikeMake": TEXT_KW,
             "bikeModel": TEXT_KW,
             "bikeYear": {"type": "integer"},
@@ -144,6 +180,8 @@ MAPPINGS = {
             "id": KW,
             "manualId": KW,
             "page": {"type": "integer"},
+            # Copied from job.printedPage (offset across job.pages when numeric).
+            # Null when no job covers this PDF page. Never the PDF index itself.
             "printedPage": KW,
             "text": {"type": "text"},
             "ocr": {"type": "boolean"},
@@ -279,12 +317,128 @@ def page_id(manual_id: str, page: int) -> str:
     return f"{manual_id}__{page}"
 
 
-def extract_pages(manual: dict) -> list[dict]:
+def job_es_id(job: dict) -> str:
+    """Elasticsearch `_id` uses `__`, never `/` (GET _doc + proxies that decode %2F)."""
+    bike = job.get("bikeId") or ""
+    part = job.get("partId") or ""
+    if bike and part:
+        return f"{bike}__{part}"
+    return str(job.get("id") or "").replace("/", "__")
+
+
+def crop_array(raw: object) -> list[float] | None:
+    """Preserve a 4-float crop box [x, y, w, h]; drop anything else."""
+    if not isinstance(raw, (list, tuple)) or len(raw) != 4:
+        return None
+    try:
+        return [float(x) for x in raw]
+    except (TypeError, ValueError):
+        return None
+
+
+def provenance_new(raw: object) -> dict | None:
+    if raw is None:
+        return None
+    if not isinstance(raw, dict):
+        return None
+    return {
+        "from": raw.get("from"),
+        "url": raw.get("url"),
+        "price": raw.get("price"),
+        "currency": raw.get("currency"),
+        "ship": raw.get("ship"),
+        "days": raw.get("days"),
+        "retrieved": raw.get("retrieved"),
+        "oem": raw.get("oem"),
+        "oemVerified": raw.get("oemVerified"),
+    }
+
+
+def provenance_used(rows: object) -> list[dict]:
+    out: list[dict] = []
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        out.append(
+            {
+                "from": row.get("from"),
+                "url": row.get("url"),
+                "price": row.get("price"),
+                "currency": row.get("currency"),
+                "note": row.get("note"),
+                "where": row.get("where"),
+                "retrieved": row.get("retrieved"),
+            }
+        )
+    return out
+
+
+def provenance_alts(rows: object) -> list[dict]:
+    """Carry object alts through; coerce legacy string alts to {label}."""
+    out: list[dict] = []
+    for row in rows or []:
+        if isinstance(row, str):
+            out.append({"label": row})
+            continue
+        if not isinstance(row, dict):
+            continue
+        out.append(
+            {
+                "label": row.get("label"),
+                "from": row.get("from"),
+                "url": row.get("url"),
+                "price": row.get("price"),
+                "currency": row.get("currency"),
+                "retrieved": row.get("retrieved"),
+            }
+        )
+    return out
+
+
+def printed_page_lookup(jobs: list) -> dict[tuple[str, int], str]:
+    """Map (manualId, pdfIndex) → printed stamp from job data. Missing → not in map."""
+    found: dict[tuple[str, int], str] = {}
+    for job in jobs:
+        manual_id = job.get("manualId")
+        pages = [p for p in (job.get("pages") or []) if p is not None]
+        stamp = job.get("printedPage")
+        if not manual_id or not pages or stamp is None or stamp == "":
+            continue
+        stamp_s = str(stamp)
+        try:
+            first = int(pages[0])
+            base = int(stamp_s)
+        except (TypeError, ValueError):
+            try:
+                found[(str(manual_id), int(pages[0]))] = stamp_s
+            except (TypeError, ValueError):
+                pass
+            continue
+        for p in pages:
+            try:
+                pdf_i = int(p)
+            except (TypeError, ValueError):
+                continue
+            found[(str(manual_id), pdf_i)] = str(base + (pdf_i - first))
+    return found
+
+
+def extract_pages(manual: dict, printed_lookup: dict[tuple[str, int], str]) -> list[dict]:
     manual_id = manual["id"]
     file_rel = manual.get("file") or f"store/manuals/{manual_id}/manual.pdf"
     pdf_path = ROOT / file_rel
     expected = int(manual.get("pages") or 0)
     docs: list[dict] = []
+
+    def page_doc(pdf_index: int, text: str) -> dict:
+        return {
+            "id": page_id(manual_id, pdf_index),
+            "manualId": manual_id,
+            "page": pdf_index,
+            "printedPage": printed_lookup.get((manual_id, pdf_index)),
+            "text": text,
+            "ocr": False,
+        }
 
     if pdf_path.is_file():
         try:
@@ -296,30 +450,12 @@ def extract_pages(manual: dict) -> list[dict]:
             with fitz.open(pdf_path) as pdf:
                 for i, page in enumerate(pdf, start=1):
                     text = (page.get_text("text") or "").strip()
-                    docs.append(
-                        {
-                            "id": page_id(manual_id, i),
-                            "manualId": manual_id,
-                            "page": i,
-                            "printedPage": str(i),
-                            "text": text,
-                            "ocr": False,
-                        }
-                    )
+                    docs.append(page_doc(i, text))
             return docs
 
     print(f"PDF missing: {file_rel} — indexing {expected or 0} empty pages", file=sys.stderr)
     for i in range(1, max(expected, 0) + 1):
-        docs.append(
-            {
-                "id": page_id(manual_id, i),
-                "manualId": manual_id,
-                "page": i,
-                "printedPage": str(i),
-                "text": "",
-                "ocr": False,
-            }
-        )
+        docs.append(page_doc(i, ""))
     return docs
 
 
@@ -331,6 +467,7 @@ def build_docs(catalog: dict) -> list[tuple[str, str, dict]]:
     jobs = catalog.get("jobs") or []
     part_by_id = {p["id"]: p for p in parts if p.get("id")}
     bike_by_id = {b["id"]: b for b in bikes if b.get("id")}
+    printed_lookup = printed_page_lookup(jobs)
 
     rows: list[tuple[str, str, dict]] = []
 
@@ -404,27 +541,19 @@ def build_docs(catalog: dict) -> list[tuple[str, str, dict]]:
 
     for job in jobs:
         jid = job["id"]
+        es_id = job_es_id(job)
         bike = bike_by_id.get(job.get("bikeId") or "")
         part = part_by_id.get(job.get("partId") or "")
         steps = []
         for step in job.get("steps") or []:
             item = {"page": step.get("page")}
-            if step.get("crop") is not None:
-                item["crop"] = step.get("crop")
+            crop = crop_array(step.get("crop"))
+            if crop is not None:
+                item["crop"] = crop
             steps.append(item)
         related = []
         for rel in job.get("related") or []:
             related.append({"page": rel.get("page"), "title": rel.get("title")})
-        used = []
-        for row in job.get("used") or []:
-            used.append(
-                {
-                    "from": row.get("from"),
-                    "price": row.get("price"),
-                    "note": row.get("note"),
-                    "where": row.get("where"),
-                }
-            )
         doc = {
             "id": jid,
             "bikeId": job.get("bikeId"),
@@ -441,18 +570,19 @@ def build_docs(catalog: dict) -> list[tuple[str, str, dict]]:
             "ship": job.get("ship"),
             "days": job.get("days"),
             "from": job.get("from"),
-            "used": used,
-            "alts": job.get("alts") or [],
+            "new": provenance_new(job.get("new")),
+            "used": provenance_used(job.get("used")),
+            "alts": provenance_alts(job.get("alts")),
             "bikeMake": None if not bike else bike.get("make"),
             "bikeModel": None if not bike else bike.get("model"),
             "bikeYear": None if not bike else bike.get("year"),
             "partName": None if not part else part.get("name"),
             "systemId": None if not part else part.get("systemId"),
         }
-        rows.append((INDEX_JOBS, jid, doc))
+        rows.append((INDEX_JOBS, es_id, doc))
 
     for manual in catalog.get("manuals") or []:
-        for page in extract_pages(manual):
+        for page in extract_pages(manual, printed_lookup):
             rows.append((INDEX_PAGES, page["id"], page))
 
     return rows
@@ -465,21 +595,45 @@ def count_index(base: str, key: str, name: str) -> int:
     return int(body.get("count") or 0)
 
 
+def summarize_rows(rows: list[tuple[str, str, dict]]) -> dict[str, int]:
+    counts: dict[str, int] = {name: 0 for name in INDEX_NAMES}
+    seen: set[tuple[str, str]] = set()
+    dup = 0
+    for index, _id, _doc in rows:
+        counts[index] = counts.get(index, 0) + 1
+        key = (index, _id)
+        if key in seen:
+            dup += 1
+        seen.add(key)
+        if "/" in _id:
+            die(f"slash in _id {index}/{_id} — use __")
+    print(f"docs {len(rows)}")
+    for name in INDEX_NAMES:
+        print(f"count {name} {counts.get(name, 0)}")
+    if dup:
+        die(f"duplicate _id count {dup}")
+    return counts
+
+
 def main(argv: list[str]) -> int:
     reset = "--reset" in argv
-    base, key = env_creds()
+    dry_run = "--dry-run" in argv
     if not CATALOG_PATH.is_file():
         die(f"catalog not found: {CATALOG_PATH}")
     catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+    rows = build_docs(catalog)
+    summarize_rows(rows)
+    if dry_run:
+        return 0
+    base, key = env_creds()
     print(f"cluster {base}")
     status, info = es_call(base, key, "GET", "/")
     if status != 200:
         die(f"GET / failed ({status}): {info}")
     ensure_indexes(base, key, reset=reset)
-    rows = build_docs(catalog)
     written = bulk_index(base, key, rows)
     print(f"bulk wrote {written} docs")
-    for name in (INDEX_BIKES, INDEX_PARTS, INDEX_SYSTEMS, INDEX_JOBS, INDEX_PAGES):
+    for name in INDEX_NAMES:
         print(f"count {name} {count_index(base, key, name)}")
     return 0
 

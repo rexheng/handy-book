@@ -1,0 +1,16 @@
+{
+  "name": "handy-book-data-plane",
+  "role_descriptors": {
+    "handy_book": {
+      "cluster": ["monitor"],
+      "indices": [
+        {
+          "names": ["hb-*"],
+          "privileges": [
+            "all"
+          ]
+        }
+      ]
+    }
+  }
+}

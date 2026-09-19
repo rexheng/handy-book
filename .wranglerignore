@@ -1,0 +1,21 @@
+# Intended static-asset exclude list for a Pages upload of the repo root.
+# Wrangler Pages does NOT read this file (upload IGNORE_LIST is hardcoded in
+# wrangler pages/validate.ts). Production deploy must assemble a thin directory
+# — see deploy/README.md and deploy/assemble-publish.ps1.
+#
+# `.assetsignore` is Workers static assets only, not Pages.
+# `_routes.json` only chooses Functions vs static routing; it does not omit files.
+
+tools/
+deploy/
+prototypes.html
+pocket/
+stack/
+night/
+bench/
+architecture.html
+.git/
+.wrangler/
+.dev.vars
+node_modules/
+.pages-publish/

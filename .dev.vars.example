@@ -1,4 +1,5 @@
-# Copy to .dev.vars (gitignored). Used by `npx wrangler pages dev .`
+# Copy to .dev.vars (gitignored). Used by:
+#   npx wrangler pages dev . --ip 127.0.0.1 --port 8788
 # Never commit real values.
 ELASTIC_URL=https://YOUR-PROJECT.es.REGION.azure.elastic.cloud
 ELASTIC_API_KEY=

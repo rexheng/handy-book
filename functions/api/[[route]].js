@@ -6,7 +6,7 @@
  * GET /api/bikes/:id
  * GET /api/bikes/:id/systems
  * GET /api/bikes/:id/parts?system=
- * GET /api/jobs/:bikeId/:partId
+ * GET /api/jobs/:bikeId/:partId  (Elastic _id is bikeId__partId, never slash)
  * GET /api/pages/:manualId/:n
  * GET /api/search?q=
  * GET /api/parts/:id
@@ -188,7 +188,7 @@ async function handleGet(context) {
     }
 
     if (parts[0] === "jobs" && parts.length === 3) {
-      const id = `${parts[1]}/${parts[2]}`;
+      const id = `${parts[1]}__${parts[2]}`;
       const { ok, status, data } = await esFetch(
         env,
         "GET",

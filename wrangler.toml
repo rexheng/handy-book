@@ -1,6 +1,9 @@
 name = "handy-book"
 compatibility_date = "2026-09-19"
-pages_build_output_dir = "."
+# Thin asset dir assembled by deploy/assemble-publish.ps1 (excludes tools/, deploy/,
+# prototypes). Wrangler Pages does not honour .wranglerignore. Local verify still
+# uses `npx wrangler pages dev . --ip 127.0.0.1 --port 8788` (CLI directory wins).
+pages_build_output_dir = ".pages-publish"
 
 # Public Elasticsearch endpoint only. The API key is a secret:
 #   npx wrangler pages secret put ELASTIC_API_KEY --project-name handy-book
