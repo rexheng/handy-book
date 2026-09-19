@@ -40,6 +40,11 @@ function getDoc(pdfjs, url) {
   return task.promise;
 }
 
+function targetCssWidth(canvas) {
+  const w = canvas && (canvas.clientWidth || canvas.parentElement?.clientWidth);
+  return w > 0 ? w : 360;
+}
+
 export async function renderPage(manualFileUrl, n, canvas, scale) {
   const pdfjs = await loadPdfjs();
   const pdf = await getDoc(pdfjs, manualFileUrl);
@@ -54,7 +59,18 @@ export async function renderPage(manualFileUrl, n, canvas, scale) {
     }
   }
 
-  const viewport = page.getViewport({ scale: scale || 1.5 });
+  const base = page.getViewport({ scale: 1 });
+  const pageW = base.width || 1;
+  let usedScale;
+  if (typeof scale === "number" && scale > 0) {
+    usedScale = scale;
+  } else {
+    const dpr = (typeof window !== "undefined" && window.devicePixelRatio) || 1;
+    usedScale = (targetCssWidth(canvas) * dpr) / pageW;
+  }
+  if (!Number.isFinite(usedScale) || usedScale <= 0) usedScale = 1;
+
+  const viewport = page.getViewport({ scale: usedScale });
   const ctx = canvas.getContext("2d", { alpha: false });
   canvas.width = viewport.width;
   canvas.height = viewport.height;
