@@ -37,7 +37,8 @@ function yearFoldOf(bike) {
 
 function tokenHit(hayToken, queryToken, yearFold) {
   if (yearFold && hayToken === yearFold) return hayToken === queryToken;
-  return hayToken === queryToken || hayToken.includes(queryToken);
+  if (hayToken === queryToken) return true;
+  return queryToken.length >= 3 && hayToken.startsWith(queryToken);
 }
 
 function overlapCount(hay, qTokens, yearFold) {
@@ -46,9 +47,22 @@ function overlapCount(hay, qTokens, yearFold) {
 
 function haystackOf(bike) {
   const yearFold = yearFoldOf(bike);
+  const fields = textFieldsOf(bike);
   const hay = [];
-  for (const field of textFieldsOf(bike)) hay.push(...tokens(field));
+  for (const field of fields) hay.push(...tokens(field));
   if (yearFold) hay.push(yearFold);
+
+  const makeFold = fold(bike.make);
+  const glued = new Set();
+  const joined = fold(fields.join(""));
+  if (joined) glued.add(joined);
+  if (makeFold) {
+    for (const ht of hay) {
+      if (ht && ht !== makeFold) glued.add(makeFold + ht);
+    }
+  }
+  for (const extra of glued) hay.push(extra);
+
   return { hay, yearFold };
 }
 

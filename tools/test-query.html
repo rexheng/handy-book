@@ -90,6 +90,14 @@
       check("findBikes suzuki 650 all-token only SV650", ids(findBikes("suzuki 650")), ["suzuki-sv650-2019"]);
       check("findBikes kawasaki 650 excludes CB650R", ids(findBikes("kawasaki 650")).includes("honda-cb650r-2021"), false);
       check("findBikes suzuki 650 excludes CB650R", ids(findBikes("suzuki 650")).includes("honda-cb650r-2021"), false);
+      check("findBikes z 650 → Z650 only", ids(findBikes("z 650")), ["kawasaki-z650-2020"]);
+      check("findBikes z-650 → Z650 only", ids(findBikes("z-650")), ["kawasaki-z650-2020"]);
+      check("findBikes z.650 → Z650 only", ids(findBikes("z.650")), ["kawasaki-z650-2020"]);
+      check("findBikes z 650 excludes SV650", ids(findBikes("z 650")).includes("suzuki-sv650-2019"), false);
+      check("findBikes kawasaki650 glued → Z650 only", ids(findBikes("kawasaki650")), ["kawasaki-z650-2020"]);
+      check("findBikes honda650 glued → CB650R only", ids(findBikes("honda650")), ["honda-cb650r-2021"]);
+      check("findBikes suzuki650 glued → SV650 only", ids(findBikes("suzuki650")), ["suzuki-sv650-2019"]);
+      check("findBikes yamahamt07 glued → MT-07 only", ids(findBikes("yamahamt07")), ["yamaha-mt-07-2021"]);
       check("findBikes cb6 prefix → CB650R", findBikes("cb6")[0]?.id, "honda-cb650r-2021");
 
       check("findBikes 20 is not a year substring", ids(findBikes("20")), []);
