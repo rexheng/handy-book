@@ -110,6 +110,7 @@
     const metaEl = document.getElementById("meta");
     const casesEl = document.getElementById("cases");
     const bootProbe = new URLSearchParams(location.search).has("boot-probe");
+    const appGoProbe = new URLSearchParams(location.search).has("app-go-probe");
     const autoCases = new URLSearchParams(location.search).has("cases");
 
     function log(line) {
@@ -169,6 +170,29 @@
 
     window.addEventListener("popstate", () => queueMicrotask(refreshMeta));
 
+    function visibleId() {
+      const visible = [...document.querySelectorAll("section[data-screen]")].find((s) => !s.hidden);
+      return visible ? visible.getAttribute("data-screen") : "none";
+    }
+
+    function iframeProbe(src, type) {
+      return new Promise((resolve) => {
+        const timer = setTimeout(() => resolve({ pass: false, timeout: true }), 3000);
+        function onMsg(e) {
+          if (!e.data || e.data.type !== type) return;
+          clearTimeout(timer);
+          window.removeEventListener("message", onMsg);
+          resolve(e.data);
+        }
+        window.addEventListener("message", onMsg);
+        const iframe = document.createElement("iframe");
+        iframe.title = type;
+        iframe.hidden = true;
+        iframe.src = src;
+        document.body.appendChild(iframe);
+      });
+    }
+
     async function probeBootRace() {
       const early = [];
       const off = (p) => early.push(p.id);
@@ -180,17 +204,40 @@
         anyVisible: [...document.querySelectorAll("section[data-screen]")].some((s) => !s.hidden),
       };
       registerAll();
-      const after = { hash: location.hash, events: early.slice() };
+      const afterBoot = { hash: location.hash, events: early.slice() };
+      go(location.hash.slice(1) || "identify", { replace: true });
+      const afterApp = { hash: location.hash, events: early.slice() };
       const pass =
         before.hash === "#follow" &&
         before.events.length === 0 &&
         !before.anyVisible &&
-        after.hash === "#identify" &&
-        after.events[0] === "identify";
-      const payload = { type: "boot-probe", pass, before, after };
+        afterBoot.hash === "#identify" &&
+        afterBoot.events[0] === "identify" &&
+        afterApp.hash === "#identify" &&
+        afterApp.events.length === afterBoot.events.length;
+      const payload = { type: "boot-probe", pass, before, after: afterBoot, afterApp };
       if (window.parent !== window) window.parent.postMessage(payload, "*");
       document.title = pass ? "BOOT-PROBE PASS" : "BOOT-PROBE FAIL";
       log("boot-probe " + (pass ? "PASS" : "FAIL"));
+      refreshMeta();
+      return payload;
+    }
+
+    async function probeAppGo() {
+      go("follow", { replace: true });
+      const mid = { hash: location.hash, screen: visibleId() };
+      registerAll();
+      const after = { hash: location.hash, screen: visibleId() };
+      const pass =
+        state.bikeId == null &&
+        mid.hash === "#identify" &&
+        mid.screen === "identify" &&
+        after.hash === "#identify" &&
+        after.screen === "identify";
+      const payload = { type: "app-go-probe", pass, mid, after };
+      if (window.parent !== window) window.parent.postMessage(payload, "*");
+      document.title = pass ? "APP-GO-PROBE PASS" : "APP-GO-PROBE FAIL";
+      log("app-go-probe " + (pass ? "PASS" : "FAIL"));
       refreshMeta();
       return payload;
     }
@@ -232,33 +279,49 @@
         pass: !second && rootText && rootText.textContent === "identify",
       });
 
+      const enterR1 = lines().filter((t) => t.startsWith("enter identify")).length;
+      const eventR1 = lines().filter((t) => t === "event screen identify").length;
+      go("identify", { replace: true });
+      const enterR2 = lines().filter((t) => t.startsWith("enter identify")).length;
+      const eventR2 = lines().filter((t) => t === "event screen identify").length;
+      results.push({
+        name: "go replace-only no double-enter",
+        pass: enterR2 === enterR1 && eventR2 === eventR1 && location.hash === "#identify",
+      });
+
+      go("identify", { replace: true, extra: 1 });
+      const enterR3 = lines().filter((t) => t.startsWith("enter identify")).length;
+      const eventR3 = lines().filter((t) => t === "event screen identify").length;
+      results.push({
+        name: "go replace with extra re-enters",
+        pass: enterR3 === enterR2 + 1 && eventR3 === eventR2 + 1 && location.hash === "#identify",
+      });
+
       const entersBefore = lines().filter((t) => t.startsWith("enter ")).length;
+      const leaveBefore = lines().filter((t) => t === "leave identify").length;
       history.replaceState(null, "", location.pathname + location.search);
       window.dispatchEvent(new PopStateEvent("popstate", { state: null }));
       const entersAfter = lines().filter((t) => t.startsWith("enter ")).length;
+      const leaveAfter = lines().filter((t) => t === "leave identify").length;
+      const allHidden = [...document.querySelectorAll("section[data-screen]")].every((s) => s.hidden);
+      const railNow = document.querySelector("li[data-step].now");
       results.push({
-        name: "popstate empty fall-through",
-        pass: entersAfter === entersBefore && location.hash !== "#identify" && location.hash === "",
+        name: "popstate empty syncs UI",
+        pass:
+          entersAfter === entersBefore &&
+          leaveAfter === leaveBefore + 1 &&
+          allHidden &&
+          !railNow &&
+          location.hash === "",
       });
       history.replaceState({ screen: "identify" }, "", "#identify");
       go("identify", { replace: true });
 
-      const boot = await new Promise((resolve) => {
-        const timer = setTimeout(() => resolve({ pass: false, timeout: true }), 3000);
-        function onMsg(e) {
-          if (!e.data || e.data.type !== "boot-probe") return;
-          clearTimeout(timer);
-          window.removeEventListener("message", onMsg);
-          resolve(e.data);
-        }
-        window.addEventListener("message", onMsg);
-        const iframe = document.createElement("iframe");
-        iframe.title = "boot-probe";
-        iframe.hidden = true;
-        iframe.src = "/tools/test-bus?boot-probe=1#follow";
-        document.body.appendChild(iframe);
-      });
+      const boot = await iframeProbe("/tools/test-bus?boot-probe=1#follow", "boot-probe");
       results.push({ name: "boot after register", pass: !!boot.pass });
+
+      const appGo = await iframeProbe("/tools/test-bus?app-go-probe=1#follow", "app-go-probe");
+      results.push({ name: "app.js go before register gates identify", pass: !!appGo.pass });
 
       results.forEach((r) => caseLine("CASE " + r.name + ": " + (r.pass ? "PASS" : "FAIL")));
       const all = results.every((r) => r.pass);
@@ -274,6 +337,8 @@
 
     if (bootProbe) {
       await probeBootRace();
+    } else if (appGoProbe) {
+      await probeAppGo();
     } else {
       registerAll();
       refreshMeta();

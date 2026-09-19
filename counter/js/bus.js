@@ -59,6 +59,12 @@ function allowed(id) {
   return state.bikeId != null && state.bikeId !== "";
 }
 
+function onlyReplace(params) {
+  if (!params || typeof params !== "object") return false;
+  const keys = Object.keys(params);
+  return keys.length === 1 && keys[0] === "replace" && params.replace === true;
+}
+
 function showSection(id) {
   document.querySelectorAll("section[data-screen]").forEach((section) => {
     section.hidden = section.getAttribute("data-screen") !== id;
@@ -86,7 +92,19 @@ function rootFor(id) {
 
 export function go(id, params) {
   if (!FLOW.includes(id)) return;
-  if (id === currentId && !(params && params.replace)) return;
+
+  let next = params;
+  if (currentId == null && !allowed(id)) {
+    id = "identify";
+    next = Object.assign({}, params, { replace: true });
+  }
+
+  if (id === currentId && !(next && next.replace)) return;
+
+  if (id === currentId && onlyReplace(next)) {
+    history.replaceState({ screen: id }, "", "#" + id);
+    return;
+  }
 
   showSection(id);
   updateRail(id);
@@ -102,14 +120,14 @@ export function go(id, params) {
       if (typeof rec.mount === "function") rec.mount(rootFor(id));
       rec.mounted = true;
     }
-    if (typeof rec.enter === "function") rec.enter(params);
+    if (typeof rec.enter === "function") rec.enter(next);
   }
 
   currentId = id;
 
   const hist = { screen: id };
   const url = "#" + id;
-  if (params && params.replace) history.replaceState(hist, "", url);
+  if (next && next.replace) history.replaceState(hist, "", url);
   else history.pushState(hist, "", url);
 
   emit("screen", { id });
@@ -131,7 +149,16 @@ function onPop(event) {
   const hash = location.hash.replace(/^#/, "");
   const fromState = event.state && event.state.screen;
   const id = hash || fromState;
-  if (!id) return;
+  if (!id) {
+    if (currentId) {
+      const prev = screens.get(currentId);
+      if (prev && typeof prev.leave === "function") prev.leave();
+    }
+    showSection(null);
+    updateRail(null);
+    currentId = null;
+    return;
+  }
   go(FLOW.includes(id) ? id : "identify", { replace: true });
 }
 
