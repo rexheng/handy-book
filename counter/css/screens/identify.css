@@ -1,0 +1,135 @@
+[data-screen="identify"] .id-dock {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-top: -12px;
+}
+
+[data-screen="identify"] .id-search {
+  display: flex;
+  align-items: stretch;
+  height: 56px;
+  border: 3px solid var(--ink);
+  border-top: 0;
+  background: var(--card);
+}
+
+[data-screen="identify"] .id-search:focus-within {
+  outline: 3px solid var(--orange);
+  outline-offset: -3px;
+}
+
+[data-screen="identify"] .id-shot {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  margin: auto 0 auto 3px;
+  object-fit: cover;
+  display: block;
+  flex: none;
+}
+
+[data-screen="identify"] .id-q {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: Barlow, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  padding: 0 12px;
+  appearance: none;
+}
+
+[data-screen="identify"] .id-q:focus,
+[data-screen="identify"] .id-q:focus-visible {
+  outline: none;
+}
+
+[data-screen="identify"] .id-q::-webkit-search-decoration,
+[data-screen="identify"] .id-q::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+[data-screen="identify"] .id-search .btn-icon {
+  width: 53px;
+  min-width: 53px;
+  height: auto;
+  min-height: 44px;
+  border: 0;
+  border-left: 3px solid var(--ink);
+  flex: none;
+}
+
+[data-screen="identify"] .id-search .btn-icon svg {
+  display: block;
+}
+
+[data-screen="identify"] .id-progress {
+  height: 3px;
+  background: var(--orange);
+  transform-origin: left center;
+  animation: id-scan 0.8s linear infinite;
+}
+
+[data-screen="identify"] .id-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+[data-screen="identify"] .tile {
+  aspect-ratio: 3 / 2;
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  appearance: none;
+}
+
+[data-screen="identify"] .tile > .stamp {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+[data-screen="identify"] .tile .id-name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--yellow);
+  color: var(--ink);
+  font-family: Barlow, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes id-scan {
+  0% {
+    transform: scaleX(0.12);
+  }
+  50% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0.12);
+  }
+}
