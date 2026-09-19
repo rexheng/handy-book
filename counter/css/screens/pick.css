@@ -30,6 +30,7 @@
 }
 
 [data-screen="pick"] .who img {
+  box-sizing: content-box;
   width: 44px;
   height: 44px;
   flex-shrink: 0;

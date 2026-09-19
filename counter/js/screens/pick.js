@@ -15,6 +15,9 @@ let meterFill;
 let systemsEl;
 let partsEl;
 let savedY = 0;
+let restoreGen = 0;
+let freezeY = false;
+let prevScrollRestoration = null;
 let lastBikeId = null;
 let hitIds = new Set();
 let autoTimer = 0;
@@ -29,6 +32,7 @@ registerScreen("pick", {
 function mount(el) {
   root = el;
   root.replaceChildren();
+  window.addEventListener("scroll", snapshotY, { passive: true });
 
   const strip = node("div", { class: "strip sheet" });
 
@@ -36,7 +40,10 @@ function mount(el) {
     type: "button",
     class: "who",
   });
-  bikeBtn.addEventListener("click", () => go("confirm"));
+  bikeBtn.addEventListener("click", () => {
+    snapshotY();
+    go("confirm");
+  });
   bikeImg = node("img", {
     loading: "lazy",
     decoding: "async",
@@ -109,6 +116,8 @@ function enter() {
 }
 
 function enterReady(rec) {
+  freezeY = true;
+  lockHistoryScroll();
   if (state.bikeId !== lastBikeId) {
     savedY = 0;
     hitIds = new Set();
@@ -121,12 +130,56 @@ function enterReady(rec) {
   }
 
   paint(rec, sysList);
-  window.scrollTo(0, savedY);
+  restoreScroll();
 }
 
 function leave() {
-  savedY = window.scrollY;
+  restoreGen += 1;
+  freezeY = false;
+  snapshotY();
   clearAuto();
+  if (!state.bikeId) unlockHistoryScroll();
+}
+
+function snapshotY() {
+  if (freezeY) return;
+  const section = root && root.closest("[data-screen]");
+  if (section && !section.hidden) savedY = window.scrollY;
+}
+
+function lockHistoryScroll() {
+  if (prevScrollRestoration == null) {
+    prevScrollRestoration = history.scrollRestoration || "auto";
+  }
+  try {
+    history.scrollRestoration = "manual";
+  } catch {
+    /* ignore */
+  }
+}
+
+function unlockHistoryScroll() {
+  if (prevScrollRestoration == null) return;
+  try {
+    history.scrollRestoration = prevScrollRestoration;
+  } catch {
+    /* ignore */
+  }
+  prevScrollRestoration = null;
+}
+
+function restoreScroll() {
+  const y = savedY;
+  const gen = ++restoreGen;
+  freezeY = true;
+  window.scrollTo(0, y);
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      if (gen !== restoreGen) return;
+      window.scrollTo(0, y);
+      freezeY = false;
+    });
+  });
 }
 
 function paint(rec, sysList) {
@@ -182,6 +235,7 @@ function pickPart(partId) {
   clearAuto();
   const job = Q.job(state.bikeId, partId);
   if (!job) return;
+  snapshotY();
   set({ partId, jobId: job.id });
   emit("part", { partId });
   go("book");
@@ -251,6 +305,7 @@ function applyVision(rows) {
     scrollHits();
     autoTimer = window.setTimeout(() => {
       autoTimer = 0;
+      snapshotY();
       go("book");
     }, AUTO_MS);
     return;
@@ -295,6 +350,7 @@ function tile({ id, name, src, stamp, on, pressed, onClick }) {
     alt: name,
   });
   btn.append(img);
+  btn.setAttribute("aria-label", stamp ? `${name}, ${stamp}` : name);
   if (stamp) {
     const mark = node("span", { class: "stamp", "aria-hidden": "true" });
     mark.textContent = stamp;
