@@ -3,23 +3,46 @@ import * as Q from "../query.js";
 
 const SVG = "http://www.w3.org/2000/svg";
 const SWIPE = 48;
+const TAP = 10;
 const PINCH_MAX = 4;
+const LANDSCAPE_AR = 1.2;
+const BORDER = 6;
 const els = {};
+
+const MANUAL_RASTER = {
+  "honda-cb650r-2021-om": [1400, 994],
+  "yamaha-mt-07-2021-om": [1400, 985],
+  "kawasaki-z650-2020-om": [1400, 993],
+  "suzuki-sv650-2019-om": [1400, 1991],
+};
+
+const sizeCache = new Map();
 
 let live = false;
 let job = null;
 let steps = [];
 let index = 0;
 let cropped = true;
+let fit = "width";
+let chromeOn = true;
+let pageW = 1400;
+let pageH = 994;
+let frameW = 0;
+let frameH = 0;
+let contentW = 0;
+let contentH = 0;
 let scale = 1;
 let tx = 0;
 let ty = 0;
 const pointers = new Map();
 let pinch0 = 1;
 let scale0 = 1;
+let pinchContent = { x: 0, y: 0 };
 let pan0 = { x: 0, y: 0 };
 let pt0 = { x: 0, y: 0 };
 let didPinch = false;
+let didPan = false;
+let enterGen = 0;
 
 function glyph(...ds) {
   const svg = document.createElementNS(SVG, "svg");
@@ -75,18 +98,229 @@ function labelPage(n) {
   return `p.${n}`;
 }
 
+function isLandscape() {
+  return pageW / pageH > LANDSCAPE_AR;
+}
+
+function rememberSize(w, h, manualId) {
+  if (!w || !h) return;
+  pageW = w;
+  pageH = h;
+  if (manualId) sizeCache.set(manualId, { w, h });
+  if (els.frame) els.frame.style.setProperty("--page-ar", String(w / h));
+}
+
+function applyKnownRaster(manualId) {
+  const cached = sizeCache.get(manualId);
+  if (cached) {
+    rememberSize(cached.w, cached.h, manualId);
+    return true;
+  }
+  const pair = MANUAL_RASTER[manualId];
+  if (pair) {
+    rememberSize(pair[0], pair[1], manualId);
+    return true;
+  }
+  return false;
+}
+
+function probePage(manualId, page) {
+  applyKnownRaster(manualId);
+  const src = Q.pageUrl(manualId, page);
+  const known = sizeCache.has(manualId) || MANUAL_RASTER[manualId];
+  const img = new Image();
+  img.decoding = "async";
+  const apply = () => {
+    if (img.naturalWidth && img.naturalHeight) {
+      rememberSize(img.naturalWidth, img.naturalHeight, manualId);
+    }
+  };
+  if (img.complete && img.naturalWidth) {
+    apply();
+    return Promise.resolve();
+  }
+  img.src = src;
+  if (img.complete && img.naturalWidth) {
+    apply();
+    return Promise.resolve();
+  }
+  return new Promise((resolve) => {
+    img.onload = () => {
+      apply();
+      resolve();
+    };
+    img.onerror = () => resolve();
+    if (known) resolve();
+  });
+}
+
 function resetZoom() {
   scale = 1;
   tx = 0;
   ty = 0;
   pointers.clear();
   didPinch = false;
+  didPan = false;
+  chromeOn = true;
   if (els.zoom) els.zoom.style.transform = "";
+  if (els.root) els.root.classList.remove("is-reading");
 }
 
-function applyZoom() {
+function framePoint(clientX, clientY) {
+  const rect = els.frame.getBoundingClientRect();
+  const cs = getComputedStyle(els.frame);
+  const bl = parseFloat(cs.borderLeftWidth) || 0;
+  const bt = parseFloat(cs.borderTopWidth) || 0;
+  return { x: clientX - rect.left - bl, y: clientY - rect.top - bt };
+}
+
+function clampPan() {
+  const sw = contentW * scale;
+  const sh = contentH * scale;
+  if (sw <= frameW) tx = (frameW - sw) / 2;
+  else tx = Math.min(0, Math.max(frameW - sw, tx));
+  if (sh <= frameH) ty = (frameH - sh) / 2;
+  else ty = Math.min(0, Math.max(frameH - sh, ty));
+}
+
+function paintIndicator() {
+  if (!els.ind || !els.indThumb) return;
+  const sw = contentW * scale;
+  const canX = sw > frameW + 1;
+  els.frame.classList.toggle("is-pan-x", canX);
+  if (!canX) return;
+  const track = els.ind.clientWidth || Math.max(0, frameW - 16);
+  const thumbW = Math.max(20, (frameW / sw) * track);
+  const maxTx = sw - frameW;
+  const t = maxTx <= 0 ? 0 : Math.min(1, Math.max(0, -tx / maxTx));
+  els.indThumb.style.width = `${thumbW}px`;
+  els.indThumb.style.transform = `translateX(${t * (track - thumbW)}px)`;
+}
+
+function applyZoom(opts) {
   if (!els.zoom) return;
   els.zoom.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  const zoomed = scale > 1.02;
+  if (opts && opts.fromZoom) chromeOn = !zoomed;
+  if (!zoomed) chromeOn = true;
+  if (els.root) els.root.classList.toggle("is-reading", zoomed && !chromeOn);
+  paintIndicator();
+}
+
+function measureAvailH() {
+  const ticket = document.querySelector("header.ticket");
+  const rail = document.querySelector("ol.rail");
+  const main = document.querySelector("main");
+  const cs = main ? getComputedStyle(main) : null;
+  const pad = cs ? parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) : 44;
+  const ticketH = ticket ? ticket.getBoundingClientRect().height : 0;
+  const railH = rail ? rail.getBoundingClientRect().height : 0;
+  const progressH = els.progress ? els.progress.offsetHeight : 0;
+  const relatedH = els.related && !els.related.hidden ? els.related.offsetHeight : 0;
+  const partH = els.partBtn ? els.partBtn.offsetHeight : 0;
+  const gap = els.root ? parseFloat(getComputedStyle(els.root).gap) || 10 : 10;
+  const items = 3 + (els.related && !els.related.hidden ? 1 : 0);
+  const used = ticketH + railH + pad + progressH + relatedH + partH + (items - 1) * gap;
+  return Math.max(160, window.innerHeight - used);
+}
+
+function layout() {
+  if (!els.frame || !els.zoom || !els.stage) return;
+  const ar = pageW / pageH;
+  els.frame.style.setProperty("--page-ar", String(ar));
+
+  if (els.frame.classList.contains("is-crop")) {
+    els.frame.classList.remove("is-sized", "is-fit-height", "is-fit-width", "is-pan-x");
+    els.frame.style.removeProperty("--stage-w");
+    els.frame.style.removeProperty("--stage-h");
+    els.zoom.style.width = "";
+    els.zoom.style.height = "";
+    requestAnimationFrame(() => {
+      frameW = els.frame.clientWidth;
+      frameH = els.frame.clientHeight;
+      contentW = frameW;
+      contentH = frameH;
+      clampPan();
+      applyZoom();
+    });
+    return;
+  }
+
+  const availH = measureAvailH();
+  const stageW = els.stage.clientWidth || els.root.clientWidth || 366;
+  const useHeight = isLandscape() && fit === "height";
+  els.frame.classList.toggle("is-fit-height", useHeight);
+  els.frame.classList.toggle("is-fit-width", !useHeight);
+  els.frame.classList.add("is-sized");
+
+  const innerMaxW = Math.max(80, stageW - BORDER);
+  const innerMaxH = Math.max(80, availH - BORDER);
+  let innerW;
+  let innerH;
+
+  if (useHeight) {
+    innerH = innerMaxH;
+    contentH = innerH;
+    contentW = innerH * ar;
+    innerW = Math.min(innerMaxW, contentW);
+  } else {
+    innerW = innerMaxW;
+    innerH = innerW / ar;
+    if (innerH > innerMaxH) {
+      innerH = innerMaxH;
+      innerW = innerH * ar;
+    }
+    contentW = innerW;
+    contentH = innerH;
+  }
+
+  frameW = innerW;
+  frameH = innerH;
+  els.frame.style.setProperty("--stage-w", `${innerW + BORDER}px`);
+  els.frame.style.setProperty("--stage-h", `${innerH + BORDER}px`);
+  els.zoom.style.width = `${contentW}px`;
+  els.zoom.style.height = `${contentH}px`;
+  clampPan();
+  applyZoom();
+}
+
+function zoomAt(clientX, clientY, nextScale) {
+  const pt = framePoint(clientX, clientY);
+  const newScale = Math.min(PINCH_MAX, Math.max(1, nextScale));
+  const cx = (pt.x - tx) / scale;
+  const cy = (pt.y - ty) / scale;
+  scale = newScale;
+  tx = pt.x - cx * scale;
+  ty = pt.y - cy * scale;
+  clampPan();
+  applyZoom({ fromZoom: true });
+}
+
+function capturePinch() {
+  const pts = [...pointers.values()];
+  if (pts.length < 2) return;
+  const [a, b] = pts;
+  pinch0 = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+  scale0 = scale;
+  const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+  const pt = framePoint(mid.x, mid.y);
+  pinchContent = {
+    x: (pt.x - tx) / scale,
+    y: (pt.y - ty) / scale,
+  };
+  didPinch = true;
+}
+
+function onTap() {
+  if (scale > 1.02) {
+    chromeOn = !chromeOn;
+    applyZoom();
+    return;
+  }
+  if (!isLandscape()) return;
+  fit = fit === "height" ? "width" : "height";
+  resetZoom();
+  layout();
 }
 
 function closeOverlay() {
@@ -189,10 +423,11 @@ function show() {
   const n = steps.length;
   const src = Q.pageUrl(job.manualId, page);
 
+  applyKnownRaster(job.manualId);
+
   els.indexStamp.textContent = `${index + 1} / ${n}`;
   els.pageStamp.textContent = labelPage(page);
   els.pageImg.alt = labelPage(page);
-  els.pageImg.src = src;
   applyCrop(step);
   paintDots();
 
@@ -200,6 +435,12 @@ function show() {
   els.nextBtn.disabled = index >= n - 1;
 
   resetZoom();
+  fit = isLandscape() ? "height" : "width";
+  els.pageImg.src = src;
+  if (els.pageImg.complete && els.pageImg.naturalWidth) {
+    rememberSize(els.pageImg.naturalWidth, els.pageImg.naturalHeight, job.manualId);
+  }
+  layout();
   publish(step);
 
   const next = steps[index + 1];
@@ -233,6 +474,11 @@ function onKey(event) {
   }
 }
 
+function onResize() {
+  if (!live) return;
+  layout();
+}
+
 function onPointerDown(event) {
   if (!live || !els.overlay.hidden) return;
   if (event.button && event.button !== 0) return;
@@ -246,11 +492,9 @@ function onPointerDown(event) {
     pt0 = { x: event.clientX, y: event.clientY };
     pan0 = { x: tx, y: ty };
     didPinch = false;
+    didPan = false;
   } else if (pointers.size >= 2) {
-    const [a, b] = [...pointers.values()];
-    pinch0 = Math.hypot(a.x - b.x, a.y - b.y) || 1;
-    scale0 = scale;
-    didPinch = true;
+    capturePinch();
   }
 }
 
@@ -260,18 +504,26 @@ function onPointerMove(event) {
   if (pointers.size >= 2) {
     const [a, b] = [...pointers.values()];
     const dist = Math.hypot(a.x - b.x, a.y - b.y) || 1;
-    scale = Math.min(PINCH_MAX, Math.max(1, scale0 * (dist / pinch0)));
-    if (scale === 1) {
-      tx = 0;
-      ty = 0;
-    }
-    applyZoom();
+    const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+    const next = Math.min(PINCH_MAX, Math.max(1, scale0 * (dist / pinch0)));
+    const pt = framePoint(mid.x, mid.y);
+    scale = next;
+    tx = pt.x - pinchContent.x * scale;
+    ty = pt.y - pinchContent.y * scale;
+    clampPan();
+    applyZoom({ fromZoom: true });
     didPinch = true;
     return;
   }
-  if (scale > 1.01) {
-    tx = pan0.x + (event.clientX - pt0.x);
-    ty = pan0.y + (event.clientY - pt0.y);
+  const canPan =
+    scale > 1.01 || contentW * scale > frameW + 1 || contentH * scale > frameH + 1;
+  if (canPan) {
+    const ndx = event.clientX - pt0.x;
+    const ndy = event.clientY - pt0.y;
+    if (Math.hypot(ndx, ndy) >= TAP) didPan = true;
+    tx = pan0.x + ndx;
+    ty = pan0.y + ndy;
+    clampPan();
     applyZoom();
   }
 }
@@ -285,31 +537,48 @@ function onPointerUp(event) {
     /* ignore */
   }
   if (pointers.size === 0) {
-    if (!didPinch && scale <= 1.01) {
+    if (!didPinch) {
       const dx = event.clientX - pt0.x;
       const dy = event.clientY - pt0.y;
-      if (Math.abs(dx) >= SWIPE && Math.abs(dx) > Math.abs(dy)) {
-        goStep(dx < 0 ? 1 : -1);
+      const dist = Math.hypot(dx, dy);
+      if (dist < TAP) {
+        onTap();
+      } else if (scale <= 1.01 && Math.abs(dx) >= SWIPE && Math.abs(dx) > Math.abs(dy)) {
+        const sw = contentW * scale;
+        const atLeft = tx >= -2;
+        const atRight = tx <= frameW - sw + 2;
+        if (fit === "width" || sw <= frameW + 1 || (dx < 0 && atRight) || (dx > 0 && atLeft)) {
+          goStep(dx < 0 ? 1 : -1);
+        }
       }
     }
-    if (scale < 1.02) resetZoom();
+    if (scale < 1.02) {
+      scale = 1;
+      clampPan();
+      applyZoom();
+    }
     return;
   }
   const rest = [...pointers.values()][0];
   pt0 = { x: rest.x, y: rest.y };
   pan0 = { x: tx, y: ty };
+  if (pointers.size >= 2) capturePinch();
 }
 
 function onWheel(event) {
   if (!live || !els.overlay.hidden) return;
-  event.preventDefault();
-  const next = scale * (event.deltaY < 0 ? 1.12 : 0.9);
-  scale = Math.min(PINCH_MAX, Math.max(1, next));
-  if (scale === 1) {
-    tx = 0;
-    ty = 0;
+  if (event.ctrlKey || event.metaKey) {
+    event.preventDefault();
+    const next = scale * (event.deltaY < 0 ? 1.12 : 0.9);
+    zoomAt(event.clientX, event.clientY, next);
+    return;
   }
-  applyZoom();
+  if (contentW * scale > frameW + 1) {
+    event.preventDefault();
+    tx -= event.deltaX || event.deltaY;
+    clampPan();
+    applyZoom();
+  }
 }
 
 registerScreen("follow", {
@@ -344,12 +613,20 @@ registerScreen("follow", {
     pageImg.alt = "";
     pageImg.addEventListener("load", () => {
       if (pageImg.naturalWidth && pageImg.naturalHeight) {
-        frame.style.setProperty("--page-ar", String(pageImg.naturalWidth / pageImg.naturalHeight));
+        rememberSize(pageImg.naturalWidth, pageImg.naturalHeight, job && job.manualId);
+        if (live) layout();
       }
     });
 
     zoom.append(pageImg);
-    frame.append(zoom);
+
+    const ind = document.createElement("div");
+    ind.className = "pan-ind";
+    ind.setAttribute("aria-hidden", "true");
+    const indThumb = document.createElement("i");
+    ind.append(indThumb);
+
+    frame.append(zoom, ind);
 
     const prevBtn = document.createElement("button");
     prevBtn.type = "button";
@@ -375,6 +652,7 @@ registerScreen("follow", {
       cropped = !cropped;
       applyCrop(steps[index]);
       resetZoom();
+      layout();
     });
 
     const overlay = document.createElement("div");
@@ -409,12 +687,17 @@ registerScreen("follow", {
     root.append(progress, stage, related, partBtn);
 
     Object.assign(els, {
+      root,
+      progress,
       indexStamp,
       dots,
       pageStamp,
+      stage,
       frame,
       zoom,
       pageImg,
+      ind,
+      indThumb,
       prevBtn,
       nextBtn,
       cropBtn,
@@ -422,6 +705,7 @@ registerScreen("follow", {
       overImg,
       closeBtn,
       related,
+      partBtn,
     });
 
     frame.addEventListener("pointerdown", onPointerDown);
@@ -429,9 +713,10 @@ registerScreen("follow", {
     frame.addEventListener("pointerup", onPointerUp);
     frame.addEventListener("pointercancel", onPointerUp);
     frame.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("resize", onResize);
   },
 
-  enter(params) {
+  async enter(params) {
     if (!live) window.addEventListener("keydown", onKey);
     live = true;
     closeOverlay();
@@ -453,6 +738,7 @@ registerScreen("follow", {
       return;
     }
 
+    const my = ++enterGen;
     job = rec;
     steps = list;
     cropped = true;
@@ -461,7 +747,10 @@ registerScreen("follow", {
     const wanted = Number(raw);
     index = Number.isFinite(wanted) ? Math.max(0, Math.min(list.length - 1, Math.trunc(wanted))) : 0;
 
+    applyKnownRaster(rec.manualId);
     paintRelated();
+    await probePage(rec.manualId, pageOf(list[index]));
+    if (my !== enterGen || !live) return;
     show();
   },
 

@@ -15,6 +15,7 @@
 [data-screen="follow"] .follow-progress .stamp {
   flex: 0 0 auto;
   font-variant-numeric: tabular-nums;
+  text-transform: none;
 }
 
 [data-screen="follow"] .dots {
@@ -47,28 +48,47 @@
 [data-screen="follow"] .stage {
   position: relative;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 [data-screen="follow"] .stage-frame {
   --page-ar: 1.40845;
   position: relative;
-  width: 100%;
+  width: var(--stage-w, 100%);
+  height: var(--stage-h, auto);
+  max-width: 100%;
   aspect-ratio: var(--page-ar);
   overflow: hidden;
   border: 3px solid var(--ink);
   background: var(--card);
   touch-action: none;
   user-select: none;
+  overscroll-behavior: none;
+}
+
+[data-screen="follow"] .stage-frame.is-sized {
+  aspect-ratio: auto;
 }
 
 [data-screen="follow"] .stage-frame.is-crop {
+  width: 100%;
+  height: auto;
   aspect-ratio: calc(var(--page-ar) * var(--cw) / var(--ch));
 }
 
 [data-screen="follow"] .stage-zoom {
   position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+[data-screen="follow"] .stage-frame.is-crop .stage-zoom {
   inset: 0;
-  transform-origin: center center;
+  width: auto;
+  height: auto;
 }
 
 [data-screen="follow"] .stage-frame img {
@@ -87,6 +107,30 @@
   height: calc(100% / var(--ch));
   max-width: none;
   transform: translate(calc(var(--cx) * -100%), calc(var(--cy) * -100%));
+}
+
+[data-screen="follow"] .pan-ind {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 4px;
+  height: 3px;
+  background: rgba(20, 20, 20, 0.18);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+
+[data-screen="follow"] .stage-frame.is-pan-x .pan-ind {
+  opacity: 1;
+}
+
+[data-screen="follow"] .pan-ind i {
+  display: block;
+  height: 3px;
+  width: 24px;
+  background: var(--orange);
+  transform-origin: left center;
 }
 
 [data-screen="follow"] .nav-prev,
@@ -115,6 +159,15 @@
 [data-screen="follow"] .crop-btn[aria-pressed="true"] {
   background: var(--orange);
   color: #fff;
+}
+
+[data-screen="follow"] [data-root].is-reading .follow-progress,
+[data-screen="follow"] [data-root].is-reading .part-btn,
+[data-screen="follow"] [data-root].is-reading .nav-prev,
+[data-screen="follow"] [data-root].is-reading .nav-next,
+[data-screen="follow"] [data-root].is-reading .crop-btn {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 [data-screen="follow"] .btn:disabled {
@@ -192,7 +245,7 @@
   font-weight: 800;
   font-size: 0.7rem;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: none;
   font-variant-numeric: tabular-nums;
   padding: 2px 4px;
   text-align: center;
