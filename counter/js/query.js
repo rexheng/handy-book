@@ -139,11 +139,12 @@ export function loadCatalog(url = DEFAULT_URL) {
       })
       .then((catalog) => {
         validateCatalog(catalog);
-        data = catalog;
         indexCatalog(catalog);
+        data = catalog;
         return catalog;
       })
       .catch((err) => {
+        data = null;
         loadPromise = undefined;
         throw err;
       });

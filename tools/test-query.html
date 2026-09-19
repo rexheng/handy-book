@@ -187,6 +187,24 @@
         check("retried catalog() is the loaded catalog", fresh.catalog() === recovered, true);
         check("retried findBikes sees bikes", fresh.findBikes("")[0]?.id, "honda-cb650r-2021");
       }
+
+      {
+        const fresh = await import(`../counter/js/query.js?bad=${Date.now()}`);
+        let rejected = false;
+        try {
+          await fresh.loadCatalog("./fixtures/catalog.bad.json");
+        } catch {
+          rejected = true;
+        }
+        check("malformed catalog rejects and does not publish", rejected && fresh.catalog() == null, true);
+        let roster;
+        try {
+          roster = ids(fresh.findBikes(""));
+        } catch {
+          roster = "threw";
+        }
+        check("malformed catalog findBikes returns []", roster, []);
+      }
     } catch (err) {
       check("runner threw: " + (err && err.message), false, true);
     }
