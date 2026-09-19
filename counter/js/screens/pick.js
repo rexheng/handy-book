@@ -210,12 +210,12 @@ function paint(rec, sysList) {
   const parts = state.systemId ? Q.partsFor(state.bikeId, state.systemId) : [];
   fillGrid(partsEl, parts, (part) => {
     const job = Q.job(state.bikeId, part.id);
-    const first = firstPage(job);
+    const stamp = printedStamp(job);
     return tile({
       id: part.id,
       name: part.name,
       src: Q.asset(part.thumb || part.image),
-      stamp: first != null ? `p.${first}` : "",
+      stamp,
       on: hitIds.has(part.id) || part.id === state.partId,
       pressed: false,
       onClick: () => pickPart(part.id),
@@ -321,10 +321,13 @@ function scrollHits() {
   else partsEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
 
-function firstPage(job) {
-  if (!job) return null;
-  if (Array.isArray(job.pages) && job.pages.length) return job.pages[0];
-  return null;
+function printedStamp(job) {
+  if (!job) return "";
+  const raw = job.printedPage;
+  if (raw == null || String(raw).trim() === "") return "";
+  const printed = String(raw).trim();
+  if (/^\d+$/.test(printed)) return `p.${printed}`;
+  return printed;
 }
 
 function fillGrid(box, items, make) {
