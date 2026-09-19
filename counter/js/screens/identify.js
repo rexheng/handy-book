@@ -90,7 +90,7 @@ function tileFor(bike) {
   const img = el("img", {
     loading: "lazy",
     decoding: "async",
-    alt: `${bike.make} ${bike.model}`,
+    alt: "",
   });
   img.src = Q.asset(bike.thumb || bike.image);
   const stamp = el("span", { className: "stamp", text: String(bike.year) });
@@ -218,5 +218,7 @@ registerScreen("identify", {
   },
   leave() {
     clearTimeout(debounceId);
+    visionGen += 1;
+    showProgress(false);
   },
 });
