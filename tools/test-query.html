@@ -225,6 +225,25 @@
         check("bad systems systems('x') returns []", sys, []);
         check("bad systems bike(id) is undefined", fresh.bike("honda-cb650r-2021"), undefined);
       }
+
+      {
+        const fresh = await import(`../counter/js/query.js?bad-systems-null=${Date.now()}`);
+        let rejected = false;
+        try {
+          await fresh.loadCatalog("./fixtures/catalog.bad-systems-null.json");
+        } catch {
+          rejected = true;
+        }
+        check("null systems row catalog rejects", rejected, true);
+        check("null systems row catalog() is null", fresh.catalog(), null);
+        let sys;
+        try {
+          sys = ids(fresh.systems("x"));
+        } catch {
+          sys = "threw";
+        }
+        check("null systems row systems('x') returns []", sys, []);
+      }
     } catch (err) {
       check("runner threw: " + (err && err.message), false, true);
     }

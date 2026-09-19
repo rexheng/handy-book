@@ -1,0 +1,14 @@
+{
+  "bikes": [
+    {
+      "id": "honda-cb650r-2021",
+      "make": "Honda",
+      "model": "CB650R",
+      "year": 2021
+    }
+  ],
+  "manuals": [],
+  "systems": [null],
+  "parts": [],
+  "jobs": []
+}

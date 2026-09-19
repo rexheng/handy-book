@@ -10,6 +10,7 @@ let loadPromise;
 let data = null;
 let bikeIndex = new Map();
 let manualIndex = new Map();
+let systemIndex = new Map();
 let partIndex = new Map();
 let jobIndex = new Map();
 
@@ -96,17 +97,31 @@ function rankBike(bike, qFold, qTokens) {
 function resetIndexes() {
   bikeIndex = new Map();
   manualIndex = new Map();
+  systemIndex = new Map();
   partIndex = new Map();
   jobIndex = new Map();
 }
 
+function indexRows(rows, key) {
+  const next = new Map();
+  for (const row of rows) {
+    if (!row || typeof row !== "object" || typeof row.id !== "string") {
+      throw new Error(`loadCatalog: ${key} row is missing a string id`);
+    }
+    next.set(row.id, row);
+  }
+  return next;
+}
+
 function indexCatalog(catalog) {
-  const nextBikes = new Map(catalog.bikes.map((row) => [row.id, row]));
-  const nextManuals = new Map(catalog.manuals.map((row) => [row.id, row]));
-  const nextParts = new Map(catalog.parts.map((row) => [row.id, row]));
-  const nextJobs = new Map(catalog.jobs.map((row) => [row.id, row]));
+  const nextBikes = indexRows(catalog.bikes, "bikes");
+  const nextManuals = indexRows(catalog.manuals, "manuals");
+  const nextSystems = indexRows(catalog.systems, "systems");
+  const nextParts = indexRows(catalog.parts, "parts");
+  const nextJobs = indexRows(catalog.jobs, "jobs");
   bikeIndex = nextBikes;
   manualIndex = nextManuals;
+  systemIndex = nextSystems;
   partIndex = nextParts;
   jobIndex = nextJobs;
 }
