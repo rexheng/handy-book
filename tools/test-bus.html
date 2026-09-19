@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bus test</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Barlow, system-ui, sans-serif;
+      background: #ece7dc;
+      color: #141414;
+      min-height: 100dvh;
+    }
+    .ticket {
+      background: #e85d04;
+      color: #fff;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 16px 14px 32px; }
+    .rail {
+      list-style: none;
+      display: flex;
+      gap: 8px;
+      margin: 12px 0 16px;
+    }
+    .rail li {
+      flex: 1;
+      border: 3px solid #141414;
+      background: #fff;
+      text-align: center;
+      font-weight: 800;
+      padding: 10px 0;
+      min-height: 44px;
+    }
+    .rail li.done { background: #ffe600; }
+    .rail li.now { background: #e85d04; color: #fff; }
+    section[data-screen] {
+      border: 3px solid #141414;
+      background: #fff;
+      min-height: 88px;
+      padding: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0; }
+    button {
+      font: inherit;
+      font-weight: 800;
+      text-transform: uppercase;
+      border: 3px solid #141414;
+      background: #ffe600;
+      padding: 12px 8px;
+      cursor: pointer;
+      min-height: 44px;
+    }
+    #meta { font-weight: 800; margin: 8px 0 16px; }
+    #log {
+      list-style: none;
+      background: #fff;
+      border: 3px solid #141414;
+      padding: 10px;
+      min-height: 120px;
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+    }
+    #log li { padding: 2px 0; }
+  </style>
+</head>
+<body>
+  <div class="ticket"><span>BUS</span><b>A-17</b></div>
+  <main>
+    <ol class="rail">
+      <li data-step="identify">1</li>
+      <li data-step="confirm">2</li>
+      <li data-step="pick">3</li>
+      <li data-step="book">4</li>
+      <li data-step="follow">5</li>
+      <li data-step="invoice">6</li>
+    </ol>
+    <section data-screen="identify" hidden><div data-root></div></section>
+    <section data-screen="confirm" hidden><div data-root></div></section>
+    <section data-screen="pick" hidden><div data-root></div></section>
+    <section data-screen="book" hidden><div data-root></div></section>
+    <section data-screen="follow" hidden><div data-root></div></section>
+    <section data-screen="invoice" hidden><div data-root></div></section>
+    <p id="meta"></p>
+    <div class="row">
+      <button type="button" data-go="identify">identify</button>
+      <button type="button" data-go="confirm">confirm</button>
+      <button type="button" data-go="pick">pick</button>
+      <button type="button" data-go="book">book</button>
+      <button type="button" data-go="follow">follow</button>
+      <button type="button" data-go="invoice">invoice</button>
+    </div>
+    <ol id="log"></ol>
+  </main>
+  <script type="module">
+    import { FLOW, go, on, registerScreen, state } from "../counter/js/bus.js";
+
+    const logEl = document.getElementById("log");
+    const metaEl = document.getElementById("meta");
+
+    function log(line) {
+      const li = document.createElement("li");
+      li.textContent = line;
+      logEl.appendChild(li);
+    }
+
+    function refreshMeta() {
+      const visible = [...document.querySelectorAll("section[data-screen]")].find((s) => !s.hidden);
+      const now = document.querySelector("li[data-step].now");
+      metaEl.textContent =
+        (location.hash || "#") +
+        " bikeId=" + JSON.stringify(state.bikeId) +
+        " screen=" + (visible ? visible.getAttribute("data-screen") : "none") +
+        " rail=" + (now ? now.getAttribute("data-step") : "none");
+    }
+
+    FLOW.forEach((id) => {
+      registerScreen(id, {
+        mount(root) {
+          log("mount " + id);
+          if (root) root.textContent = id;
+        },
+        enter(params) {
+          log("enter " + id + (params && params.replace ? " replace" : ""));
+        },
+        leave() {
+          log("leave " + id);
+        },
+      });
+    });
+
+    on("screen", (p) => {
+      log("event screen " + p.id);
+      refreshMeta();
+    });
+    on("state", (p) => log("event state " + JSON.stringify(p)));
+
+    document.querySelectorAll("[data-go]").forEach((btn) => {
+      btn.addEventListener("click", () => go(btn.getAttribute("data-go")));
+    });
+
+    window.addEventListener("popstate", () => queueMicrotask(refreshMeta));
+    refreshMeta();
+  </script>
+</body>
+</html>
