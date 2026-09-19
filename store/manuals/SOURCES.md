@@ -4,11 +4,11 @@ Downloaded 2026-09-19. Owner’s manuals only; manufacturer / official regional 
 
 ## honda-cb650r-2021-om
 
-- Cover title: 2021 CB650RA Owner's Manual
+- Cover title: 2021 CB650RA (PDF p1 contents also prints 31MKYG00 / MOM 17595; no “Owner's Manual” on that page)
 - Publisher: American Honda Motor Co., Inc.
 - Publication code: 31MKYG00 (MOM 17595)
 - Year: 2021 (no swap)
-- Source: https://cdn.powersports.honda.com/documentum/MWOM/ml.remawmom.2021_31mkyg0_cb650r.pdf
+- Source: https://cdn.powersports.honda.com/documentum/MWOM/ml.remawmom.2021_31mkyg0_cb650r.pdf (official Honda powersports CDN path; HEAD/GET now 403 — local PDF is the published OM and cannot be re-pulled from this URL alone)
 - Pages: 140 (text PDF, AES)
 - Bikez: https://bikez.com/motorcycles/honda_cb650r_2021.php
 - Omitted jobs (no dedicated heading): oil-filter, spark-plugs, air-filter, side-cover, mirrors
@@ -31,7 +31,7 @@ Downloaded 2026-09-19. Owner’s manuals only; manufacturer / official regional 
 - Publisher: Kawasaki Motors Corp., U.S.A.
 - Publication code: 99803-0033 (ER650KLF/LLF 2020)
 - Year: 2020 (no swap)
-- Source: https://pws.ktivs.net/manuals (official Kawasaki KTIVS owner’s-manual portal; image-layer Flipper export of the published OM)
+- Source: https://pws.ktivs.net/manuals (official Kawasaki KTIVS owner’s-manual portal; HEAD 200 returns HTML, not a PDF — the local file is an image-layer Flipper export of the published OM and cannot be re-pulled from this URL alone)
 - Pages: 200 (no text layer; PDF index = printed page + 2 after front matter; verified against printed running headers)
 - Bikez: https://bikez.com/motorcycles/kawasaki_z650_2020.php
 - Omitted jobs: spark-plugs (type NGK CR9EIA-9 is in Specifications only, no procedure heading); side-cover (named only as access for coolant/fuses)
@@ -45,4 +45,5 @@ Downloaded 2026-09-19. Owner’s manuals only; manufacturer / official regional 
 - Source: https://www.suzukimotorcycles.com.au/wp-content/uploads/2021/11/99011-18K55-01A_SV650M2.pdf
 - Pages: 137 (text PDF)
 - Bikez: https://bikez.com/motorcycles/suzuki_sv650_2022.php
-- Omitted jobs (no dedicated heading): oil-filter (change is under ENGINE OIL), side-cover, mirrors
+- Omitted jobs (no dedicated heading): side-cover, mirrors
+- Note: oil-filter job uses the printed heading ENGINE OIL AND FILTER CHANGE (PDF p87–90); OEM 16510-07J00

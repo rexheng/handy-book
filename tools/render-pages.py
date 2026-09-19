@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Render catalog-referenced PDF pages to webp (full + thumb). Idempotent."""
 from __future__ import annotations
 
@@ -16,14 +16,22 @@ FULL_W = 1400
 THUMB_W = 300
 QUALITY = 80
 
+# Catalog toc[] stores the first leaf; some TOCs continue on following PDF pages.
+TOC_PAGE_RANGES = {
+    "kawasaki-z650-2020-om": range(14, 17),
+}
+
 
 def pages_to_render(manual: dict, jobs: list[dict]) -> set[int]:
     needed: set[int] = {1}
+    mid = manual.get("id")
+    for n in TOC_PAGE_RANGES.get(mid, ()):
+        if isinstance(n, int) and n >= 1:
+            needed.add(n)
     for entry in manual.get("toc") or []:
         p = entry.get("page")
         if isinstance(p, int) and p >= 1:
             needed.add(p)
-    mid = manual.get("id")
     for job in jobs:
         if job.get("manualId") != mid:
             continue
@@ -51,7 +59,7 @@ def render_page(page, dest: Path, width: int) -> None:
 
 
 def main() -> int:
-    catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
+    catalog = json.loads(CATALOG.read_text(encoding="utf-8-sig"))
     jobs = catalog.get("jobs") or []
     n_written = 0
     n_skipped = 0

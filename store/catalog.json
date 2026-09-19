@@ -63,7 +63,9 @@
         "sv650",
         "sv 650",
         "suzuki sv650",
-        "sv650m2"
+        "sv650m2",
+        "2019",
+        "sv650 2019"
       ],
       "image": "store/img/bikes/suzuki-sv650-2019.webp",
       "thumb": "store/img/bikes/suzuki-sv650-2019-thumb.webp",
@@ -75,7 +77,7 @@
     {
       "id": "honda-cb650r-2021-om",
       "bikeId": "honda-cb650r-2021",
-      "title": "2021 CB650RA Owner's Manual",
+      "title": "2021 CB650RA",
       "kind": "owner",
       "publisher": "American Honda Motor Co., Inc.",
       "file": "store/manuals/honda-cb650r-2021-om/manual.pdf",
@@ -325,7 +327,7 @@
     {
       "id": "yamaha-mt-07-2021-om",
       "bikeId": "yamaha-mt-07-2021",
-      "title": "MOTORCYCLE OWNER’S MANUAL",
+      "title": "MOTORCYCLE OWNER’S MANUAL — MT07M/MT07MC (MT-07)",
       "kind": "owner",
       "publisher": "Yamaha Motor Corporation, U.S.A.",
       "file": "store/manuals/yamaha-mt-07-2021-om/manual.pdf",
@@ -1423,7 +1425,7 @@
       "partId": "engine-oil",
       "manualId": "honda-cb650r-2021-om",
       "oem": "Pro Honda GN4 10W-30",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Engine Oil",
       "pages": [
         85,
@@ -1470,7 +1472,7 @@
       "partId": "coolant",
       "manualId": "honda-cb650r-2021-om",
       "oem": "Pro Honda HP Coolant",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Coolant",
       "pages": [
         87,
@@ -1506,7 +1508,7 @@
       "partId": "brake-fluid",
       "manualId": "honda-cb650r-2021-om",
       "oem": "Honda DOT 4 Brake Fluid",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Checking Brake Fluid",
       "pages": [
         89
@@ -1611,7 +1613,7 @@
       "partId": "drive-chain",
       "manualId": "honda-cb650r-2021-om",
       "oem": "DID 525V11",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Drive Chain",
       "pages": [
         93
@@ -1643,7 +1645,7 @@
       "partId": "tires",
       "manualId": "honda-cb650r-2021-om",
       "oem": "DUNLOP D214F Z / D214 Q",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Tires (Inspecting/Replacing)",
       "pages": [
         78
@@ -1718,7 +1720,7 @@
       "partId": "fuses",
       "manualId": "honda-cb650r-2021-om",
       "oem": "30 A main fuse",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Fuses",
       "pages": [
         74,
@@ -1816,7 +1818,8 @@
       "title": "Clutch",
       "pages": [
         94,
-        95
+        95,
+        96
       ],
       "printedPage": "92",
       "steps": [
@@ -1825,6 +1828,9 @@
         },
         {
           "page": 95
+        },
+        {
+          "page": 96
         }
       ],
       "related": [],
@@ -1843,7 +1849,7 @@
       "partId": "engine-oil",
       "manualId": "suzuki-sv650-2019-om",
       "oem": "ECSTAR 10W-40",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "ENGINE OIL",
       "pages": [
         87,
@@ -1886,12 +1892,67 @@
       ]
     },
     {
+      "id": "suzuki-sv650-2019/oil-filter",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "oil-filter",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "16510-07J00",
+      "oemVerified": true,
+      "title": "ENGINE OIL AND FILTER CHANGE",
+      "pages": [
+        87,
+        88,
+        89,
+        90
+      ],
+      "printedPage": "6-20",
+      "steps": [
+        {
+          "page": 87
+        },
+        {
+          "page": 88
+        },
+        {
+          "page": 89
+        },
+        {
+          "page": 90
+        }
+      ],
+      "related": [
+        {
+          "page": 50,
+          "title": "ENGINE OIL"
+        },
+        {
+          "page": 69,
+          "title": "MAINTENANCE SCHEDULE"
+        }
+      ],
+      "price": 13.5,
+      "ship": 6.0,
+      "days": 2,
+      "from": "Suzuki dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 8,
+          "note": "OEM filter",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
       "id": "suzuki-sv650-2019/spark-plugs",
       "bikeId": "suzuki-sv650-2019",
       "partId": "spark-plugs",
       "manualId": "suzuki-sv650-2019-om",
       "oem": "NGK MR8E-9",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "SPARK PLUGS",
       "pages": [
         83,
@@ -1970,7 +2031,7 @@
       "partId": "coolant",
       "manualId": "suzuki-sv650-2019-om",
       "oem": "SUZUKI SUPER LONG LIFE COOLANT",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "COOLANT",
       "pages": [
         94
@@ -2002,7 +2063,7 @@
       "partId": "brake-fluid",
       "manualId": "suzuki-sv650-2019-om",
       "oem": "DOT4",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "BRAKES",
       "pages": [
         99,
@@ -2133,7 +2194,7 @@
       "partId": "tires",
       "manualId": "suzuki-sv650-2019-om",
       "oem": "120/70ZR17 / 160/60ZR17",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "TIRES",
       "pages": [
         103,
@@ -2177,7 +2238,7 @@
       "partId": "battery",
       "manualId": "suzuki-sv650-2019-om",
       "oem": "12V 10 Ah sealed",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "BATTERY",
       "pages": [
         77,
@@ -2212,7 +2273,7 @@
       "partId": "fuses",
       "manualId": "suzuki-sv650-2019-om",
       "oem": "30A MAIN fuse",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "FUSES",
       "pages": [
         117,
@@ -2243,7 +2304,7 @@
       "partId": "headlight",
       "manualId": "suzuki-sv650-2019-om",
       "oem": "12V 60/55W H4",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "LIGHT BULB REPLACEMENT",
       "pages": [
         113,
@@ -2341,7 +2402,7 @@
       "partId": "engine-oil",
       "manualId": "yamaha-mt-07-2021-om",
       "oem": "Yamalube 10W-40",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Engine oil and oil filter cartridge",
       "pages": [
         60,
@@ -2428,7 +2489,7 @@
       "partId": "spark-plugs",
       "manualId": "yamaha-mt-07-2021-om",
       "oem": "NGK LMAR8A-9",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Checking the spark plugs",
       "pages": [
         59
@@ -2482,7 +2543,7 @@
       "partId": "coolant",
       "manualId": "yamaha-mt-07-2021-om",
       "oem": "YAMALUBE coolant",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Coolant",
       "pages": [
         63,
@@ -2518,7 +2579,7 @@
       "partId": "brake-fluid",
       "manualId": "yamaha-mt-07-2021-om",
       "oem": "DOT 4",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Checking the brake fluid level",
       "pages": [
         71,
@@ -2646,7 +2707,7 @@
       "partId": "tires",
       "manualId": "yamaha-mt-07-2021-om",
       "oem": "MICHELIN ROAD 5 120/70 ZR17 / 180/55 ZR17",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Tires",
       "pages": [
         66,
@@ -2686,7 +2747,7 @@
       "partId": "battery",
       "manualId": "yamaha-mt-07-2021-om",
       "oem": "YTZ10S",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Battery",
       "pages": [
         79,
@@ -2765,7 +2826,7 @@
       "partId": "headlight",
       "manualId": "yamaha-mt-07-2021-om",
       "oem": "LED",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Vehicle lights",
       "pages": [
         82
@@ -2855,14 +2916,13 @@
       "partId": "engine-oil",
       "manualId": "kawasaki-z650-2020-om",
       "oem": "Kawasaki Performance 10W-40",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Engine Oil",
       "pages": [
         128,
         129,
         130,
-        131,
-        132
+        131
       ],
       "printedPage": "126",
       "steps": [
@@ -2877,9 +2937,6 @@
         },
         {
           "page": 131
-        },
-        {
-          "page": 132
         }
       ],
       "related": [
@@ -2986,7 +3043,7 @@
       "pages": [
         132,
         133,
-        135
+        134
       ],
       "printedPage": "130",
       "steps": [
@@ -2997,7 +3054,7 @@
           "page": 133
         },
         {
-          "page": 135
+          "page": 134
         }
       ],
       "related": [
@@ -3169,12 +3226,12 @@
       "partId": "tires",
       "manualId": "kawasaki-z650-2020-om",
       "oem": "DUNLOP SPORTMAX Roadsport 2 120/70ZR17 / 160/60ZR17",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Wheels",
       "pages": [
         154,
         155,
-        157
+        156
       ],
       "printedPage": "152",
       "steps": [
@@ -3185,7 +3242,7 @@
           "page": 155
         },
         {
-          "page": 157
+          "page": 156
         }
       ],
       "related": [],
@@ -3204,12 +3261,14 @@
       "partId": "battery",
       "manualId": "kawasaki-z650-2020-om",
       "oem": "Yuasa YTZ10",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Battery",
       "pages": [
         157,
         158,
-        162
+        159,
+        160,
+        161
       ],
       "printedPage": "155",
       "steps": [
@@ -3220,7 +3279,13 @@
           "page": 158
         },
         {
-          "page": 162
+          "page": 159
+        },
+        {
+          "page": 160
+        },
+        {
+          "page": 161
         }
       ],
       "related": [],
@@ -3246,12 +3311,14 @@
       "partId": "fuses",
       "manualId": "kawasaki-z650-2020-om",
       "oem": "Main Fuse 30 A",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Fuses",
       "pages": [
         164,
         165,
-        166
+        166,
+        167,
+        168
       ],
       "printedPage": "162",
       "steps": [
@@ -3263,6 +3330,12 @@
         },
         {
           "page": 166
+        },
+        {
+          "page": 167
+        },
+        {
+          "page": 168
         }
       ],
       "related": [],
@@ -3281,12 +3354,11 @@
       "partId": "headlight",
       "manualId": "kawasaki-z650-2020-om",
       "oem": "LED",
-      "oemVerified": true,
+      "oemVerified": false,
       "title": "Headlight",
       "pages": [
         162,
-        163,
-        164
+        163
       ],
       "printedPage": "160",
       "steps": [
@@ -3295,9 +3367,6 @@
         },
         {
           "page": 163
-        },
-        {
-          "page": 164
         }
       ],
       "related": [],
@@ -3320,8 +3389,7 @@
       "title": "Seats",
       "pages": [
         100,
-        101,
-        102
+        101
       ],
       "printedPage": "98",
       "steps": [
@@ -3330,9 +3398,6 @@
         },
         {
           "page": 101
-        },
-        {
-          "page": 102
         }
       ],
       "related": [],
@@ -3354,16 +3419,12 @@
       "oemVerified": false,
       "title": "Clutch",
       "pages": [
-        140,
-        141
+        140
       ],
       "printedPage": "138",
       "steps": [
         {
           "page": 140
-        },
-        {
-          "page": 141
         }
       ],
       "related": [
