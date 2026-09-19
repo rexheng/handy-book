@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Part scan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&family=Big+Shoulders+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Barlow, system-ui, sans-serif;
+      background: repeating-linear-gradient(0deg, #ece7dc 0 24px, #e4dfd2 24px 25px), #ece7dc;
+      color: #141414;
+      min-height: 100dvh;
+    }
+    .ticket {
+      background: #e85d04; color: #fff; padding: 10px 16px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-weight: 800; letter-spacing: .08em; border-bottom: 3px solid #141414;
+    }
+    .ticket b { font-family: "Big Shoulders Display", sans-serif; font-size: 1.6rem; letter-spacing: 0; }
+    main { max-width: 420px; margin: 0 auto; padding: 16px 14px 40px; }
+    h1 {
+      font-family: "Big Shoulders Display", sans-serif;
+      font-size: clamp(2.2rem, 8vw, 3.2rem);
+      text-transform: uppercase; line-height: .9; margin: 12px 0 16px;
+    }
+    button, label.file {
+      font: inherit; font-weight: 800; text-transform: uppercase;
+      border: 3px solid #141414; background: #ffe600;
+      padding: 14px 12px; cursor: pointer; display: block; width: 100%;
+      text-align: center;
+    }
+    button.primary { background: #141414; color: #fff; }
+    button.ep { background: #fff; margin-bottom: 8px; }
+    button.ep.on { background: #e85d04; color: #fff; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0 14px; }
+    #file { display: none; }
+    .cam {
+      border: 3px solid #141414; background: #141414; min-height: 220px;
+      margin-bottom: 12px;
+    }
+    .cam img { width: 100%; height: auto; display: block; }
+    #status {
+      font-weight: 800; text-transform: uppercase; letter-spacing: .06em;
+      font-size: .8rem; margin-bottom: 10px; min-height: 1.2em;
+    }
+    ol {
+      list-style: none; background: #fff; border: 3px solid #141414;
+    }
+    ol li {
+      display: grid; grid-template-columns: 1fr auto;
+      padding: 10px 12px; border-bottom: 3px solid #141414;
+      font-weight: 800; text-transform: uppercase;
+    }
+    ol li:last-child { border-bottom: 0; }
+    .id { font-weight: 600; color: #e85d04; font-size: .75rem; letter-spacing: .04em; }
+    .samples { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .samples button {
+      width: auto; padding: 10px 10px; font-size: .7rem; background: #fff;
+      min-height: 44px;
+    }
+  </style>
+</head>
+<body>
+  <div class="ticket"><span>HANDY BOOK</span><b>R4</b></div>
+  <main>
+    <h1>Part scan</h1>
+    <p id="status">LOAD</p>
+    <div class="row">
+      <button type="button" class="ep on" id="epWasm" data-ep="wasm">WASM</button>
+      <button type="button" class="ep" id="epGpu" data-ep="webgpu">WebGPU</button>
+    </div>
+    <label class="file primary" for="file">Photo</label>
+    <input id="file" type="file" accept="image/*" capture="environment">
+    <div class="cam"><img id="preview" alt="" hidden></div>
+    <ol id="top"></ol>
+    <div class="samples" id="samples"></div>
+  </main>
+  <script type="module">
+    import { loadPartModel, classifyPart, partModelInfo } from "../counter/js/vision.js";
+
+    const samples = [
+      ["spark_plug.jpg", "plug"],
+      ["ngk_plugs.jpg", "ngk"],
+      ["brake_pad.jpg", "pad"],
+      ["clutch_plate.jpg", "clutch"],
+      ["battery.jpg", "battery"],
+      ["chain.jpg", "chain"],
+      ["disc.jpg", "disc"],
+      ["handlebar.jpg", "bars"],
+      ["fuel_tank.jpg", "tank"],
+      ["radiator.jpg", "rad"],
+      ["forks.jpg", "forks"],
+      ["piston.jpg", "piston"],
+      ["gear_lever.jpg", "shift"],
+    ];
+
+    const status = document.getElementById("status");
+    const preview = document.getElementById("preview");
+    const topEl = document.getElementById("top");
+    const fileEl = document.getElementById("file");
+    const sampleBox = document.getElementById("samples");
+    let providers = ["wasm"];
+
+    function setEp(ep) {
+      providers = ep === "webgpu" ? ["webgpu", "wasm"] : ["wasm"];
+      document.getElementById("epWasm").classList.toggle("on", ep === "wasm");
+      document.getElementById("epGpu").classList.toggle("on", ep === "webgpu");
+    }
+
+    async function boot() {
+      status.textContent = "LOAD";
+      try {
+        const { provider } = await loadPartModel((pct, detail) => {
+          status.textContent = `${Math.round((pct || 0) * 100)} ${detail || ""}`;
+        }, { executionProviders: providers });
+        status.textContent = provider.toUpperCase();
+      } catch (err) {
+        status.textContent = String(err);
+        console.error(err);
+      }
+    }
+
+    async function run(img) {
+      const t0 = performance.now();
+      const top = await classifyPart(img);
+      const wall = Math.round(performance.now() - t0);
+      const inf = Math.round(top.ms || 0);
+      const info = partModelInfo();
+      status.textContent = `${(info.provider || "").toUpperCase()}  ${inf}ms inf  ${wall}ms wall`;
+      topEl.replaceChildren();
+      for (const row of top) {
+        const li = document.createElement("li");
+        const left = document.createElement("div");
+        left.textContent = row.className.replaceAll("_", " ");
+        const id = document.createElement("div");
+        id.className = "id";
+        id.textContent = row.partId || "—";
+        const right = document.createElement("div");
+        right.textContent = row.score.toFixed(3);
+        const wrap = document.createElement("div");
+        wrap.append(left, id);
+        li.append(wrap, right);
+        topEl.append(li);
+      }
+    }
+
+    function show(url) {
+      preview.hidden = false;
+      preview.onload = () => run(preview);
+      preview.src = url;
+    }
+
+    fileEl.addEventListener("change", () => {
+      const f = fileEl.files && fileEl.files[0];
+      if (!f) return;
+      show(URL.createObjectURL(f));
+    });
+
+    document.getElementById("epWasm").addEventListener("click", () => {
+      sessionStorage.setItem("ep", "wasm");
+      location.reload();
+    });
+    document.getElementById("epGpu").addEventListener("click", () => {
+      sessionStorage.setItem("ep", "webgpu");
+      location.reload();
+    });
+
+    if (sessionStorage.getItem("ep") === "webgpu") setEp("webgpu");
+
+    for (const [file, label] of samples) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = label;
+      b.addEventListener("click", () => show(`./test-imgs/${file}`));
+      sampleBox.append(b);
+    }
+
+    boot();
+  </script>
+</body>
+</html>

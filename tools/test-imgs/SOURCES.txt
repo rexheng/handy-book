@@ -1,0 +1,15 @@
+Wikimedia Commons (thumbs, resized ≤900px). License as on each file page.
+
+spark_plug.jpg	Spark plug (AM 880915-3).jpg	https://commons.wikimedia.org/wiki/File:Spark_plug_(AM_880915-3).jpg
+ngk_plugs.jpg	NGK-plugs.jpg	https://commons.wikimedia.org/wiki/File:NGK-plugs.jpg
+brake_pad.jpg	Brake_pad.jpg	https://commons.wikimedia.org/wiki/File:Brake_pad.jpg
+clutch_plate.jpg	Clutch discs.jpg	https://commons.wikimedia.org/wiki/File:Clutch_discs.jpg
+battery.jpg	Lead-acid battery for motorcycle.jpg	https://commons.wikimedia.org/wiki/File:Lead-acid_battery_for_motorcycle.jpg
+chain.jpg	Kettenvergleich.jpg	https://commons.wikimedia.org/wiki/File:Kettenvergleich.jpg
+disc.jpg	Disc brake of motorbike Honda CBR 1000 (2023).jpg	https://commons.wikimedia.org/wiki/File:Disc_brake_of_motorbike_Honda_CBR_1000_(2023).jpg
+handlebar.jpg	Honda VTR250 2009 Handlebar.JPG	https://commons.wikimedia.org/wiki/File:Honda_VTR250_2009_Handlebar.JPG
+fuel_tank.jpg	Fuel tank of Honda CBR1000RR Fireblade, c. 2005 model.jpg	https://commons.wikimedia.org/wiki/File:Fuel_tank_of_Honda_CBR1000RR_Fireblade,_c._2005_model.jpg
+radiator.jpg	Honda VTR250 2009 Engine Radiator.JPG	https://commons.wikimedia.org/wiki/File:Honda_VTR250_2009_Engine_Radiator.JPG
+forks.jpg	BSA Commando Cassington front fork.jpg	https://commons.wikimedia.org/wiki/File:BSA_Commando_Cassington_front_fork.jpg
+piston.jpg	Motorcycles-Honda-MVX250F-Conrod-Piston 01.JPG	https://commons.wikimedia.org/wiki/File:Motorcycles-Honda-MVX250F-Conrod-Piston_01.JPG
+gear_lever.jpg	2003 SV650S Gearshift.jpg	https://commons.wikimedia.org/wiki/File:2003_SV650S_Gearshift.jpg
