@@ -205,6 +205,26 @@
         }
         check("malformed catalog findBikes returns []", roster, []);
       }
+
+      {
+        const fresh = await import(`../counter/js/query.js?bad-systems=${Date.now()}`);
+        let rejected = false;
+        try {
+          await fresh.loadCatalog("./fixtures/catalog.bad-systems.json");
+        } catch {
+          rejected = true;
+        }
+        check("bad systems catalog rejects", rejected, true);
+        check("bad systems catalog() is null", fresh.catalog(), null);
+        let sys;
+        try {
+          sys = ids(fresh.systems("x"));
+        } catch {
+          sys = "threw";
+        }
+        check("bad systems systems('x') returns []", sys, []);
+        check("bad systems bike(id) is undefined", fresh.bike("honda-cb650r-2021"), undefined);
+      }
     } catch (err) {
       check("runner threw: " + (err && err.message), false, true);
     }

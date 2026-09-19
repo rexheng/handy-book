@@ -93,11 +93,22 @@ function rankBike(bike, qFold, qTokens) {
   return { rank: Infinity, overlap: 0 };
 }
 
+function resetIndexes() {
+  bikeIndex = new Map();
+  manualIndex = new Map();
+  partIndex = new Map();
+  jobIndex = new Map();
+}
+
 function indexCatalog(catalog) {
-  bikeIndex = new Map(catalog.bikes.map((row) => [row.id, row]));
-  manualIndex = new Map(catalog.manuals.map((row) => [row.id, row]));
-  partIndex = new Map(catalog.parts.map((row) => [row.id, row]));
-  jobIndex = new Map(catalog.jobs.map((row) => [row.id, row]));
+  const nextBikes = new Map(catalog.bikes.map((row) => [row.id, row]));
+  const nextManuals = new Map(catalog.manuals.map((row) => [row.id, row]));
+  const nextParts = new Map(catalog.parts.map((row) => [row.id, row]));
+  const nextJobs = new Map(catalog.jobs.map((row) => [row.id, row]));
+  bikeIndex = nextBikes;
+  manualIndex = nextManuals;
+  partIndex = nextParts;
+  jobIndex = nextJobs;
 }
 
 function validateCatalog(catalog) {
@@ -106,6 +117,7 @@ function validateCatalog(catalog) {
   }
   for (const key of TOP_KEYS) {
     if (!(key in catalog)) throw new Error(`loadCatalog: missing ${key}`);
+    if (!Array.isArray(catalog[key])) throw new Error(`loadCatalog: ${key} is not an array`);
   }
 }
 
@@ -145,6 +157,7 @@ export function loadCatalog(url = DEFAULT_URL) {
       })
       .catch((err) => {
         data = null;
+        resetIndexes();
         loadPromise = undefined;
         throw err;
       });
