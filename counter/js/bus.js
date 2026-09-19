@@ -1,6 +1,7 @@
 const listeners = Object.create(null);
 const screens = new Map();
 let currentId = null;
+let booted = false;
 
 export const state = {
   bikeId: null,
@@ -34,12 +35,22 @@ export function set(patch) {
 }
 
 export function registerScreen(id, api) {
-  screens.set(id, {
-    mount: api && api.mount,
-    enter: api && api.enter,
-    leave: api && api.leave,
-    mounted: false,
-  });
+  const existing = screens.get(id);
+  if (existing) {
+    if (!existing.mounted) {
+      existing.mount = api && api.mount;
+      existing.enter = api && api.enter;
+      existing.leave = api && api.leave;
+    }
+  } else {
+    screens.set(id, {
+      mount: api && api.mount,
+      enter: api && api.enter,
+      leave: api && api.leave,
+      mounted: false,
+    });
+  }
+  bootFromHash();
 }
 
 function allowed(id) {
@@ -75,6 +86,7 @@ function rootFor(id) {
 
 export function go(id, params) {
   if (!FLOW.includes(id)) return;
+  if (id === currentId && !(params && params.replace)) return;
 
   showSection(id);
   updateRail(id);
@@ -107,14 +119,19 @@ const initialHash =
   typeof location !== "undefined" ? location.hash.replace(/^#/, "") : "";
 
 function bootFromHash() {
-  if (!initialHash) return;
-  go(allowed(initialHash) ? initialHash : "identify", { replace: true });
+  if (booted || !initialHash) return;
+  if (typeof document !== "undefined" && document.readyState === "loading") return;
+  const id = allowed(initialHash) ? initialHash : "identify";
+  if (!screens.has(id)) return;
+  booted = true;
+  go(id, { replace: true });
 }
 
 function onPop(event) {
   const hash = location.hash.replace(/^#/, "");
   const fromState = event.state && event.state.screen;
-  const id = hash || fromState || "identify";
+  const id = hash || fromState;
+  if (!id) return;
   go(FLOW.includes(id) ? id : "identify", { replace: true });
 }
 
@@ -122,10 +139,6 @@ if (typeof window !== "undefined") {
   window.HandyBus = { state, go };
   window.addEventListener("popstate", onPop);
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => queueMicrotask(bootFromHash), {
-      once: true,
-    });
-  } else {
-    queueMicrotask(bootFromHash);
+    document.addEventListener("DOMContentLoaded", bootFromHash, { once: true });
   }
 }
