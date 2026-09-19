@@ -57,6 +57,7 @@
 
 [data-screen="confirm"] .confirm-stamps .stamp {
   font-variant-numeric: tabular-nums;
+  text-transform: none;
 }
 
 [data-screen="confirm"] .confirm-actions {
