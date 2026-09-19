@@ -18,6 +18,10 @@
   text-transform: none;
 }
 
+[data-screen="follow"] .follow-progress .stamp[hidden] {
+  display: none;
+}
+
 [data-screen="follow"] .dots {
   display: flex;
   flex: 1 1 auto;
@@ -249,6 +253,11 @@
   font-variant-numeric: tabular-nums;
   padding: 2px 4px;
   text-align: center;
+}
+
+[data-screen="follow"] .related-item .tag:empty,
+[data-screen="follow"] .related-item .tag[hidden] {
+  display: none;
 }
 
 [data-screen="follow"] .part-btn {

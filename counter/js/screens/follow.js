@@ -20,6 +20,7 @@ const sizeCache = new Map();
 
 let live = false;
 let job = null;
+let manualRec = null;
 let steps = [];
 let index = 0;
 let cropped = true;
@@ -94,8 +95,59 @@ function stepsOf(rec) {
   return (rec.steps || []).filter((step) => pageOf(step) != null);
 }
 
-function labelPage(n) {
-  return `p.${n}`;
+function tocPagesOf(manual) {
+  const out = [];
+  for (const row of (manual && manual.toc) || []) {
+    const n = Number(row && row.page);
+    if (!Number.isFinite(n)) continue;
+    out.push(n);
+  }
+  out.sort((a, b) => a - b);
+  return out;
+}
+
+function tocSpanContains(tocPages, n) {
+  if (n == null) return { start: null, end: Infinity };
+  let start = tocPages[0] ?? n;
+  let end = Infinity;
+  for (let i = 0; i < tocPages.length; i++) {
+    if (tocPages[i] <= n) start = tocPages[i];
+    if (tocPages[i] > n) {
+      end = tocPages[i];
+      break;
+    }
+  }
+  return { start, end };
+}
+
+function printedLabel(pdfIndex) {
+  if (pdfIndex == null || !job) return null;
+  const raw = job.printedPage;
+  const base = job.pages && job.pages[0];
+  if (raw == null || String(raw).trim() === "" || base == null) return null;
+  const printed = String(raw).trim();
+  if (/^\d+$/.test(printed)) {
+    return String(pdfIndex - Number(base) + Number(printed));
+  }
+  if (pdfIndex === Number(base)) return printed;
+  const sec = printed.match(/^(\d+)-(\d+)$/);
+  if (!sec) return null;
+  const tocPages = tocPagesOf(manualRec);
+  const here = tocSpanContains(tocPages, Number(base));
+  if (pdfIndex < here.start || pdfIndex >= here.end) return null;
+  return `${sec[1]}-${Number(sec[2]) + (pdfIndex - Number(base))}`;
+}
+
+function stampText(n) {
+  const label = printedLabel(n);
+  return label ? `p.${label}` : "";
+}
+
+function writeStamp(node, n) {
+  const text = stampText(n);
+  node.textContent = text;
+  node.hidden = !text;
+  return text;
 }
 
 function isLandscape() {
@@ -334,7 +386,7 @@ function openOverlay(page) {
   const src = Q.pageUrl(job.manualId, page);
   els.overImg.loading = "lazy";
   els.overImg.decoding = "async";
-  els.overImg.alt = labelPage(page);
+  els.overImg.alt = stampText(page);
   els.overImg.src = src;
   els.overlay.hidden = false;
   els.closeBtn.focus();
@@ -380,7 +432,8 @@ function paintRelated() {
     const img = document.createElement("img");
     img.loading = "lazy";
     img.decoding = "async";
-    img.alt = labelPage(page);
+    const text = stampText(page);
+    img.alt = text;
     img.src = Q.thumbUrl(job.manualId, page);
     img.addEventListener("load", () => {
       if (img.naturalWidth && img.naturalHeight) {
@@ -391,7 +444,8 @@ function paintRelated() {
     const tag = document.createElement("span");
     tag.className = "tag";
     tag.setAttribute("aria-hidden", "true");
-    tag.textContent = labelPage(page);
+    tag.textContent = text;
+    tag.hidden = !text;
 
     btn.append(img, tag);
     els.related.append(btn);
@@ -426,8 +480,8 @@ function show() {
   applyKnownRaster(job.manualId);
 
   els.indexStamp.textContent = `${index + 1} / ${n}`;
-  els.pageStamp.textContent = labelPage(page);
-  els.pageImg.alt = labelPage(page);
+  writeStamp(els.pageStamp, page);
+  els.pageImg.alt = stampText(page);
   applyCrop(step);
   paintDots();
 
@@ -740,6 +794,7 @@ registerScreen("follow", {
 
     const my = ++enterGen;
     job = rec;
+    manualRec = Q.manual(rec.manualId) || {};
     steps = list;
     cropped = true;
 
