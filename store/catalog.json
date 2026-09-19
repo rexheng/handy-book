@@ -1,0 +1,3412 @@
+{
+  "bikes": [
+    {
+      "id": "honda-cb650r-2021",
+      "make": "Honda",
+      "model": "CB650R",
+      "year": 2021,
+      "cc": 649,
+      "aliases": [
+        "cb650r",
+        "cb 650 r",
+        "cb650",
+        "honda cb650r",
+        "cb650ra"
+      ],
+      "image": "store/img/bikes/honda-cb650r-2021.webp",
+      "thumb": "store/img/bikes/honda-cb650r-2021-thumb.webp",
+      "manualId": "honda-cb650r-2021-om",
+      "bikez": "https://bikez.com/motorcycles/honda_cb650r_2021.php"
+    },
+    {
+      "id": "yamaha-mt-07-2021",
+      "make": "Yamaha",
+      "model": "MT-07",
+      "year": 2021,
+      "cc": 689,
+      "aliases": [
+        "mt-07",
+        "mt07",
+        "mt 07",
+        "yamaha mt-07",
+        "mtn690"
+      ],
+      "image": "store/img/bikes/yamaha-mt-07-2021.webp",
+      "thumb": "store/img/bikes/yamaha-mt-07-2021-thumb.webp",
+      "manualId": "yamaha-mt-07-2021-om",
+      "bikez": "https://bikez.com/motorcycles/yamaha_mt-07_2021.php"
+    },
+    {
+      "id": "kawasaki-z650-2020",
+      "make": "Kawasaki",
+      "model": "Z650",
+      "year": 2020,
+      "cc": 649,
+      "aliases": [
+        "z650",
+        "z 650",
+        "kawasaki z650",
+        "er650"
+      ],
+      "image": "store/img/bikes/kawasaki-z650-2020.webp",
+      "thumb": "store/img/bikes/kawasaki-z650-2020-thumb.webp",
+      "manualId": "kawasaki-z650-2020-om",
+      "bikez": "https://bikez.com/motorcycles/kawasaki_z650_2020.php"
+    },
+    {
+      "id": "suzuki-sv650-2019",
+      "make": "Suzuki",
+      "model": "SV650",
+      "year": 2022,
+      "cc": 645,
+      "aliases": [
+        "sv650",
+        "sv 650",
+        "suzuki sv650",
+        "sv650m2"
+      ],
+      "image": "store/img/bikes/suzuki-sv650-2019.webp",
+      "thumb": "store/img/bikes/suzuki-sv650-2019-thumb.webp",
+      "manualId": "suzuki-sv650-2019-om",
+      "bikez": "https://bikez.com/motorcycles/suzuki_sv650_2022.php"
+    }
+  ],
+  "manuals": [
+    {
+      "id": "honda-cb650r-2021-om",
+      "bikeId": "honda-cb650r-2021",
+      "title": "2021 CB650RA Owner's Manual",
+      "kind": "owner",
+      "publisher": "American Honda Motor Co., Inc.",
+      "file": "store/manuals/honda-cb650r-2021-om/manual.pdf",
+      "pages": 140,
+      "pagesDir": "store/manuals/honda-cb650r-2021-om/pages/",
+      "toc": [
+        {
+          "title": "Contents",
+          "page": 1
+        },
+        {
+          "title": "Welcome",
+          "page": 2
+        },
+        {
+          "title": "A Few Words About Safety",
+          "page": 3
+        },
+        {
+          "title": "Vehicle Safety",
+          "page": 4
+        },
+        {
+          "title": "Safety Guidelines",
+          "page": 5
+        },
+        {
+          "title": "Safety Labels",
+          "page": 8
+        },
+        {
+          "title": "Safety Precautions",
+          "page": 10
+        },
+        {
+          "title": "Riding Precautions",
+          "page": 11
+        },
+        {
+          "title": "Accessories & Modifications",
+          "page": 16
+        },
+        {
+          "title": "Loading",
+          "page": 17
+        },
+        {
+          "title": "Operation Guide",
+          "page": 18
+        },
+        {
+          "title": "Parts Location",
+          "page": 18
+        },
+        {
+          "title": "Instruments",
+          "page": 20
+        },
+        {
+          "title": "Indicators",
+          "page": 46
+        },
+        {
+          "title": "Switches",
+          "page": 52
+        },
+        {
+          "title": "Honda selectable torque control",
+          "page": 55
+        },
+        {
+          "title": "Starting the Engine",
+          "page": 56
+        },
+        {
+          "title": "Shifting Gears",
+          "page": 58
+        },
+        {
+          "title": "Refueling",
+          "page": 59
+        },
+        {
+          "title": "Storage Equipment",
+          "page": 60
+        },
+        {
+          "title": "Maintenance",
+          "page": 62
+        },
+        {
+          "title": "Importance of Maintenance",
+          "page": 63
+        },
+        {
+          "title": "Maintenance Schedule",
+          "page": 65
+        },
+        {
+          "title": "Maintenance Record",
+          "page": 68
+        },
+        {
+          "title": "Maintenance Fundamentals",
+          "page": 69
+        },
+        {
+          "title": "Removing & Installing Body Components",
+          "page": 82
+        },
+        {
+          "title": "Engine Oil",
+          "page": 85
+        },
+        {
+          "title": "Coolant",
+          "page": 87
+        },
+        {
+          "title": "Brakes",
+          "page": 89
+        },
+        {
+          "title": "Side Stand",
+          "page": 92
+        },
+        {
+          "title": "Drive Chain",
+          "page": 93
+        },
+        {
+          "title": "Clutch",
+          "page": 94
+        },
+        {
+          "title": "Throttle",
+          "page": 97
+        },
+        {
+          "title": "Other Adjustments",
+          "page": 98
+        },
+        {
+          "title": "Troubleshooting",
+          "page": 100
+        },
+        {
+          "title": "Engine Will Not Start",
+          "page": 101
+        },
+        {
+          "title": "Overheating (Segment H flashes in coolant temperature gauge)",
+          "page": 102
+        },
+        {
+          "title": "Warning Indicators On or Flashing",
+          "page": 103
+        },
+        {
+          "title": "Other Warning Indications",
+          "page": 106
+        },
+        {
+          "title": "Tire Puncture",
+          "page": 108
+        },
+        {
+          "title": "Electrical Trouble",
+          "page": 109
+        },
+        {
+          "title": "Information",
+          "page": 111
+        },
+        {
+          "title": "Keys",
+          "page": 112
+        },
+        {
+          "title": "Instruments, Controls, & Other Features",
+          "page": 113
+        },
+        {
+          "title": "Caring for Your Vehicle",
+          "page": 115
+        },
+        {
+          "title": "Storing Your Vehicle",
+          "page": 118
+        },
+        {
+          "title": "Transporting Your Vehicle",
+          "page": 119
+        },
+        {
+          "title": "You & the Environment",
+          "page": 120
+        },
+        {
+          "title": "Vehicle Identification Number",
+          "page": 121
+        },
+        {
+          "title": "Emission Control Systems",
+          "page": 122
+        },
+        {
+          "title": "Catalytic Converter",
+          "page": 126
+        },
+        {
+          "title": "Oxygenated Fuels",
+          "page": 127
+        },
+        {
+          "title": "Authorized Manuals",
+          "page": 128
+        },
+        {
+          "title": "Warranty Coverage and Service",
+          "page": 129
+        },
+        {
+          "title": "Honda Contacts",
+          "page": 132
+        },
+        {
+          "title": "Reporting Safety Defects",
+          "page": 134
+        },
+        {
+          "title": "Specifications",
+          "page": 136
+        },
+        {
+          "title": "Specifications",
+          "page": 136
+        },
+        {
+          "title": "Information Record",
+          "page": 139
+        }
+      ],
+      "source": "https://cdn.powersports.honda.com/documentum/MWOM/ml.remawmom.2021_31mkyg0_cb650r.pdf",
+      "pubCode": "31MKYG00"
+    },
+    {
+      "id": "yamaha-mt-07-2021-om",
+      "bikeId": "yamaha-mt-07-2021",
+      "title": "MOTORCYCLE OWNER’S MANUAL",
+      "kind": "owner",
+      "publisher": "Yamaha Motor Corporation, U.S.A.",
+      "file": "store/manuals/yamaha-mt-07-2021-om/manual.pdf",
+      "pages": 108,
+      "pagesDir": "store/manuals/yamaha-mt-07-2021-om/pages/",
+      "toc": [
+        {
+          "title": "Introduction",
+          "page": 3
+        },
+        {
+          "title": "Important manual information",
+          "page": 4
+        },
+        {
+          "title": "Table of contents",
+          "page": 6
+        },
+        {
+          "title": "Location of important labels",
+          "page": 8
+        },
+        {
+          "title": "Safety information",
+          "page": 11
+        },
+        {
+          "title": "Description",
+          "page": 16
+        },
+        {
+          "title": "Left view",
+          "page": 16
+        },
+        {
+          "title": "Right view",
+          "page": 17
+        },
+        {
+          "title": "Controls and instruments",
+          "page": 18
+        },
+        {
+          "title": "Instrument and control functions",
+          "page": 19
+        },
+        {
+          "title": "Main switch/steering lock",
+          "page": 19
+        },
+        {
+          "title": "Indicator lights and warning lights",
+          "page": 20
+        },
+        {
+          "title": "Multi-function meter unit",
+          "page": 22
+        },
+        {
+          "title": "Handlebar switches",
+          "page": 27
+        },
+        {
+          "title": "Clutch lever",
+          "page": 29
+        },
+        {
+          "title": "Shift pedal",
+          "page": 29
+        },
+        {
+          "title": "Brake lever",
+          "page": 30
+        },
+        {
+          "title": "Brake pedal",
+          "page": 30
+        },
+        {
+          "title": "ABS",
+          "page": 30
+        },
+        {
+          "title": "Fuel tank cap",
+          "page": 31
+        },
+        {
+          "title": "Fuel",
+          "page": 32
+        },
+        {
+          "title": "Fuel tank breather hose and overflow hose",
+          "page": 33
+        },
+        {
+          "title": "Catalytic converter",
+          "page": 34
+        },
+        {
+          "title": "Seats",
+          "page": 35
+        },
+        {
+          "title": "Helmet holding cable",
+          "page": 36
+        },
+        {
+          "title": "Adjusting the shock absorber assembly",
+          "page": 37
+        },
+        {
+          "title": "Luggage strap holders",
+          "page": 39
+        },
+        {
+          "title": "Auxiliary DC connector",
+          "page": 40
+        },
+        {
+          "title": "Sidestand",
+          "page": 40
+        },
+        {
+          "title": "Ignition circuit cut-off system",
+          "page": 41
+        },
+        {
+          "title": "For your safety – pre-operation checks",
+          "page": 43
+        },
+        {
+          "title": "Operation and important riding points",
+          "page": 46
+        },
+        {
+          "title": "Engine break-in",
+          "page": 46
+        },
+        {
+          "title": "Starting the engine",
+          "page": 47
+        },
+        {
+          "title": "Shifting",
+          "page": 48
+        },
+        {
+          "title": "Parking",
+          "page": 49
+        },
+        {
+          "title": "Periodic maintenance and adjustment",
+          "page": 50
+        },
+        {
+          "title": "Tool kits",
+          "page": 51
+        },
+        {
+          "title": "Periodic maintenance chart for the emission control system",
+          "page": 52
+        },
+        {
+          "title": "General maintenance and lubrication chart",
+          "page": 54
+        },
+        {
+          "title": "Checking the spark plugs",
+          "page": 59
+        },
+        {
+          "title": "Canister (for California)",
+          "page": 60
+        },
+        {
+          "title": "Engine oil and oil filter cartridge",
+          "page": 60
+        },
+        {
+          "title": "Why Yamalube",
+          "page": 63
+        },
+        {
+          "title": "Coolant",
+          "page": 63
+        },
+        {
+          "title": "Replacing the air filter element and cleaning the check hose",
+          "page": 65
+        },
+        {
+          "title": "Checking the engine idling speed",
+          "page": 65
+        },
+        {
+          "title": "Checking the throttle grip free play",
+          "page": 66
+        },
+        {
+          "title": "Valve clearance",
+          "page": 66
+        },
+        {
+          "title": "Tires",
+          "page": 66
+        },
+        {
+          "title": "Cast wheels",
+          "page": 69
+        },
+        {
+          "title": "Adjusting the clutch lever free play",
+          "page": 69
+        },
+        {
+          "title": "Checking the brake lever free play",
+          "page": 70
+        },
+        {
+          "title": "Brake light switches",
+          "page": 70
+        },
+        {
+          "title": "Checking the front and rear brake pads",
+          "page": 71
+        },
+        {
+          "title": "Checking the brake fluid level",
+          "page": 71
+        },
+        {
+          "title": "Changing the brake fluid",
+          "page": 73
+        },
+        {
+          "title": "Drive chain slack",
+          "page": 73
+        },
+        {
+          "title": "Cleaning and lubricating the drive chain",
+          "page": 75
+        },
+        {
+          "title": "Checking and lubricating the cables",
+          "page": 75
+        },
+        {
+          "title": "Checking and lubricating the throttle grip and cable",
+          "page": 76
+        },
+        {
+          "title": "Checking and lubricating the brake and shift pedals",
+          "page": 76
+        },
+        {
+          "title": "Checking and lubricating the brake and clutch levers",
+          "page": 77
+        },
+        {
+          "title": "Checking and lubricating the sidestand",
+          "page": 77
+        },
+        {
+          "title": "Lubricating the swingarm pivots",
+          "page": 78
+        },
+        {
+          "title": "Checking the front fork",
+          "page": 78
+        },
+        {
+          "title": "Checking the steering",
+          "page": 79
+        },
+        {
+          "title": "Checking the wheel bearings",
+          "page": 79
+        },
+        {
+          "title": "Battery",
+          "page": 79
+        },
+        {
+          "title": "Replacing the fuses",
+          "page": 81
+        },
+        {
+          "title": "Vehicle lights",
+          "page": 82
+        },
+        {
+          "title": "Replacing a license plate light bulb",
+          "page": 82
+        },
+        {
+          "title": "Supporting the motorcycle",
+          "page": 83
+        },
+        {
+          "title": "Troubleshooting",
+          "page": 83
+        },
+        {
+          "title": "Troubleshooting chart",
+          "page": 85
+        },
+        {
+          "title": "Motorcycle care and storage",
+          "page": 87
+        },
+        {
+          "title": "Matte color caution",
+          "page": 87
+        },
+        {
+          "title": "Care",
+          "page": 87
+        },
+        {
+          "title": "Storage",
+          "page": 89
+        },
+        {
+          "title": "Specifications",
+          "page": 91
+        },
+        {
+          "title": "Consumer information",
+          "page": 93
+        },
+        {
+          "title": "Identification numbers",
+          "page": 93
+        },
+        {
+          "title": "Diagnostic connector",
+          "page": 95
+        },
+        {
+          "title": "Vehicle data recording",
+          "page": 95
+        },
+        {
+          "title": "Reporting safety defects",
+          "page": 96
+        },
+        {
+          "title": "Motorcycle noise regulation",
+          "page": 97
+        },
+        {
+          "title": "Maintenance record",
+          "page": 98
+        },
+        {
+          "title": "YAMAHA MOTOR CORPORATION, U.S.A. 2020 AND LATER MODEL STREET & DUAL-PURPOSE MOTORCYCLE LIMITED WARRANTY",
+          "page": 100
+        },
+        {
+          "title": "YAMAHA EXTENDED SERVICE (Y.E.S.)",
+          "page": 102
+        },
+        {
+          "title": "Index",
+          "page": 104
+        }
+      ],
+      "source": "https://library.ymcapps.net/library/om/contents/pdf/10/BAT-28199-10_02.pdf",
+      "pubCode": "LIT-11626-34-63 / BAT-28199-10"
+    },
+    {
+      "id": "kawasaki-z650-2020-om",
+      "bikeId": "kawasaki-z650-2020",
+      "title": "Z650 Motorcycle OWNER’S MANUAL",
+      "kind": "owner",
+      "publisher": "Kawasaki Motors Corp., U.S.A.",
+      "file": "store/manuals/kawasaki-z650-2020-om/manual.pdf",
+      "pages": 200,
+      "pagesDir": "store/manuals/kawasaki-z650-2020-om/pages/",
+      "toc": [
+        {
+          "title": "TABLE OF CONTENTS",
+          "page": 14
+        },
+        {
+          "title": "SAFETY INFORMATION",
+          "page": 17
+        },
+        {
+          "title": "Read Owner’s Manual",
+          "page": 17
+        },
+        {
+          "title": "Training",
+          "page": 17
+        },
+        {
+          "title": "Daily Checks and Periodic Maintenance",
+          "page": 17
+        },
+        {
+          "title": "Loading and Accessories Information",
+          "page": 18
+        },
+        {
+          "title": "Passenger",
+          "page": 19
+        },
+        {
+          "title": "Baggage and Luggage",
+          "page": 20
+        },
+        {
+          "title": "Accessories",
+          "page": 20
+        },
+        {
+          "title": "GENERAL INFORMATION",
+          "page": 29
+        },
+        {
+          "title": "Specifications",
+          "page": 29
+        },
+        {
+          "title": "Clutch Lever Adjuster",
+          "page": 92
+        },
+        {
+          "title": "Fuel",
+          "page": 93
+        },
+        {
+          "title": "Side Stand",
+          "page": 99
+        },
+        {
+          "title": "Seats",
+          "page": 100
+        },
+        {
+          "title": "Tool Kit",
+          "page": 102
+        },
+        {
+          "title": "Rear View Mirrors",
+          "page": 103
+        },
+        {
+          "title": "HOW TO RIDE THE MOTORCYCLE",
+          "page": 106
+        },
+        {
+          "title": "MAINTENANCE AND ADJUSTMENT",
+          "page": 118
+        },
+        {
+          "title": "Daily Checks",
+          "page": 120
+        },
+        {
+          "title": "Periodic Maintenance",
+          "page": 123
+        },
+        {
+          "title": "Engine Oil",
+          "page": 128
+        },
+        {
+          "title": "Coolant",
+          "page": 132
+        },
+        {
+          "title": "Air Cleaner",
+          "page": 135
+        },
+        {
+          "title": "Throttle Control System",
+          "page": 136
+        },
+        {
+          "title": "Idle Speed",
+          "page": 139
+        },
+        {
+          "title": "Clutch",
+          "page": 140
+        },
+        {
+          "title": "Drive Chain",
+          "page": 141
+        },
+        {
+          "title": "Brakes",
+          "page": 146
+        },
+        {
+          "title": "Brake Light Switches",
+          "page": 148
+        },
+        {
+          "title": "Wheels",
+          "page": 154
+        },
+        {
+          "title": "Battery",
+          "page": 157
+        },
+        {
+          "title": "Headlight",
+          "page": 162
+        },
+        {
+          "title": "Fuses",
+          "page": 164
+        },
+        {
+          "title": "APPENDIX",
+          "page": 176
+        },
+        {
+          "title": "MAINTENANCE RECORD",
+          "page": 194
+        }
+      ],
+      "source": "https://pws.ktivs.net/manuals",
+      "pubCode": "99803-0033"
+    },
+    {
+      "id": "suzuki-sv650-2019-om",
+      "bikeId": "suzuki-sv650-2019",
+      "title": "Owner's Manual",
+      "kind": "owner",
+      "publisher": "Suzuki Motor Corporation",
+      "file": "store/manuals/suzuki-sv650-2019-om/manual.pdf",
+      "pages": 137,
+      "pagesDir": "store/manuals/suzuki-sv650-2019-om/pages/",
+      "toc": [
+        {
+          "title": "TABLE OF CONTENTS",
+          "page": 4
+        },
+        {
+          "title": "1. CONSUMER INFORMATION",
+          "page": 6
+        },
+        {
+          "title": "ACCESSORY USE AND MOTORCYCLE LOADING",
+          "page": 7
+        },
+        {
+          "title": "SAFE RIDING RECOMMENDATION FOR MOTORCYCLE RIDERS",
+          "page": 9
+        },
+        {
+          "title": "LABELS",
+          "page": 10
+        },
+        {
+          "title": "SERIAL NUMBER LOCATION",
+          "page": 11
+        },
+        {
+          "title": "NOISE CONTROL SYSTEM (AUSTRALIA ONLY)",
+          "page": 12
+        },
+        {
+          "title": "2. CONTROLS",
+          "page": 14
+        },
+        {
+          "title": "LOCATION OF PARTS",
+          "page": 15
+        },
+        {
+          "title": "KEY",
+          "page": 18
+        },
+        {
+          "title": "IGNITION SWITCH",
+          "page": 18
+        },
+        {
+          "title": "INSTRUMENT PANEL",
+          "page": 21
+        },
+        {
+          "title": "LEFT HANDLEBAR",
+          "page": 37
+        },
+        {
+          "title": "RIGHT HANDLEBAR",
+          "page": 39
+        },
+        {
+          "title": "FUEL TANK CAP",
+          "page": 41
+        },
+        {
+          "title": "GEARSHIFT LEVER",
+          "page": 42
+        },
+        {
+          "title": "REAR BRAKE PEDAL",
+          "page": 43
+        },
+        {
+          "title": "SEAT LOCK",
+          "page": 43
+        },
+        {
+          "title": "LUGGAGE STRAPS",
+          "page": 44
+        },
+        {
+          "title": "SIDE STAND",
+          "page": 44
+        },
+        {
+          "title": "SUSPENSION ADJUSTMENT",
+          "page": 45
+        },
+        {
+          "title": "3. FUEL, ENGINE OIL AND COOLANT RECOMMENDATIONS",
+          "page": 48
+        },
+        {
+          "title": "FUEL OCTANE RATING",
+          "page": 49
+        },
+        {
+          "title": "OXYGENATED FUEL RECOMMENDATION",
+          "page": 49
+        },
+        {
+          "title": "ENGINE OIL",
+          "page": 50
+        },
+        {
+          "title": "ENGINE COOLANT SOLUTION",
+          "page": 52
+        },
+        {
+          "title": "4. BREAK-IN (RUNNING-IN) AND INSPECTION BEFORE RIDING",
+          "page": 54
+        },
+        {
+          "title": "MAXIMUM ENGINE SPEED RECOMMENDATION",
+          "page": 55
+        },
+        {
+          "title": "VARY THE ENGINE SPEED",
+          "page": 55
+        },
+        {
+          "title": "BREAKING IN THE NEW TIRES",
+          "page": 55
+        },
+        {
+          "title": "AVOID CONSTANT LOW SPEED",
+          "page": 55
+        },
+        {
+          "title": "OBSERVE YOUR FIRST AND MOST CRITICAL SERVICE",
+          "page": 56
+        },
+        {
+          "title": "INSPECTION BEFORE RIDING",
+          "page": 56
+        },
+        {
+          "title": "5. RIDING TIPS",
+          "page": 58
+        },
+        {
+          "title": "STARTING THE ENGINE",
+          "page": 59
+        },
+        {
+          "title": "STARTING OFF",
+          "page": 61
+        },
+        {
+          "title": "USING THE TRANSMISSION",
+          "page": 62
+        },
+        {
+          "title": "RIDING ON HILLS",
+          "page": 64
+        },
+        {
+          "title": "STOPPING AND PARKING",
+          "page": 64
+        },
+        {
+          "title": "6. INSPECTION AND MAINTENANCE",
+          "page": 68
+        },
+        {
+          "title": "MAINTENANCE SCHEDULE",
+          "page": 69
+        },
+        {
+          "title": "TOOLS",
+          "page": 73
+        },
+        {
+          "title": "FUEL TANK LIFT",
+          "page": 73
+        },
+        {
+          "title": "LUBRICATION POINTS",
+          "page": 76
+        },
+        {
+          "title": "BATTERY",
+          "page": 77
+        },
+        {
+          "title": "AIR CLEANER",
+          "page": 80
+        },
+        {
+          "title": "SPARK PLUGS",
+          "page": 83
+        },
+        {
+          "title": "FUEL HOSE",
+          "page": 86
+        },
+        {
+          "title": "ENGINE OIL",
+          "page": 87
+        },
+        {
+          "title": "ENGINE IDLE SPEED INSPECTION",
+          "page": 91
+        },
+        {
+          "title": "THROTTLE CABLE PLAY",
+          "page": 92
+        },
+        {
+          "title": "CLUTCH",
+          "page": 93
+        },
+        {
+          "title": "COOLANT",
+          "page": 94
+        },
+        {
+          "title": "DRIVE CHAIN",
+          "page": 95
+        },
+        {
+          "title": "BRAKES",
+          "page": 99
+        },
+        {
+          "title": "TIRES",
+          "page": 103
+        },
+        {
+          "title": "SIDE STAND/IGNITION INTERLOCK SYSTEM",
+          "page": 107
+        },
+        {
+          "title": "FRONT WHEEL REMOVAL",
+          "page": 108
+        },
+        {
+          "title": "REAR WHEEL REMOVAL",
+          "page": 110
+        },
+        {
+          "title": "LIGHT BULB REPLACEMENT",
+          "page": 113
+        },
+        {
+          "title": "FUSES",
+          "page": 117
+        },
+        {
+          "title": "CATALYTIC CONVERTER",
+          "page": 119
+        },
+        {
+          "title": "DIAGNOSTIC CONNECTOR",
+          "page": 120
+        },
+        {
+          "title": "7. TROUBLESHOOTING",
+          "page": 122
+        },
+        {
+          "title": "FUEL SUPPLY CHECK",
+          "page": 123
+        },
+        {
+          "title": "IGNITION SYSTEM CHECK",
+          "page": 124
+        },
+        {
+          "title": "ENGINE STALLING",
+          "page": 125
+        },
+        {
+          "title": "8. STORAGE PROCEDURE AND MOTORCYCLE CLEANING",
+          "page": 126
+        },
+        {
+          "title": "STORAGE PROCEDURE",
+          "page": 127
+        },
+        {
+          "title": "PROCEDURE FOR RETURNING TO SERVICE",
+          "page": 128
+        },
+        {
+          "title": "CORROSION PREVENTION",
+          "page": 128
+        },
+        {
+          "title": "MOTORCYCLE CLEANING",
+          "page": 129
+        },
+        {
+          "title": "INSPECTION AFTER CLEANING",
+          "page": 131
+        },
+        {
+          "title": "SPECIFICATIONS",
+          "page": 133
+        },
+        {
+          "title": "INDEX",
+          "page": 135
+        },
+        {
+          "title": "A",
+          "page": 135
+        },
+        {
+          "title": "B",
+          "page": 135
+        },
+        {
+          "title": "C",
+          "page": 135
+        },
+        {
+          "title": "D",
+          "page": 135
+        },
+        {
+          "title": "E",
+          "page": 135
+        },
+        {
+          "title": "F",
+          "page": 135
+        },
+        {
+          "title": "G",
+          "page": 135
+        },
+        {
+          "title": "I",
+          "page": 135
+        },
+        {
+          "title": "K",
+          "page": 135
+        },
+        {
+          "title": "L",
+          "page": 135
+        },
+        {
+          "title": "M",
+          "page": 136
+        },
+        {
+          "title": "N",
+          "page": 136
+        },
+        {
+          "title": "O",
+          "page": 136
+        },
+        {
+          "title": "P",
+          "page": 136
+        },
+        {
+          "title": "R",
+          "page": 136
+        },
+        {
+          "title": "S",
+          "page": 136
+        },
+        {
+          "title": "T",
+          "page": 136
+        },
+        {
+          "title": "U",
+          "page": 136
+        },
+        {
+          "title": "V",
+          "page": 136
+        }
+      ],
+      "source": "https://www.suzukimotorcycles.com.au/wp-content/uploads/2021/11/99011-18K55-01A_SV650M2.pdf",
+      "pubCode": "99011-18K55-01A"
+    }
+  ],
+  "systems": [
+    {
+      "id": "engine",
+      "name": "Engine",
+      "image": "store/img/systems/engine.webp",
+      "thumb": "store/img/systems/engine-thumb.webp"
+    },
+    {
+      "id": "brakes",
+      "name": "Brakes",
+      "image": "store/img/systems/brakes.webp",
+      "thumb": "store/img/systems/brakes-thumb.webp"
+    },
+    {
+      "id": "wheels",
+      "name": "Wheels",
+      "image": "store/img/systems/wheels.webp",
+      "thumb": "store/img/systems/wheels-thumb.webp"
+    },
+    {
+      "id": "electrics",
+      "name": "Electrics",
+      "image": "store/img/systems/electrics.webp",
+      "thumb": "store/img/systems/electrics-thumb.webp"
+    },
+    {
+      "id": "fluids",
+      "name": "Fluids",
+      "image": "store/img/systems/fluids.webp",
+      "thumb": "store/img/systems/fluids-thumb.webp"
+    },
+    {
+      "id": "body",
+      "name": "Body",
+      "image": "store/img/systems/body.webp",
+      "thumb": "store/img/systems/body-thumb.webp"
+    },
+    {
+      "id": "seats",
+      "name": "Seats",
+      "image": "store/img/systems/seats.webp",
+      "thumb": "store/img/systems/seats-thumb.webp"
+    },
+    {
+      "id": "bars",
+      "name": "Bars",
+      "image": "store/img/systems/bars.webp",
+      "thumb": "store/img/systems/bars-thumb.webp"
+    }
+  ],
+  "parts": [
+    {
+      "id": "engine-oil",
+      "systemId": "fluids",
+      "name": "Engine oil",
+      "image": "store/img/parts/engine-oil.webp",
+      "thumb": "store/img/parts/engine-oil-thumb.webp"
+    },
+    {
+      "id": "oil-filter",
+      "systemId": "engine",
+      "name": "Oil filter",
+      "image": "store/img/parts/oil-filter.webp",
+      "thumb": "store/img/parts/oil-filter-thumb.webp"
+    },
+    {
+      "id": "spark-plugs",
+      "systemId": "engine",
+      "name": "Spark plugs",
+      "image": "store/img/parts/spark-plugs.webp",
+      "thumb": "store/img/parts/spark-plugs-thumb.webp"
+    },
+    {
+      "id": "air-filter",
+      "systemId": "engine",
+      "name": "Air filter",
+      "image": "store/img/parts/air-filter.webp",
+      "thumb": "store/img/parts/air-filter-thumb.webp"
+    },
+    {
+      "id": "coolant",
+      "systemId": "fluids",
+      "name": "Coolant",
+      "image": "store/img/parts/coolant.webp",
+      "thumb": "store/img/parts/coolant-thumb.webp"
+    },
+    {
+      "id": "brake-fluid",
+      "systemId": "fluids",
+      "name": "Brake fluid",
+      "image": "store/img/parts/brake-fluid.webp",
+      "thumb": "store/img/parts/brake-fluid-thumb.webp"
+    },
+    {
+      "id": "front-brake-pads",
+      "systemId": "brakes",
+      "name": "Front brake pads",
+      "image": "store/img/parts/front-brake-pads.webp",
+      "thumb": "store/img/parts/front-brake-pads-thumb.webp"
+    },
+    {
+      "id": "rear-brake-pads",
+      "systemId": "brakes",
+      "name": "Rear brake pads",
+      "image": "store/img/parts/rear-brake-pads.webp",
+      "thumb": "store/img/parts/rear-brake-pads-thumb.webp"
+    },
+    {
+      "id": "drive-chain",
+      "systemId": "wheels",
+      "name": "Drive chain",
+      "image": "store/img/parts/drive-chain.webp",
+      "thumb": "store/img/parts/drive-chain-thumb.webp"
+    },
+    {
+      "id": "tires",
+      "systemId": "wheels",
+      "name": "Tires",
+      "image": "store/img/parts/tires.webp",
+      "thumb": "store/img/parts/tires-thumb.webp"
+    },
+    {
+      "id": "battery",
+      "systemId": "electrics",
+      "name": "Battery",
+      "image": "store/img/parts/battery.webp",
+      "thumb": "store/img/parts/battery-thumb.webp"
+    },
+    {
+      "id": "fuses",
+      "systemId": "electrics",
+      "name": "Fuses",
+      "image": "store/img/parts/fuses.webp",
+      "thumb": "store/img/parts/fuses-thumb.webp"
+    },
+    {
+      "id": "headlight",
+      "systemId": "electrics",
+      "name": "Headlight",
+      "image": "store/img/parts/headlight.webp",
+      "thumb": "store/img/parts/headlight-thumb.webp"
+    },
+    {
+      "id": "side-cover",
+      "systemId": "body",
+      "name": "Side cover",
+      "image": "store/img/parts/side-cover.webp",
+      "thumb": "store/img/parts/side-cover-thumb.webp"
+    },
+    {
+      "id": "seat",
+      "systemId": "seats",
+      "name": "Seat",
+      "image": "store/img/parts/seat.webp",
+      "thumb": "store/img/parts/seat-thumb.webp"
+    },
+    {
+      "id": "clutch-lever",
+      "systemId": "bars",
+      "name": "Clutch lever",
+      "image": "store/img/parts/clutch-lever.webp",
+      "thumb": "store/img/parts/clutch-lever-thumb.webp"
+    },
+    {
+      "id": "mirrors",
+      "systemId": "bars",
+      "name": "Mirrors",
+      "image": "store/img/parts/mirrors.webp",
+      "thumb": "store/img/parts/mirrors-thumb.webp"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "honda-cb650r-2021/engine-oil",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "engine-oil",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "Pro Honda GN4 10W-30",
+      "oemVerified": true,
+      "title": "Engine Oil",
+      "pages": [
+        85,
+        86
+      ],
+      "printedPage": "83",
+      "steps": [
+        {
+          "page": 85
+        },
+        {
+          "page": 86
+        }
+      ],
+      "related": [
+        {
+          "page": 75,
+          "title": "Engine Oil"
+        },
+        {
+          "page": 137,
+          "title": "Service Data"
+        }
+      ],
+      "price": 14.95,
+      "ship": 0,
+      "days": 0,
+      "from": "Honda dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 9,
+          "note": "1 qt GN4",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "honda-cb650r-2021/coolant",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "coolant",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "Pro Honda HP Coolant",
+      "oemVerified": true,
+      "title": "Coolant",
+      "pages": [
+        87,
+        88
+      ],
+      "printedPage": "85",
+      "steps": [
+        {
+          "page": 87
+        },
+        {
+          "page": 88
+        }
+      ],
+      "related": [
+        {
+          "page": 137,
+          "title": "Service Data"
+        }
+      ],
+      "price": 18.5,
+      "ship": 7.0,
+      "days": 2,
+      "from": "Honda dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "honda-cb650r-2021/brake-fluid",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "brake-fluid",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "Honda DOT 4 Brake Fluid",
+      "oemVerified": true,
+      "title": "Checking Brake Fluid",
+      "pages": [
+        89
+      ],
+      "printedPage": "87",
+      "steps": [
+        {
+          "page": 89
+        }
+      ],
+      "related": [
+        {
+          "page": 76,
+          "title": "Brake Fluid"
+        }
+      ],
+      "price": 12.0,
+      "ship": 6.5,
+      "days": 2,
+      "from": "Honda dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "honda-cb650r-2021/front-brake-pads",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "front-brake-pads",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "06455-MKN-D51",
+      "oemVerified": true,
+      "title": "Inspecting the Brake Pads",
+      "pages": [
+        90
+      ],
+      "printedPage": "88",
+      "steps": [
+        {
+          "page": 90
+        }
+      ],
+      "related": [
+        {
+          "page": 89,
+          "title": "Checking Brake Fluid"
+        }
+      ],
+      "price": 48.2,
+      "ship": 6.5,
+      "days": 2,
+      "from": "Honda dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 25,
+          "note": "one axle set",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "honda-cb650r-2021/rear-brake-pads",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "rear-brake-pads",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "06435-MGZ-J01",
+      "oemVerified": true,
+      "title": "Inspecting the Brake Pads",
+      "pages": [
+        90
+      ],
+      "printedPage": "88",
+      "steps": [
+        {
+          "page": 90
+        }
+      ],
+      "related": [],
+      "price": 36.4,
+      "ship": 6.5,
+      "days": 2,
+      "from": "Honda dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 18,
+          "note": "rear set",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "honda-cb650r-2021/drive-chain",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "drive-chain",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "DID 525V11",
+      "oemVerified": true,
+      "title": "Drive Chain",
+      "pages": [
+        93
+      ],
+      "printedPage": "91",
+      "steps": [
+        {
+          "page": 93
+        }
+      ],
+      "related": [
+        {
+          "page": 76,
+          "title": "Drive Chain"
+        }
+      ],
+      "price": 89.0,
+      "ship": 8.0,
+      "days": 3,
+      "from": "Honda dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "honda-cb650r-2021/tires",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "tires",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "DUNLOP D214F Z / D214 Q",
+      "oemVerified": true,
+      "title": "Tires (Inspecting/Replacing)",
+      "pages": [
+        78
+      ],
+      "printedPage": "76",
+      "steps": [
+        {
+          "page": 78
+        }
+      ],
+      "related": [
+        {
+          "page": 137,
+          "title": "Service Data"
+        }
+      ],
+      "price": 280.0,
+      "ship": 18.0,
+      "days": 4,
+      "from": "Honda dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "honda-cb650r-2021/battery",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "battery",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "31500-MGZ-D01",
+      "oemVerified": true,
+      "title": "Battery",
+      "pages": [
+        82
+      ],
+      "printedPage": "80",
+      "steps": [
+        {
+          "page": 82
+        }
+      ],
+      "related": [
+        {
+          "page": 72,
+          "title": "Battery"
+        },
+        {
+          "page": 109,
+          "title": "Battery Goes Dead"
+        }
+      ],
+      "price": 89.0,
+      "ship": 12.0,
+      "days": 2,
+      "from": "Honda dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 45,
+          "note": "YTZ10S used",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "honda-cb650r-2021/fuses",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "fuses",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "30 A main fuse",
+      "oemVerified": true,
+      "title": "Fuses",
+      "pages": [
+        74,
+        110
+      ],
+      "printedPage": "72",
+      "steps": [
+        {
+          "page": 74
+        },
+        {
+          "page": 110
+        }
+      ],
+      "related": [
+        {
+          "page": 138,
+          "title": "Fuses"
+        }
+      ],
+      "price": 4.5,
+      "ship": 0,
+      "days": 0,
+      "from": "Honda dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "honda-cb650r-2021/headlight",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "headlight",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "LED (dealer)",
+      "oemVerified": false,
+      "title": "Burned-out Light Bulb",
+      "pages": [
+        109
+      ],
+      "printedPage": "107",
+      "steps": [
+        {
+          "page": 109
+        }
+      ],
+      "related": [],
+      "price": 0,
+      "ship": 0,
+      "days": 7,
+      "from": "Honda dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "honda-cb650r-2021/seat",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "seat",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "front seat",
+      "oemVerified": false,
+      "title": "Front Seat",
+      "pages": [
+        83,
+        84
+      ],
+      "printedPage": "81",
+      "steps": [
+        {
+          "page": 83
+        },
+        {
+          "page": 84
+        }
+      ],
+      "related": [],
+      "price": 220.0,
+      "ship": 25.0,
+      "days": 5,
+      "from": "Honda dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "honda-cb650r-2021/clutch-lever",
+      "bikeId": "honda-cb650r-2021",
+      "partId": "clutch-lever",
+      "manualId": "honda-cb650r-2021-om",
+      "oem": "clutch lever",
+      "oemVerified": false,
+      "title": "Clutch",
+      "pages": [
+        94,
+        95
+      ],
+      "printedPage": "92",
+      "steps": [
+        {
+          "page": 94
+        },
+        {
+          "page": 95
+        }
+      ],
+      "related": [],
+      "price": 42.0,
+      "ship": 8.0,
+      "days": 3,
+      "from": "Honda dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/engine-oil",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "engine-oil",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "ECSTAR 10W-40",
+      "oemVerified": true,
+      "title": "ENGINE OIL",
+      "pages": [
+        87,
+        88,
+        89,
+        90
+      ],
+      "printedPage": "6-20",
+      "steps": [
+        {
+          "page": 87
+        },
+        {
+          "page": 88
+        },
+        {
+          "page": 89
+        },
+        {
+          "page": 90
+        }
+      ],
+      "related": [
+        {
+          "page": 50,
+          "title": "ENGINE OIL"
+        },
+        {
+          "page": 69,
+          "title": "MAINTENANCE SCHEDULE"
+        }
+      ],
+      "price": 16.5,
+      "ship": 0,
+      "days": 0,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/spark-plugs",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "spark-plugs",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "NGK MR8E-9",
+      "oemVerified": true,
+      "title": "SPARK PLUGS",
+      "pages": [
+        83,
+        84,
+        85,
+        86
+      ],
+      "printedPage": "6-16",
+      "steps": [
+        {
+          "page": 83
+        },
+        {
+          "page": 84
+        },
+        {
+          "page": 85
+        },
+        {
+          "page": 86
+        }
+      ],
+      "related": [
+        {
+          "page": 134,
+          "title": "ELECTRICAL"
+        }
+      ],
+      "price": 16.99,
+      "ship": 6.0,
+      "days": 2,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/air-filter",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "air-filter",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "13780-18K00",
+      "oemVerified": false,
+      "title": "AIR CLEANER",
+      "pages": [
+        80,
+        81,
+        82
+      ],
+      "printedPage": "6-13",
+      "steps": [
+        {
+          "page": 80
+        },
+        {
+          "page": 81
+        },
+        {
+          "page": 82
+        }
+      ],
+      "related": [],
+      "price": 38.0,
+      "ship": 7.0,
+      "days": 3,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/coolant",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "coolant",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "SUZUKI SUPER LONG LIFE COOLANT",
+      "oemVerified": true,
+      "title": "COOLANT",
+      "pages": [
+        94
+      ],
+      "printedPage": "6-27",
+      "steps": [
+        {
+          "page": 94
+        }
+      ],
+      "related": [
+        {
+          "page": 52,
+          "title": "ENGINE COOLANT SOLUTION"
+        }
+      ],
+      "price": 22.0,
+      "ship": 8.0,
+      "days": 2,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/brake-fluid",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "brake-fluid",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "DOT4",
+      "oemVerified": true,
+      "title": "BRAKES",
+      "pages": [
+        99,
+        100
+      ],
+      "printedPage": "6-32",
+      "steps": [
+        {
+          "page": 99
+        },
+        {
+          "page": 100
+        }
+      ],
+      "related": [],
+      "price": 11.0,
+      "ship": 6.0,
+      "days": 2,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/front-brake-pads",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "front-brake-pads",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "59100-35800",
+      "oemVerified": true,
+      "title": "BRAKE PADS",
+      "pages": [
+        101
+      ],
+      "printedPage": "6-34",
+      "steps": [
+        {
+          "page": 101
+        }
+      ],
+      "related": [],
+      "price": 61.99,
+      "ship": 7.0,
+      "days": 2,
+      "from": "Suzuki dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 30,
+          "note": "front set",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/rear-brake-pads",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "rear-brake-pads",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "69101-44850",
+      "oemVerified": true,
+      "title": "BRAKE PADS",
+      "pages": [
+        101
+      ],
+      "printedPage": "6-34",
+      "steps": [
+        {
+          "page": 101
+        }
+      ],
+      "related": [],
+      "price": 42.99,
+      "ship": 7.0,
+      "days": 2,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/drive-chain",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "drive-chain",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "drive chain",
+      "oemVerified": false,
+      "title": "DRIVE CHAIN",
+      "pages": [
+        95,
+        96,
+        97,
+        98
+      ],
+      "printedPage": "6-28",
+      "steps": [
+        {
+          "page": 95
+        },
+        {
+          "page": 96
+        },
+        {
+          "page": 97
+        },
+        {
+          "page": 98
+        }
+      ],
+      "related": [],
+      "price": 95.0,
+      "ship": 9.0,
+      "days": 3,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/tires",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "tires",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "120/70ZR17 / 160/60ZR17",
+      "oemVerified": true,
+      "title": "TIRES",
+      "pages": [
+        103,
+        104,
+        105,
+        106
+      ],
+      "printedPage": "6-36",
+      "steps": [
+        {
+          "page": 103
+        },
+        {
+          "page": 104
+        },
+        {
+          "page": 105
+        },
+        {
+          "page": 106
+        }
+      ],
+      "related": [
+        {
+          "page": 133,
+          "title": "SPECIFICATIONS"
+        }
+      ],
+      "price": 260.0,
+      "ship": 18.0,
+      "days": 4,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/battery",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "battery",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "12V 10 Ah sealed",
+      "oemVerified": true,
+      "title": "BATTERY",
+      "pages": [
+        77,
+        78,
+        79
+      ],
+      "printedPage": "6-10",
+      "steps": [
+        {
+          "page": 77
+        },
+        {
+          "page": 78
+        },
+        {
+          "page": 79
+        }
+      ],
+      "related": [],
+      "price": 79.0,
+      "ship": 12.0,
+      "days": 2,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/fuses",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "fuses",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "30A MAIN fuse",
+      "oemVerified": true,
+      "title": "FUSES",
+      "pages": [
+        117,
+        118
+      ],
+      "printedPage": "6-50",
+      "steps": [
+        {
+          "page": 117
+        },
+        {
+          "page": 118
+        }
+      ],
+      "related": [],
+      "price": 4.0,
+      "ship": 0,
+      "days": 0,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/headlight",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "headlight",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "12V 60/55W H4",
+      "oemVerified": true,
+      "title": "LIGHT BULB REPLACEMENT",
+      "pages": [
+        113,
+        114,
+        115,
+        116
+      ],
+      "printedPage": "6-46",
+      "steps": [
+        {
+          "page": 113
+        },
+        {
+          "page": 114
+        },
+        {
+          "page": 115
+        },
+        {
+          "page": 116
+        }
+      ],
+      "related": [],
+      "price": 14.0,
+      "ship": 5.0,
+      "days": 2,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/seat",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "seat",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "seat lock",
+      "oemVerified": false,
+      "title": "SEAT LOCK",
+      "pages": [
+        43
+      ],
+      "printedPage": "2-30",
+      "steps": [
+        {
+          "page": 43
+        }
+      ],
+      "related": [],
+      "price": 45.0,
+      "ship": 8.0,
+      "days": 4,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "suzuki-sv650-2019/clutch-lever",
+      "bikeId": "suzuki-sv650-2019",
+      "partId": "clutch-lever",
+      "manualId": "suzuki-sv650-2019-om",
+      "oem": "clutch lever",
+      "oemVerified": false,
+      "title": "CLUTCH",
+      "pages": [
+        93
+      ],
+      "printedPage": "6-26",
+      "steps": [
+        {
+          "page": 93
+        }
+      ],
+      "related": [
+        {
+          "page": 37,
+          "title": "CLUTCH LEVER 1"
+        }
+      ],
+      "price": 38.0,
+      "ship": 8.0,
+      "days": 3,
+      "from": "Suzuki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/engine-oil",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "engine-oil",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "Yamalube 10W-40",
+      "oemVerified": true,
+      "title": "Engine oil and oil filter cartridge",
+      "pages": [
+        60,
+        61,
+        62
+      ],
+      "printedPage": "7-11",
+      "steps": [
+        {
+          "page": 60
+        },
+        {
+          "page": 61
+        },
+        {
+          "page": 62
+        }
+      ],
+      "related": [
+        {
+          "page": 91,
+          "title": "Specifications"
+        }
+      ],
+      "price": 16.99,
+      "ship": 0,
+      "days": 0,
+      "from": "Yamaha dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 11,
+          "note": "1 qt Yamalube",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/oil-filter",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "oil-filter",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "5GH-13440-70",
+      "oemVerified": false,
+      "title": "Engine oil and oil filter cartridge",
+      "pages": [
+        60,
+        61,
+        62
+      ],
+      "printedPage": "7-11",
+      "steps": [
+        {
+          "page": 60
+        },
+        {
+          "page": 61
+        },
+        {
+          "page": 62
+        }
+      ],
+      "related": [
+        {
+          "page": 91,
+          "title": "Specifications"
+        }
+      ],
+      "price": 12.5,
+      "ship": 6.0,
+      "days": 2,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/spark-plugs",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "spark-plugs",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "NGK LMAR8A-9",
+      "oemVerified": true,
+      "title": "Checking the spark plugs",
+      "pages": [
+        59
+      ],
+      "printedPage": "7-10",
+      "steps": [
+        {
+          "page": 59
+        }
+      ],
+      "related": [],
+      "price": 14.99,
+      "ship": 5.0,
+      "days": 2,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/air-filter",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "air-filter",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "1WS-14451-00",
+      "oemVerified": false,
+      "title": "Replacing the air filter element and cleaning the check hose",
+      "pages": [
+        65
+      ],
+      "printedPage": "7-16",
+      "steps": [
+        {
+          "page": 65
+        }
+      ],
+      "related": [],
+      "price": 32.0,
+      "ship": 7.0,
+      "days": 3,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/coolant",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "coolant",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "YAMALUBE coolant",
+      "oemVerified": true,
+      "title": "Coolant",
+      "pages": [
+        63,
+        64
+      ],
+      "printedPage": "7-14",
+      "steps": [
+        {
+          "page": 63
+        },
+        {
+          "page": 64
+        }
+      ],
+      "related": [
+        {
+          "page": 91,
+          "title": "Specifications"
+        }
+      ],
+      "price": 19.5,
+      "ship": 7.0,
+      "days": 2,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/brake-fluid",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "brake-fluid",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "DOT 4",
+      "oemVerified": true,
+      "title": "Checking the brake fluid level",
+      "pages": [
+        71,
+        72
+      ],
+      "printedPage": "7-22",
+      "steps": [
+        {
+          "page": 71
+        },
+        {
+          "page": 72
+        }
+      ],
+      "related": [],
+      "price": 11.0,
+      "ship": 5.0,
+      "days": 2,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/front-brake-pads",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "front-brake-pads",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "1WS-W0045-00",
+      "oemVerified": false,
+      "title": "Checking the front and rear brake pads",
+      "pages": [
+        71
+      ],
+      "printedPage": "7-22",
+      "steps": [
+        {
+          "page": 71
+        }
+      ],
+      "related": [],
+      "price": 58.0,
+      "ship": 7.0,
+      "days": 2,
+      "from": "Yamaha dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 28,
+          "note": "front set",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/rear-brake-pads",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "rear-brake-pads",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "1WS-W0046-00",
+      "oemVerified": false,
+      "title": "Checking the front and rear brake pads",
+      "pages": [
+        71
+      ],
+      "printedPage": "7-22",
+      "steps": [
+        {
+          "page": 71
+        }
+      ],
+      "related": [],
+      "price": 39.0,
+      "ship": 7.0,
+      "days": 2,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/drive-chain",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "drive-chain",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "DID 525",
+      "oemVerified": false,
+      "title": "Drive chain slack",
+      "pages": [
+        73,
+        74
+      ],
+      "printedPage": "7-24",
+      "steps": [
+        {
+          "page": 73
+        },
+        {
+          "page": 74
+        }
+      ],
+      "related": [
+        {
+          "page": 75,
+          "title": "Cleaning and lubricating the drive chain"
+        }
+      ],
+      "price": 98.0,
+      "ship": 9.0,
+      "days": 3,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/tires",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "tires",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "MICHELIN ROAD 5 120/70 ZR17 / 180/55 ZR17",
+      "oemVerified": true,
+      "title": "Tires",
+      "pages": [
+        66,
+        67,
+        68
+      ],
+      "printedPage": "7-17",
+      "steps": [
+        {
+          "page": 66
+        },
+        {
+          "page": 67
+        },
+        {
+          "page": 68
+        }
+      ],
+      "related": [
+        {
+          "page": 92,
+          "title": "Specifications"
+        }
+      ],
+      "price": 310.0,
+      "ship": 18.0,
+      "days": 4,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/battery",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "battery",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "YTZ10S",
+      "oemVerified": true,
+      "title": "Battery",
+      "pages": [
+        79,
+        80
+      ],
+      "printedPage": "7-30",
+      "steps": [
+        {
+          "page": 79
+        },
+        {
+          "page": 80
+        }
+      ],
+      "related": [
+        {
+          "page": 92,
+          "title": "Specifications"
+        }
+      ],
+      "price": 89.0,
+      "ship": 12.0,
+      "days": 2,
+      "from": "Yamaha dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 45,
+          "note": "YTZ10S",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/fuses",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "fuses",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "main fuse",
+      "oemVerified": false,
+      "title": "Replacing the fuses",
+      "pages": [
+        81,
+        82
+      ],
+      "printedPage": "7-32",
+      "steps": [
+        {
+          "page": 81
+        },
+        {
+          "page": 82
+        }
+      ],
+      "related": [
+        {
+          "page": 35,
+          "title": "Seats"
+        }
+      ],
+      "price": 4.5,
+      "ship": 0,
+      "days": 0,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/headlight",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "headlight",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "LED",
+      "oemVerified": true,
+      "title": "Vehicle lights",
+      "pages": [
+        82
+      ],
+      "printedPage": "7-33",
+      "steps": [
+        {
+          "page": 82
+        }
+      ],
+      "related": [],
+      "price": 0,
+      "ship": 0,
+      "days": 0,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Yamaha dealer"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/seat",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "seat",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "rider seat",
+      "oemVerified": false,
+      "title": "Seats",
+      "pages": [
+        35,
+        36
+      ],
+      "printedPage": "4-17",
+      "steps": [
+        {
+          "page": 35
+        },
+        {
+          "page": 36
+        }
+      ],
+      "related": [],
+      "price": 220.0,
+      "ship": 15.0,
+      "days": 5,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "yamaha-mt-07-2021/clutch-lever",
+      "bikeId": "yamaha-mt-07-2021",
+      "partId": "clutch-lever",
+      "manualId": "yamaha-mt-07-2021-om",
+      "oem": "clutch lever",
+      "oemVerified": false,
+      "title": "Adjusting the clutch lever free play",
+      "pages": [
+        69
+      ],
+      "printedPage": "7-20",
+      "steps": [
+        {
+          "page": 69
+        }
+      ],
+      "related": [
+        {
+          "page": 29,
+          "title": "Clutch lever"
+        }
+      ],
+      "price": 48.0,
+      "ship": 8.0,
+      "days": 3,
+      "from": "Yamaha dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/engine-oil",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "engine-oil",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "Kawasaki Performance 10W-40",
+      "oemVerified": true,
+      "title": "Engine Oil",
+      "pages": [
+        128,
+        129,
+        130,
+        131,
+        132
+      ],
+      "printedPage": "126",
+      "steps": [
+        {
+          "page": 128
+        },
+        {
+          "page": 129
+        },
+        {
+          "page": 130
+        },
+        {
+          "page": 131
+        },
+        {
+          "page": 132
+        }
+      ],
+      "related": [
+        {
+          "page": 30,
+          "title": "Engine Oil"
+        },
+        {
+          "page": 123,
+          "title": "Periodic Maintenance"
+        }
+      ],
+      "price": 16.5,
+      "ship": 0,
+      "days": 0,
+      "from": "Kawasaki dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 10,
+          "note": "1 qt 10W-40",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/oil-filter",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "oil-filter",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "16097-0008",
+      "oemVerified": false,
+      "title": "Oil and/or Oil Filter Change",
+      "pages": [
+        129,
+        130,
+        131
+      ],
+      "printedPage": "127",
+      "steps": [
+        {
+          "page": 129
+        },
+        {
+          "page": 130
+        },
+        {
+          "page": 131
+        }
+      ],
+      "related": [
+        {
+          "page": 128,
+          "title": "Engine Oil"
+        }
+      ],
+      "price": 11.5,
+      "ship": 6.0,
+      "days": 2,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/air-filter",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "air-filter",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "11013-0711",
+      "oemVerified": false,
+      "title": "Air Cleaner",
+      "pages": [
+        135
+      ],
+      "printedPage": "133",
+      "steps": [
+        {
+          "page": 135
+        }
+      ],
+      "related": [],
+      "price": 36.0,
+      "ship": 7.0,
+      "days": 3,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/coolant",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "coolant",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "Kawasaki Long-Life Coolant",
+      "oemVerified": false,
+      "title": "Coolant",
+      "pages": [
+        132,
+        133,
+        135
+      ],
+      "printedPage": "130",
+      "steps": [
+        {
+          "page": 132
+        },
+        {
+          "page": 133
+        },
+        {
+          "page": 135
+        }
+      ],
+      "related": [
+        {
+          "page": 30,
+          "title": "Coolant Capacity"
+        }
+      ],
+      "price": 22.0,
+      "ship": 8.0,
+      "days": 2,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/brake-fluid",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "brake-fluid",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "DOT 4",
+      "oemVerified": false,
+      "title": "Brake Fluid Level Inspection",
+      "pages": [
+        146,
+        147
+      ],
+      "printedPage": "144",
+      "steps": [
+        {
+          "page": 146
+        },
+        {
+          "page": 147
+        }
+      ],
+      "related": [
+        {
+          "page": 146,
+          "title": "Brakes"
+        }
+      ],
+      "price": 11.0,
+      "ship": 5.0,
+      "days": 2,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/front-brake-pads",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "front-brake-pads",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "43082-0125",
+      "oemVerified": false,
+      "title": "Brake Pad Wear Inspection",
+      "pages": [
+        147,
+        148
+      ],
+      "printedPage": "145",
+      "steps": [
+        {
+          "page": 147
+        },
+        {
+          "page": 148
+        }
+      ],
+      "related": [],
+      "price": 62.0,
+      "ship": 7.0,
+      "days": 2,
+      "from": "Kawasaki dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 32,
+          "note": "front set",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/rear-brake-pads",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "rear-brake-pads",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "43082-0049",
+      "oemVerified": false,
+      "title": "Brake Pad Wear Inspection",
+      "pages": [
+        147,
+        148
+      ],
+      "printedPage": "145",
+      "steps": [
+        {
+          "page": 147
+        },
+        {
+          "page": 148
+        }
+      ],
+      "related": [],
+      "price": 44.0,
+      "ship": 7.0,
+      "days": 2,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/drive-chain",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "drive-chain",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "sealed chain",
+      "oemVerified": false,
+      "title": "Drive Chain",
+      "pages": [
+        141,
+        142,
+        143,
+        144,
+        145
+      ],
+      "printedPage": "139",
+      "steps": [
+        {
+          "page": 141
+        },
+        {
+          "page": 142
+        },
+        {
+          "page": 143
+        },
+        {
+          "page": 144
+        },
+        {
+          "page": 145
+        }
+      ],
+      "related": [],
+      "price": 105.0,
+      "ship": 9.0,
+      "days": 3,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/tires",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "tires",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "DUNLOP SPORTMAX Roadsport 2 120/70ZR17 / 160/60ZR17",
+      "oemVerified": true,
+      "title": "Wheels",
+      "pages": [
+        154,
+        155,
+        157
+      ],
+      "printedPage": "152",
+      "steps": [
+        {
+          "page": 154
+        },
+        {
+          "page": 155
+        },
+        {
+          "page": 157
+        }
+      ],
+      "related": [],
+      "price": 280.0,
+      "ship": 18.0,
+      "days": 4,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/battery",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "battery",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "Yuasa YTZ10",
+      "oemVerified": true,
+      "title": "Battery",
+      "pages": [
+        157,
+        158,
+        162
+      ],
+      "printedPage": "155",
+      "steps": [
+        {
+          "page": 157
+        },
+        {
+          "page": 158
+        },
+        {
+          "page": 162
+        }
+      ],
+      "related": [],
+      "price": 92.0,
+      "ship": 12.0,
+      "days": 2,
+      "from": "Kawasaki dealer",
+      "used": [
+        {
+          "from": "eBay Motors",
+          "price": 48,
+          "note": "YTZ10",
+          "where": "Ships US"
+        }
+      ],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/fuses",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "fuses",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "Main Fuse 30 A",
+      "oemVerified": true,
+      "title": "Fuses",
+      "pages": [
+        164,
+        165,
+        166
+      ],
+      "printedPage": "162",
+      "steps": [
+        {
+          "page": 164
+        },
+        {
+          "page": 165
+        },
+        {
+          "page": 166
+        }
+      ],
+      "related": [],
+      "price": 4.0,
+      "ship": 0,
+      "days": 0,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/headlight",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "headlight",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "LED",
+      "oemVerified": true,
+      "title": "Headlight",
+      "pages": [
+        162,
+        163,
+        164
+      ],
+      "printedPage": "160",
+      "steps": [
+        {
+          "page": 162
+        },
+        {
+          "page": 163
+        },
+        {
+          "page": 164
+        }
+      ],
+      "related": [],
+      "price": 0,
+      "ship": 0,
+      "days": 0,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Kawasaki dealer"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/seat",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "seat",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "rider seat",
+      "oemVerified": false,
+      "title": "Seats",
+      "pages": [
+        100,
+        101,
+        102
+      ],
+      "printedPage": "98",
+      "steps": [
+        {
+          "page": 100
+        },
+        {
+          "page": 101
+        },
+        {
+          "page": 102
+        }
+      ],
+      "related": [],
+      "price": 210.0,
+      "ship": 15.0,
+      "days": 5,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/clutch-lever",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "clutch-lever",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "clutch lever",
+      "oemVerified": false,
+      "title": "Clutch",
+      "pages": [
+        140,
+        141
+      ],
+      "printedPage": "138",
+      "steps": [
+        {
+          "page": 140
+        },
+        {
+          "page": 141
+        }
+      ],
+      "related": [
+        {
+          "page": 92,
+          "title": "Clutch Lever Adjuster"
+        }
+      ],
+      "price": 46.0,
+      "ship": 8.0,
+      "days": 3,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    },
+    {
+      "id": "kawasaki-z650-2020/mirrors",
+      "bikeId": "kawasaki-z650-2020",
+      "partId": "mirrors",
+      "manualId": "kawasaki-z650-2020-om",
+      "oem": "rear view mirror",
+      "oemVerified": false,
+      "title": "Rear View Mirrors",
+      "pages": [
+        103
+      ],
+      "printedPage": "101",
+      "steps": [
+        {
+          "page": 103
+        }
+      ],
+      "related": [],
+      "price": 54.0,
+      "ship": 8.0,
+      "days": 3,
+      "from": "Kawasaki dealer",
+      "used": [],
+      "alts": [
+        "Dealer parts desk"
+      ]
+    }
+  ]
+}
