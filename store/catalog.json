@@ -1424,7 +1424,7 @@
       "bikeId": "honda-cb650r-2021",
       "partId": "engine-oil",
       "manualId": "honda-cb650r-2021-om",
-      "oem": "Pro Honda GN4 10W-30",
+      "oem": "08C35-A131M02",
       "oemVerified": false,
       "title": "Engine Oil",
       "pages": [
@@ -1450,28 +1450,49 @@
           "title": "Service Data"
         }
       ],
-      "price": 14.95,
-      "ship": 0,
-      "days": 0,
-      "from": "Honda dealer",
+      "price": 8.68,
+      "ship": null,
+      "days": 2,
+      "from": "Partzilla",
       "used": [
         {
-          "from": "eBay Motors",
-          "price": 9,
-          "note": "1 qt GN4",
-          "where": "Ships US"
+          "from": "eBay",
+          "url": "https://www.ebay.com/itm/276400389507",
+          "price": 14.95,
+          "currency": "USD",
+          "note": "new OEM 1 qt GN4 10W-30 08C35-A131M02",
+          "where": "Dover, Florida, United States",
+          "retrieved": "2026-09-19"
         }
       ],
       "alts": [
-        "Dealer parts desk"
-      ]
+        {
+          "label": "Motul 7100 4T 10W-30 1L",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/motorcycle/motul-7100-4t-synthetic-engine-oil-1-liter",
+          "price": 28.96,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/08C35-A131M02",
+        "price": 8.68,
+        "currency": "USD",
+        "ship": null,
+        "days": 2,
+        "retrieved": "2026-09-19",
+        "oem": "08C35-A131M02",
+        "oemVerified": false
+      }
     },
     {
       "id": "honda-cb650r-2021/coolant",
       "bikeId": "honda-cb650r-2021",
       "partId": "coolant",
       "manualId": "honda-cb650r-2021-om",
-      "oem": "Pro Honda HP Coolant",
+      "oem": "08CLA-999-0E0A8",
       "oemVerified": false,
       "title": "Coolant",
       "pages": [
@@ -1493,21 +1514,30 @@
           "title": "Service Data"
         }
       ],
-      "price": 18.5,
-      "ship": 7.0,
-      "days": 2,
-      "from": "Honda dealer",
+      "price": 7.43,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/08CLA-999-0E0A8",
+        "price": 7.43,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "08CLA-999-0E0A8",
+        "oemVerified": false
+      }
     },
     {
       "id": "honda-cb650r-2021/brake-fluid",
       "bikeId": "honda-cb650r-2021",
       "partId": "brake-fluid",
       "manualId": "honda-cb650r-2021-om",
-      "oem": "Honda DOT 4 Brake Fluid",
+      "oem": "08203-0004",
       "oemVerified": false,
       "title": "Checking Brake Fluid",
       "pages": [
@@ -1525,14 +1555,33 @@
           "title": "Brake Fluid"
         }
       ],
-      "price": 12.0,
-      "ship": 6.5,
-      "days": 2,
-      "from": "Honda dealer",
-      "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "price": 4.01,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [
+        {
+          "from": "eBay",
+          "url": "https://www.ebay.com/itm/316407834334",
+          "price": 13.98,
+          "currency": "USD",
+          "note": "new OEM Honda DOT 4 12 oz 08203-0004",
+          "where": "Kissimmee, Florida, United States",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/08203-0004",
+        "price": 4.01,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "08203-0004",
+        "oemVerified": false
+      }
     },
     {
       "id": "honda-cb650r-2021/front-brake-pads",
@@ -1557,28 +1606,39 @@
           "title": "Checking Brake Fluid"
         }
       ],
-      "price": 48.2,
-      "ship": 6.5,
-      "days": 2,
-      "from": "Honda dealer",
-      "used": [
+      "price": 61.74,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [
         {
-          "from": "eBay Motors",
-          "price": 25,
-          "note": "one axle set",
-          "where": "Ships US"
+          "label": "EBC FA679HH",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/motorcycle/ebc-fa679hh-double-h-sintered-front-brake-pads",
+          "price": 59.27,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
         }
       ],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/06455-MKN-D51",
+        "price": 61.74,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "06455-MKN-D51",
+        "oemVerified": true
+      }
     },
     {
       "id": "honda-cb650r-2021/rear-brake-pads",
       "bikeId": "honda-cb650r-2021",
       "partId": "rear-brake-pads",
       "manualId": "honda-cb650r-2021-om",
-      "oem": "06435-MGZ-J01",
+      "oem": "06435-MGZ-J02",
       "oemVerified": true,
       "title": "Inspecting the Brake Pads",
       "pages": [
@@ -1591,29 +1651,40 @@
         }
       ],
       "related": [],
-      "price": 36.4,
-      "ship": 6.5,
-      "days": 2,
-      "from": "Honda dealer",
-      "used": [
+      "price": 27.89,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [
         {
-          "from": "eBay Motors",
-          "price": 18,
-          "note": "rear set",
-          "where": "Ships US"
+          "label": "EBC FA496HH",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/motorcycle/ebc-fa496hh-double-h-sintered-rear-brake-pads",
+          "price": 50.4,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
         }
       ],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/06435-MGZ-J02",
+        "price": 27.89,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "06435-MGZ-J02",
+        "oemVerified": true
+      }
     },
     {
       "id": "honda-cb650r-2021/drive-chain",
       "bikeId": "honda-cb650r-2021",
       "partId": "drive-chain",
       "manualId": "honda-cb650r-2021-om",
-      "oem": "DID 525V11",
-      "oemVerified": false,
+      "oem": "40540-MJE-D01",
+      "oemVerified": true,
       "title": "Drive Chain",
       "pages": [
         93
@@ -1630,22 +1701,41 @@
           "title": "Drive Chain"
         }
       ],
-      "price": 89.0,
-      "ship": 8.0,
-      "days": 3,
-      "from": "Honda dealer",
-      "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "price": 141.89,
+      "ship": null,
+      "days": 2,
+      "from": "Partzilla",
+      "used": [
+        {
+          "from": "eBay",
+          "url": "https://www.ebay.com/itm/297597311077",
+          "price": 166.42,
+          "currency": "USD",
+          "note": "new OEM DID 525V11-120ZB 40540-MJE-D01",
+          "where": "Bangkok, Thailand",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/40540-MJE-D01",
+        "price": 141.89,
+        "currency": "USD",
+        "ship": null,
+        "days": 2,
+        "retrieved": "2026-09-19",
+        "oem": "40540-MJE-D01",
+        "oemVerified": true
+      }
     },
     {
       "id": "honda-cb650r-2021/tires",
       "bikeId": "honda-cb650r-2021",
       "partId": "tires",
       "manualId": "honda-cb650r-2021-om",
-      "oem": "DUNLOP D214F Z / D214 Q",
-      "oemVerified": false,
+      "oem": "44711-MKN-D52",
+      "oemVerified": true,
       "title": "Tires (Inspecting/Replacing)",
       "pages": [
         78,
@@ -1670,21 +1760,30 @@
           "title": "Service Data"
         }
       ],
-      "price": 280.0,
-      "ship": 18.0,
-      "days": 4,
-      "from": "Honda dealer",
+      "price": 193.08,
+      "ship": 0,
+      "days": 2,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/44711-MKN-D52",
+        "price": 193.08,
+        "currency": "USD",
+        "ship": 0,
+        "days": 2,
+        "retrieved": "2026-09-19",
+        "oem": "44711-MKN-D52",
+        "oemVerified": true
+      }
     },
     {
       "id": "honda-cb650r-2021/battery",
       "bikeId": "honda-cb650r-2021",
       "partId": "battery",
       "manualId": "honda-cb650r-2021-om",
-      "oem": "31500-MGZ-D01",
+      "oem": "31500-MCJ-643AH",
       "oemVerified": true,
       "title": "Battery",
       "pages": [
@@ -1706,29 +1805,50 @@
           "title": "Battery Goes Dead"
         }
       ],
-      "price": 89.0,
-      "ship": 12.0,
+      "price": 164.18,
+      "ship": 0,
       "days": 2,
-      "from": "Honda dealer",
+      "from": "Partzilla",
       "used": [
         {
-          "from": "eBay Motors",
-          "price": 45,
-          "note": "YTZ10S used",
-          "where": "Ships US"
+          "from": "eBay",
+          "url": "https://www.ebay.com/itm/186597002335",
+          "price": 166.99,
+          "currency": "USD",
+          "note": "new Yuasa YTZ10S",
+          "where": "United States",
+          "retrieved": "2026-09-19"
         }
       ],
       "alts": [
-        "Dealer parts desk"
-      ]
+        {
+          "label": "Yuasa YTZ10S AGM",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/motorcycle/yuasa-ytz10s-factory-activated-agm-high-performance-battery",
+          "price": 216,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/31500-MCJ-643AH",
+        "price": 164.18,
+        "currency": "USD",
+        "ship": 0,
+        "days": 2,
+        "retrieved": "2026-09-19",
+        "oem": "31500-MCJ-643AH",
+        "oemVerified": true
+      }
     },
     {
       "id": "honda-cb650r-2021/fuses",
       "bikeId": "honda-cb650r-2021",
       "partId": "fuses",
       "manualId": "honda-cb650r-2021-om",
-      "oem": "30 A main fuse",
-      "oemVerified": false,
+      "oem": "38221-SNA-A81",
+      "oemVerified": true,
       "title": "Fuses",
       "pages": [
         74,
@@ -1749,22 +1869,31 @@
           "title": "Fuses"
         }
       ],
-      "price": 4.5,
-      "ship": 0,
-      "days": 0,
-      "from": "Honda dealer",
+      "price": 2.24,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/38221-SNA-A81",
+        "price": 2.24,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "38221-SNA-A81",
+        "oemVerified": true
+      }
     },
     {
       "id": "honda-cb650r-2021/headlight",
       "bikeId": "honda-cb650r-2021",
       "partId": "headlight",
       "manualId": "honda-cb650r-2021-om",
-      "oem": "LED (dealer)",
-      "oemVerified": false,
+      "oem": "33100-MKY-D51",
+      "oemVerified": true,
       "title": "Burned-out Light Bulb",
       "pages": [
         109
@@ -1776,22 +1905,41 @@
         }
       ],
       "related": [],
-      "price": 0,
+      "price": 380.56,
       "ship": 0,
-      "days": 7,
-      "from": "Honda dealer",
-      "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "days": 2,
+      "from": "Partzilla",
+      "used": [
+        {
+          "from": "eBay",
+          "url": "https://www.ebay.com/itm/296830020415",
+          "price": 259.95,
+          "currency": "USD",
+          "note": "new aftermarket LED assembly for CB650R 2018-2021",
+          "where": "Tallahassee, Florida, United States",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/33100-MKY-D51",
+        "price": 380.56,
+        "currency": "USD",
+        "ship": 0,
+        "days": 2,
+        "retrieved": "2026-09-19",
+        "oem": "33100-MKY-D51",
+        "oemVerified": true
+      }
     },
     {
       "id": "honda-cb650r-2021/seat",
       "bikeId": "honda-cb650r-2021",
       "partId": "seat",
       "manualId": "honda-cb650r-2021-om",
-      "oem": "front seat",
-      "oemVerified": false,
+      "oem": "77100-MKY-D51ZA",
+      "oemVerified": true,
       "title": "Front Seat",
       "pages": [
         83,
@@ -1807,22 +1955,41 @@
         }
       ],
       "related": [],
-      "price": 220.0,
-      "ship": 25.0,
-      "days": 5,
-      "from": "Honda dealer",
-      "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "price": 113.21,
+      "ship": null,
+      "days": 2,
+      "from": "Partzilla",
+      "used": [
+        {
+          "from": "eBay",
+          "url": "https://www.ebay.com/itm/125710986009",
+          "price": 104.1,
+          "currency": "USD",
+          "note": "new aftermarket front rider seat for CB650R 2019-2021",
+          "where": "Guangzhou, China",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/77100-MKY-D51ZA",
+        "price": 113.21,
+        "currency": "USD",
+        "ship": null,
+        "days": 2,
+        "retrieved": "2026-09-19",
+        "oem": "77100-MKY-D51ZA",
+        "oemVerified": true
+      }
     },
     {
       "id": "honda-cb650r-2021/clutch-lever",
       "bikeId": "honda-cb650r-2021",
       "partId": "clutch-lever",
       "manualId": "honda-cb650r-2021-om",
-      "oem": "clutch lever",
-      "oemVerified": false,
+      "oem": "53178-MJE-D00",
+      "oemVerified": true,
       "title": "Clutch",
       "pages": [
         94,
@@ -1842,21 +2009,30 @@
         }
       ],
       "related": [],
-      "price": 42.0,
-      "ship": 8.0,
-      "days": 3,
-      "from": "Honda dealer",
+      "price": 17.6,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/honda/53178-MJE-D00",
+        "price": 17.6,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "53178-MJE-D00",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/engine-oil",
       "bikeId": "suzuki-sv650-2019",
       "partId": "engine-oil",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "ECSTAR 10W-40",
+      "oem": "990A0-01E40-01Q",
       "oemVerified": false,
       "title": "ENGINE OIL",
       "pages": [
@@ -1894,14 +2070,23 @@
           "title": "MAINTENANCE SCHEDULE"
         }
       ],
-      "price": 16.5,
-      "ship": 0,
-      "days": 0,
-      "from": "Suzuki dealer",
+      "price": 16.75,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/990A0-01E40-01Q",
+        "price": 16.75,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "990A0-01E40-01Q",
+        "oemVerified": false
+      }
     },
     {
       "id": "suzuki-sv650-2019/oil-filter",
@@ -1946,29 +2131,40 @@
           "title": "MAINTENANCE SCHEDULE"
         }
       ],
-      "price": 13.5,
-      "ship": 6.0,
-      "days": 2,
-      "from": "Suzuki dealer",
-      "used": [
+      "price": 12.35,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [
         {
-          "from": "eBay Motors",
-          "price": 8,
-          "note": "OEM filter",
-          "where": "Ships US"
+          "label": "K&N KN-138",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/motorcycle/kn-oil-filter-kn-138",
+          "price": 19.99,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
         }
       ],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/16510-07J00",
+        "price": 12.35,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "16510-07J00",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/spark-plugs",
       "bikeId": "suzuki-sv650-2019",
       "partId": "spark-plugs",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "NGK MR8E-9",
-      "oemVerified": false,
+      "oem": "09482-00646",
+      "oemVerified": true,
       "title": "SPARK PLUGS",
       "pages": [
         83,
@@ -1997,22 +2193,31 @@
           "title": "ELECTRICAL"
         }
       ],
-      "price": 16.99,
-      "ship": 6.0,
-      "days": 2,
-      "from": "Suzuki dealer",
+      "price": 16.82,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/09482-00646",
+        "price": 16.82,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "09482-00646",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/air-filter",
       "bikeId": "suzuki-sv650-2019",
       "partId": "air-filter",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "13780-18K00",
-      "oemVerified": false,
+      "oem": "13780-44H00",
+      "oemVerified": true,
       "title": "AIR CLEANER",
       "pages": [
         80,
@@ -2032,21 +2237,30 @@
         }
       ],
       "related": [],
-      "price": 38.0,
-      "ship": 7.0,
-      "days": 3,
-      "from": "Suzuki dealer",
+      "price": 36.78,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/13780-44H00",
+        "price": 36.78,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "13780-44H00",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/coolant",
       "bikeId": "suzuki-sv650-2019",
       "partId": "coolant",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "SUZUKI SUPER LONG LIFE COOLANT",
+      "oem": "990A0-02E00-01Q",
       "oemVerified": false,
       "title": "COOLANT",
       "pages": [
@@ -2064,21 +2278,30 @@
           "title": "ENGINE COOLANT SOLUTION"
         }
       ],
-      "price": 22.0,
-      "ship": 8.0,
-      "days": 2,
-      "from": "Suzuki dealer",
+      "price": 10.4,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/990A0-02E00-01Q",
+        "price": 10.4,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "990A0-02E00-01Q",
+        "oemVerified": false
+      }
     },
     {
       "id": "suzuki-sv650-2019/brake-fluid",
       "bikeId": "suzuki-sv650-2019",
       "partId": "brake-fluid",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "DOT4",
+      "oem": "990A0-01E91-12Z",
       "oemVerified": false,
       "title": "BRAKES",
       "pages": [
@@ -2095,14 +2318,23 @@
         }
       ],
       "related": [],
-      "price": 11.0,
-      "ship": 6.0,
-      "days": 2,
-      "from": "Suzuki dealer",
+      "price": 11.73,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/990A0-01E91-12Z",
+        "price": 11.73,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "990A0-01E91-12Z",
+        "oemVerified": false
+      }
     },
     {
       "id": "suzuki-sv650-2019/front-brake-pads",
@@ -2122,21 +2354,23 @@
         }
       ],
       "related": [],
-      "price": 61.99,
-      "ship": 7.0,
-      "days": 2,
-      "from": "Suzuki dealer",
-      "used": [
-        {
-          "from": "eBay Motors",
-          "price": 30,
-          "note": "front set",
-          "where": "Ships US"
-        }
-      ],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "price": 89.08,
+      "ship": null,
+      "days": 4,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/59100-35800",
+        "price": 89.08,
+        "currency": "USD",
+        "ship": null,
+        "days": 4,
+        "retrieved": "2026-09-19",
+        "oem": "59100-35800",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/rear-brake-pads",
@@ -2156,22 +2390,40 @@
         }
       ],
       "related": [],
-      "price": 42.99,
-      "ship": 7.0,
-      "days": 2,
-      "from": "Suzuki dealer",
+      "price": 61.98,
+      "ship": null,
+      "days": 4,
+      "from": "Partzilla",
       "used": [],
       "alts": [
-        "Dealer parts desk"
-      ]
+        {
+          "label": "EBC FA496HH",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/motorcycle/ebc-fa496hh-double-h-sintered-rear-brake-pads",
+          "price": 50.4,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/69101-44850",
+        "price": 61.98,
+        "currency": "USD",
+        "ship": null,
+        "days": 4,
+        "retrieved": "2026-09-19",
+        "oem": "69101-44850",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/drive-chain",
       "bikeId": "suzuki-sv650-2019",
       "partId": "drive-chain",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "drive chain",
-      "oemVerified": false,
+      "oem": "27600-44H10-112",
+      "oemVerified": true,
       "title": "DRIVE CHAIN",
       "pages": [
         95,
@@ -2195,22 +2447,31 @@
         }
       ],
       "related": [],
-      "price": 95.0,
-      "ship": 9.0,
-      "days": 3,
-      "from": "Suzuki dealer",
+      "price": 318.38,
+      "ship": 0,
+      "days": 210,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/27600-44H10-112",
+        "price": 318.38,
+        "currency": "USD",
+        "ship": 0,
+        "days": 210,
+        "retrieved": "2026-09-19",
+        "oem": "27600-44H10-112",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/tires",
       "bikeId": "suzuki-sv650-2019",
       "partId": "tires",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "120/70ZR17 / 160/60ZR17",
-      "oemVerified": false,
+      "oem": "55110-18K00",
+      "oemVerified": true,
       "title": "TIRES",
       "pages": [
         103,
@@ -2239,22 +2500,31 @@
           "title": "SPECIFICATIONS"
         }
       ],
-      "price": 260.0,
-      "ship": 18.0,
+      "price": 243.88,
+      "ship": 0,
       "days": 4,
-      "from": "Suzuki dealer",
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/55110-18K00",
+        "price": 243.88,
+        "currency": "USD",
+        "ship": 0,
+        "days": 4,
+        "retrieved": "2026-09-19",
+        "oem": "55110-18K00",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/battery",
       "bikeId": "suzuki-sv650-2019",
       "partId": "battery",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "12V 10 Ah sealed",
-      "oemVerified": false,
+      "oem": "33610-14G11",
+      "oemVerified": true,
       "title": "BATTERY",
       "pages": [
         77,
@@ -2274,22 +2544,40 @@
         }
       ],
       "related": [],
-      "price": 79.0,
-      "ship": 12.0,
-      "days": 2,
-      "from": "Suzuki dealer",
+      "price": 135.14,
+      "ship": null,
+      "days": 1,
+      "from": "RevZilla",
       "used": [],
       "alts": [
-        "Dealer parts desk"
-      ]
+        {
+          "label": "Yuasa YT12A-BS",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/motorcycle/yuasa-yt12a-bs-agm-battery",
+          "price": 157.5,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "new": {
+        "from": "RevZilla",
+        "url": "https://www.revzilla.com/oem/suzuki/suzuki-33610-14g11-battery-assy-ft12a-bs",
+        "price": 135.14,
+        "currency": "USD",
+        "ship": null,
+        "days": 1,
+        "retrieved": "2026-09-19",
+        "oem": "33610-14G11",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/fuses",
       "bikeId": "suzuki-sv650-2019",
       "partId": "fuses",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "30A MAIN fuse",
-      "oemVerified": false,
+      "oem": "09481-30101",
+      "oemVerified": true,
       "title": "FUSES",
       "pages": [
         117,
@@ -2305,22 +2593,31 @@
         }
       ],
       "related": [],
-      "price": 4.0,
-      "ship": 0,
-      "days": 0,
-      "from": "Suzuki dealer",
+      "price": 2.35,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/09481-30101",
+        "price": 2.35,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "09481-30101",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/headlight",
       "bikeId": "suzuki-sv650-2019",
       "partId": "headlight",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "12V 60/55W H4",
-      "oemVerified": false,
+      "oem": "09471-12185",
+      "oemVerified": true,
       "title": "LIGHT BULB REPLACEMENT",
       "pages": [
         113,
@@ -2348,22 +2645,31 @@
         }
       ],
       "related": [],
-      "price": 14.0,
-      "ship": 5.0,
-      "days": 2,
-      "from": "Suzuki dealer",
+      "price": 31.54,
+      "ship": null,
+      "days": 4,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/09471-12185",
+        "price": 31.54,
+        "currency": "USD",
+        "ship": null,
+        "days": 4,
+        "retrieved": "2026-09-19",
+        "oem": "09471-12185",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/seat",
       "bikeId": "suzuki-sv650-2019",
       "partId": "seat",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "seat lock",
-      "oemVerified": false,
+      "oem": "45100-18K01-BBC",
+      "oemVerified": true,
       "title": "SEAT LOCK",
       "pages": [
         43
@@ -2375,22 +2681,31 @@
         }
       ],
       "related": [],
-      "price": 45.0,
-      "ship": 8.0,
+      "price": 461.92,
+      "ship": 0,
       "days": 4,
-      "from": "Suzuki dealer",
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/45100-18K01-BBC",
+        "price": 461.92,
+        "currency": "USD",
+        "ship": 0,
+        "days": 4,
+        "retrieved": "2026-09-19",
+        "oem": "45100-18K01-BBC",
+        "oemVerified": true
+      }
     },
     {
       "id": "suzuki-sv650-2019/clutch-lever",
       "bikeId": "suzuki-sv650-2019",
       "partId": "clutch-lever",
       "manualId": "suzuki-sv650-2019-om",
-      "oem": "clutch lever",
-      "oemVerified": false,
+      "oem": "57621-25D10",
+      "oemVerified": true,
       "title": "CLUTCH",
       "pages": [
         93
@@ -2407,21 +2722,40 @@
           "title": "CLUTCH LEVER 1"
         }
       ],
-      "price": 38.0,
-      "ship": 8.0,
-      "days": 3,
-      "from": "Suzuki dealer",
-      "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "price": 35,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [
+        {
+          "from": "eBay",
+          "url": "https://www.ebay.com/itm/267580071980",
+          "price": 34.99,
+          "currency": "USD",
+          "note": "Used–Good OEM 57621-25D10; cosmetic wear on ball end",
+          "where": "Chicago, Illinois",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/suzuki/57621-25D10",
+        "price": 35,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "57621-25D10",
+        "oemVerified": true
+      }
     },
     {
       "id": "yamaha-mt-07-2021/engine-oil",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "engine-oil",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "Yamalube 10W-40",
+      "oem": "LUB-10W40-AP-12",
       "oemVerified": false,
       "title": "Engine oil and oil filter cartridge",
       "pages": [
@@ -2451,29 +2785,31 @@
           "title": "Specifications"
         }
       ],
-      "price": 16.99,
-      "ship": 0,
-      "days": 0,
-      "from": "Yamaha dealer",
-      "used": [
-        {
-          "from": "eBay Motors",
-          "price": 11,
-          "note": "1 qt Yamalube",
-          "where": "Ships US"
-        }
-      ],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "price": 11.49,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/LUB-10W40-AP-12",
+        "price": 11.49,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "LUB-10W40-AP-12",
+        "oemVerified": false
+      }
     },
     {
       "id": "yamaha-mt-07-2021/oil-filter",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "oil-filter",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "5GH-13440-70",
-      "oemVerified": false,
+      "oem": "5GH-13440-61-00",
+      "oemVerified": true,
       "title": "Engine oil and oil filter cartridge",
       "pages": [
         60,
@@ -2502,22 +2838,40 @@
           "title": "Specifications"
         }
       ],
-      "price": 12.5,
-      "ship": 6.0,
-      "days": 2,
-      "from": "Yamaha dealer",
+      "price": 9.69,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
       "alts": [
-        "Dealer parts desk"
-      ]
+        {
+          "label": "HiFloFiltro Premium Oil Filter HF204",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/dirt-bike/hiflofiltro-premium-oil-filter-hf204",
+          "price": 8.71,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/5GH-13440-61-00",
+        "price": 9.69,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "5GH-13440-61-00",
+        "oemVerified": true
+      }
     },
     {
       "id": "yamaha-mt-07-2021/spark-plugs",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "spark-plugs",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "NGK LMAR8A-9",
-      "oemVerified": false,
+      "oem": "LMA-R8A9S-00-00",
+      "oemVerified": true,
       "title": "Checking the spark plugs",
       "pages": [
         59
@@ -2529,22 +2883,31 @@
         }
       ],
       "related": [],
-      "price": 14.99,
-      "ship": 5.0,
-      "days": 2,
-      "from": "Yamaha dealer",
+      "price": 12.25,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/LMA-R8A9S-00-00",
+        "price": 12.25,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "LMA-R8A9S-00-00",
+        "oemVerified": true
+      }
     },
     {
       "id": "yamaha-mt-07-2021/air-filter",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "air-filter",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "1WS-14451-00",
-      "oemVerified": false,
+      "oem": "1WS-14450-00-00",
+      "oemVerified": true,
       "title": "Replacing the air filter element and cleaning the check hose",
       "pages": [
         65
@@ -2556,21 +2919,39 @@
         }
       ],
       "related": [],
-      "price": 32.0,
-      "ship": 7.0,
-      "days": 3,
-      "from": "Yamaha dealer",
+      "price": 33.43,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
       "alts": [
-        "Dealer parts desk"
-      ]
+        {
+          "label": "K&N Air Filter YA-6814",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/motorcycle/kn-air-filter-ya-6814",
+          "price": 92.69,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/1WS-14450-00-00",
+        "price": 33.43,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "1WS-14450-00-00",
+        "oemVerified": true
+      }
     },
     {
       "id": "yamaha-mt-07-2021/coolant",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "coolant",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "YAMALUBE coolant",
+      "oem": "ACC-YAMAC-BL-32",
       "oemVerified": false,
       "title": "Coolant",
       "pages": [
@@ -2592,21 +2973,30 @@
           "title": "Specifications"
         }
       ],
-      "price": 19.5,
-      "ship": 7.0,
-      "days": 2,
-      "from": "Yamaha dealer",
+      "price": 10.44,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/ACC-YAMAC-BL-32",
+        "price": 10.44,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "ACC-YAMAC-BL-32",
+        "oemVerified": false
+      }
     },
     {
       "id": "yamaha-mt-07-2021/brake-fluid",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "brake-fluid",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "DOT 4",
+      "oem": "ACC-BRAKE-FL-UD",
       "oemVerified": false,
       "title": "Checking the brake fluid level",
       "pages": [
@@ -2623,22 +3013,31 @@
         }
       ],
       "related": [],
-      "price": 11.0,
-      "ship": 5.0,
-      "days": 2,
-      "from": "Yamaha dealer",
+      "price": 7.49,
+      "ship": null,
+      "days": null,
+      "from": "RevZilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "RevZilla",
+        "url": "https://www.revzilla.com/motorcycle/yamalube-brake-fluid",
+        "price": 7.49,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "ACC-BRAKE-FL-UD",
+        "oemVerified": false
+      }
     },
     {
       "id": "yamaha-mt-07-2021/front-brake-pads",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "front-brake-pads",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "1WS-W0045-00",
-      "oemVerified": false,
+      "oem": "1WS-25805-00-00",
+      "oemVerified": true,
       "title": "Checking the front and rear brake pads",
       "pages": [
         71
@@ -2650,29 +3049,40 @@
         }
       ],
       "related": [],
-      "price": 58.0,
-      "ship": 7.0,
-      "days": 2,
-      "from": "Yamaha dealer",
-      "used": [
+      "price": 46.35,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [
         {
-          "from": "eBay Motors",
-          "price": 28,
-          "note": "front set",
-          "where": "Ships US"
+          "label": "EBC FA252 Organic Front Brake Pads",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/motorcycle/ebc-fa252-front-organic-brake-pads",
+          "price": 36.02,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
         }
       ],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/1WS-25805-00-00",
+        "price": 46.35,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "1WS-25805-00-00",
+        "oemVerified": true
+      }
     },
     {
       "id": "yamaha-mt-07-2021/rear-brake-pads",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "rear-brake-pads",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "1WS-W0046-00",
-      "oemVerified": false,
+      "oem": "5VX-25806-00-00",
+      "oemVerified": true,
       "title": "Checking the front and rear brake pads",
       "pages": [
         71
@@ -2684,22 +3094,40 @@
         }
       ],
       "related": [],
-      "price": 39.0,
-      "ship": 7.0,
-      "days": 2,
-      "from": "Yamaha dealer",
+      "price": 48.19,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
       "alts": [
-        "Dealer parts desk"
-      ]
+        {
+          "label": "EBC FA174 Organic Rear Brake Pads",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/motorcycle/ebc-fa174-rear-organic-brake-pads",
+          "price": 38.18,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/5VX-25806-00-00",
+        "price": 48.19,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "5VX-25806-00-00",
+        "oemVerified": true
+      }
     },
     {
       "id": "yamaha-mt-07-2021/drive-chain",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "drive-chain",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "DID 525",
-      "oemVerified": false,
+      "oem": "94582-49108-00",
+      "oemVerified": true,
       "title": "Drive chain slack",
       "pages": [
         73,
@@ -2720,14 +3148,23 @@
           "title": "Cleaning and lubricating the drive chain"
         }
       ],
-      "price": 98.0,
-      "ship": 9.0,
+      "price": 205.31,
+      "ship": null,
       "days": 3,
-      "from": "Yamaha dealer",
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/94582-49108-00",
+        "price": 205.31,
+        "currency": "USD",
+        "ship": null,
+        "days": 3,
+        "retrieved": "2026-09-19",
+        "oem": "94582-49108-00",
+        "oemVerified": true
+      }
     },
     {
       "id": "yamaha-mt-07-2021/tires",
@@ -2760,22 +3197,21 @@
           "title": "Specifications"
         }
       ],
-      "price": 310.0,
-      "ship": 18.0,
-      "days": 4,
-      "from": "Yamaha dealer",
+      "price": null,
+      "ship": null,
+      "days": null,
+      "from": null,
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": null
     },
     {
       "id": "yamaha-mt-07-2021/battery",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "battery",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "YTZ10S",
-      "oemVerified": false,
+      "oem": "YTZ-10S00-00-00",
+      "oemVerified": true,
       "title": "Battery",
       "pages": [
         79,
@@ -2796,29 +3232,31 @@
           "title": "Specifications"
         }
       ],
-      "price": 89.0,
-      "ship": 12.0,
-      "days": 2,
-      "from": "Yamaha dealer",
-      "used": [
-        {
-          "from": "eBay Motors",
-          "price": 45,
-          "note": "YTZ10S",
-          "where": "Ships US"
-        }
-      ],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "price": 184.29,
+      "ship": null,
+      "days": 3,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/YTZ-10S00-00-00",
+        "price": 184.29,
+        "currency": "USD",
+        "ship": null,
+        "days": 3,
+        "retrieved": "2026-09-19",
+        "oem": "YTZ-10S00-00-00",
+        "oemVerified": true
+      }
     },
     {
       "id": "yamaha-mt-07-2021/fuses",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "fuses",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "main fuse",
-      "oemVerified": false,
+      "oem": "5JJ-82151-00-00",
+      "oemVerified": true,
       "title": "Replacing the fuses",
       "pages": [
         81,
@@ -2839,22 +3277,31 @@
           "title": "Seats"
         }
       ],
-      "price": 4.5,
-      "ship": 0,
-      "days": 0,
-      "from": "Yamaha dealer",
+      "price": 5.69,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/5JJ-82151-00-00",
+        "price": 5.69,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "5JJ-82151-00-00",
+        "oemVerified": true
+      }
     },
     {
       "id": "yamaha-mt-07-2021/headlight",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "headlight",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "LED",
-      "oemVerified": false,
+      "oem": "BAT-84300-00-00",
+      "oemVerified": true,
       "title": "Vehicle lights",
       "pages": [
         82,
@@ -2870,22 +3317,31 @@
         }
       ],
       "related": [],
-      "price": 0,
-      "ship": 0,
-      "days": 0,
-      "from": "Yamaha dealer",
+      "price": 514.12,
+      "ship": null,
+      "days": 3,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Yamaha dealer"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/BAT-84300-00-00",
+        "price": 514.12,
+        "currency": "USD",
+        "ship": null,
+        "days": 3,
+        "retrieved": "2026-09-19",
+        "oem": "BAT-84300-00-00",
+        "oemVerified": true
+      }
     },
     {
       "id": "yamaha-mt-07-2021/seat",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "seat",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "rider seat",
-      "oemVerified": false,
+      "oem": "B4C-24710-01-00",
+      "oemVerified": true,
       "title": "Seats",
       "pages": [
         35,
@@ -2901,22 +3357,31 @@
         }
       ],
       "related": [],
-      "price": 220.0,
-      "ship": 15.0,
-      "days": 5,
-      "from": "Yamaha dealer",
+      "price": 133.82,
+      "ship": null,
+      "days": 3,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/B4C-24710-01-00",
+        "price": 133.82,
+        "currency": "USD",
+        "ship": null,
+        "days": 3,
+        "retrieved": "2026-09-19",
+        "oem": "B4C-24710-01-00",
+        "oemVerified": true
+      }
     },
     {
       "id": "yamaha-mt-07-2021/clutch-lever",
       "bikeId": "yamaha-mt-07-2021",
       "partId": "clutch-lever",
       "manualId": "yamaha-mt-07-2021-om",
-      "oem": "clutch lever",
-      "oemVerified": false,
+      "oem": "B90-83912-00-00",
+      "oemVerified": true,
       "title": "Adjusting the clutch lever free play",
       "pages": [
         69
@@ -2933,21 +3398,30 @@
           "title": "Clutch lever"
         }
       ],
-      "price": 48.0,
-      "ship": 8.0,
-      "days": 3,
-      "from": "Yamaha dealer",
+      "price": 23.62,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/B90-83912-00-00",
+        "price": 23.62,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "B90-83912-00-00",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/engine-oil",
       "bikeId": "kawasaki-z650-2020",
       "partId": "engine-oil",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "Kawasaki Performance 10W-40",
+      "oem": "K61021-202A",
       "oemVerified": false,
       "title": "Engine Oil",
       "pages": [
@@ -2985,21 +3459,23 @@
           "title": "Periodic Maintenance"
         }
       ],
-      "price": 16.5,
-      "ship": 0,
-      "days": 0,
-      "from": "Kawasaki dealer",
-      "used": [
-        {
-          "from": "eBay Motors",
-          "price": 10,
-          "note": "1 qt 10W-40",
-          "where": "Ships US"
-        }
-      ],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "price": 11.45,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/kawasaki/K61021-202A",
+        "price": 11.45,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "K61021-202A",
+        "oemVerified": false
+      }
     },
     {
       "id": "kawasaki-z650-2020/oil-filter",
@@ -3007,7 +3483,7 @@
       "partId": "oil-filter",
       "manualId": "kawasaki-z650-2020-om",
       "oem": "16097-0008",
-      "oemVerified": false,
+      "oemVerified": true,
       "title": "Oil and/or Oil Filter Change",
       "pages": [
         129,
@@ -3036,22 +3512,50 @@
           "title": "Engine Oil"
         }
       ],
-      "price": 11.5,
-      "ship": 6.0,
-      "days": 2,
-      "from": "Kawasaki dealer",
-      "used": [],
+      "price": 11,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [
+        {
+          "from": "eBay",
+          "url": "https://www.ebay.com/itm/283553661750",
+          "price": 17.99,
+          "currency": "USD",
+          "note": "New OEM",
+          "where": "Wilson, North Carolina, United States",
+          "retrieved": "2026-09-19"
+        }
+      ],
       "alts": [
-        "Dealer parts desk"
-      ]
+        {
+          "label": "HiFloFiltro HF303 oil filter",
+          "from": "Dennis Kirk",
+          "url": "https://www.denniskirk.com/hiflofiltro/oil-filter-hf303.p303909.prd/303909.sku",
+          "price": 7.06,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/kawasaki/16097-0008",
+        "price": 11,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "16097-0008",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/air-filter",
       "bikeId": "kawasaki-z650-2020",
       "partId": "air-filter",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "11013-0711",
-      "oemVerified": false,
+      "oem": "11013-0745",
+      "oemVerified": true,
       "title": "Air Cleaner",
       "pages": [
         135
@@ -3063,21 +3567,30 @@
         }
       ],
       "related": [],
-      "price": 36.0,
-      "ship": 7.0,
-      "days": 3,
-      "from": "Kawasaki dealer",
+      "price": 48.58,
+      "ship": null,
+      "days": null,
+      "from": "Babbitts",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Babbitts",
+        "url": "https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd668287a866100c8396f0/air-cleaner",
+        "price": 48.58,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "11013-0745",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/coolant",
       "bikeId": "kawasaki-z650-2020",
       "partId": "coolant",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "Kawasaki Long-Life Coolant",
+      "oem": "K61081-004B",
       "oemVerified": false,
       "title": "Coolant",
       "pages": [
@@ -3103,21 +3616,30 @@
           "title": "Coolant Capacity"
         }
       ],
-      "price": 22.0,
-      "ship": 8.0,
-      "days": 2,
-      "from": "Kawasaki dealer",
+      "price": 11.51,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/kawasaki/K61081-004B",
+        "price": 11.51,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "K61081-004B",
+        "oemVerified": false
+      }
     },
     {
       "id": "kawasaki-z650-2020/brake-fluid",
       "bikeId": "kawasaki-z650-2020",
       "partId": "brake-fluid",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "DOT 4",
+      "oem": "K61081-002A",
       "oemVerified": false,
       "title": "Brake Fluid Level Inspection",
       "pages": [
@@ -3139,22 +3661,31 @@
           "title": "Brakes"
         }
       ],
-      "price": 11.0,
-      "ship": 5.0,
-      "days": 2,
-      "from": "Kawasaki dealer",
+      "price": 8.03,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/kawasaki/K61081-002A",
+        "price": 8.03,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "K61081-002A",
+        "oemVerified": false
+      }
     },
     {
       "id": "kawasaki-z650-2020/front-brake-pads",
       "bikeId": "kawasaki-z650-2020",
       "partId": "front-brake-pads",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "43082-0125",
-      "oemVerified": false,
+      "oem": "43082-0165",
+      "oemVerified": true,
       "title": "Brake Pad Wear Inspection",
       "pages": [
         147,
@@ -3170,29 +3701,31 @@
         }
       ],
       "related": [],
-      "price": 62.0,
-      "ship": 7.0,
-      "days": 2,
-      "from": "Kawasaki dealer",
-      "used": [
-        {
-          "from": "eBay Motors",
-          "price": 32,
-          "note": "front set",
-          "where": "Ships US"
-        }
-      ],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "price": 78.26,
+      "ship": null,
+      "days": null,
+      "from": "Babbitts",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Babbitts",
+        "url": "https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd669787a866100c83970a/front-brake",
+        "price": 78.26,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "43082-0165",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/rear-brake-pads",
       "bikeId": "kawasaki-z650-2020",
       "partId": "rear-brake-pads",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "43082-0049",
-      "oemVerified": false,
+      "oem": "43082-0166",
+      "oemVerified": true,
       "title": "Brake Pad Wear Inspection",
       "pages": [
         147,
@@ -3208,22 +3741,40 @@
         }
       ],
       "related": [],
-      "price": 44.0,
-      "ship": 7.0,
-      "days": 2,
-      "from": "Kawasaki dealer",
+      "price": 69.6,
+      "ship": null,
+      "days": null,
+      "from": "Babbitts",
       "used": [],
       "alts": [
-        "Dealer parts desk"
-      ]
+        {
+          "label": "EBC FA174V semi-sintered rear pads (Z650 17-26)",
+          "from": "SportbikeTrackGear",
+          "url": "https://www.sportbiketrackgear.com/ebc-kawasaki-z650-17-25-semi-sintered-v-rear-brake-pads/",
+          "price": 42.12,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "new": {
+        "from": "Babbitts",
+        "url": "https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd669787a866100c839722/rear-brake",
+        "price": 69.6,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "43082-0166",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/drive-chain",
       "bikeId": "kawasaki-z650-2020",
       "partId": "drive-chain",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "sealed chain",
-      "oemVerified": false,
+      "oem": "92057-0695",
+      "oemVerified": true,
       "title": "Drive Chain",
       "pages": [
         141,
@@ -3255,22 +3806,31 @@
         }
       ],
       "related": [],
-      "price": 105.0,
-      "ship": 9.0,
-      "days": 3,
-      "from": "Kawasaki dealer",
+      "price": 240.29,
+      "ship": null,
+      "days": null,
+      "from": "Babbitts",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Babbitts",
+        "url": "https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd669787a866100c839725/rear-wheel-chain",
+        "price": 240.29,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "92057-0695",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/tires",
       "bikeId": "kawasaki-z650-2020",
       "partId": "tires",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "DUNLOP SPORTMAX Roadsport 2 120/70ZR17 / 160/60ZR17",
-      "oemVerified": false,
+      "oem": "41009-0832 (FR 120/70ZR17)",
+      "oemVerified": true,
       "title": "Wheels",
       "pages": [
         154,
@@ -3290,22 +3850,31 @@
         }
       ],
       "related": [],
-      "price": 280.0,
-      "ship": 18.0,
-      "days": 4,
-      "from": "Kawasaki dealer",
+      "price": 250.24,
+      "ship": null,
+      "days": null,
+      "from": "Babbitts",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Babbitts",
+        "url": "https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd669787a866100c83972f/tires",
+        "price": 250.24,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "41009-0832 (FR 120/70ZR17)",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/battery",
       "bikeId": "kawasaki-z650-2020",
       "partId": "battery",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "Yuasa YTZ10",
-      "oemVerified": false,
+      "oem": "26012-0689",
+      "oemVerified": true,
       "title": "Battery",
       "pages": [
         157,
@@ -3337,29 +3906,40 @@
         }
       ],
       "related": [],
-      "price": 92.0,
-      "ship": 12.0,
-      "days": 2,
-      "from": "Kawasaki dealer",
-      "used": [
+      "price": 241.19,
+      "ship": null,
+      "days": null,
+      "from": "Babbitts",
+      "used": [],
+      "alts": [
         {
-          "from": "eBay Motors",
-          "price": 48,
-          "note": "YTZ10",
-          "where": "Ships US"
+          "label": "Yuasa YTZ10S factory-activated AGM",
+          "from": "RevZilla",
+          "url": "https://www.revzilla.com/motorcycle/yuasa-ytz10s-factory-activated-agm-high-performance-battery",
+          "price": 216,
+          "currency": "USD",
+          "retrieved": "2026-09-19"
         }
       ],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "new": {
+        "from": "Babbitts",
+        "url": "https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd668287a866100c8396f5/chassis-electrical-equipment",
+        "price": 241.19,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "26012-0689",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/fuses",
       "bikeId": "kawasaki-z650-2020",
       "partId": "fuses",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "Main Fuse 30 A",
-      "oemVerified": false,
+      "oem": "26006-1006",
+      "oemVerified": true,
       "title": "Fuses",
       "pages": [
         164,
@@ -3387,22 +3967,31 @@
         }
       ],
       "related": [],
-      "price": 4.0,
-      "ship": 0,
-      "days": 0,
-      "from": "Kawasaki dealer",
+      "price": 4.39,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/kawasaki/26006-1006",
+        "price": 4.39,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "26006-1006",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/headlight",
       "bikeId": "kawasaki-z650-2020",
       "partId": "headlight",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "LED",
-      "oemVerified": false,
+      "oem": "23004-0414",
+      "oemVerified": true,
       "title": "Headlight",
       "pages": [
         162,
@@ -3422,22 +4011,31 @@
         }
       ],
       "related": [],
-      "price": 0,
-      "ship": 0,
-      "days": 0,
-      "from": "Kawasaki dealer",
+      "price": 1249.46,
+      "ship": null,
+      "days": null,
+      "from": "Babbitts",
       "used": [],
-      "alts": [
-        "Kawasaki dealer"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Babbitts",
+        "url": "https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd669787a866100c839717/headlight-s",
+        "price": 1249.46,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "23004-0414",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/seat",
       "bikeId": "kawasaki-z650-2020",
       "partId": "seat",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "rider seat",
-      "oemVerified": false,
+      "oem": "53066-0689-MA",
+      "oemVerified": true,
       "title": "Seats",
       "pages": [
         100,
@@ -3457,22 +4055,31 @@
         }
       ],
       "related": [],
-      "price": 210.0,
-      "ship": 15.0,
-      "days": 5,
-      "from": "Kawasaki dealer",
+      "price": 211.6,
+      "ship": null,
+      "days": null,
+      "from": "Babbitts",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Babbitts",
+        "url": "https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd669787a866100c839726/seat",
+        "price": 211.6,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "53066-0689-MA",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/clutch-lever",
       "bikeId": "kawasaki-z650-2020",
       "partId": "clutch-lever",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "clutch lever",
-      "oemVerified": false,
+      "oem": "46092-0569",
+      "oemVerified": true,
       "title": "Clutch",
       "pages": [
         140,
@@ -3493,22 +4100,50 @@
           "title": "Clutch Lever Adjuster"
         }
       ],
-      "price": 46.0,
-      "ship": 8.0,
-      "days": 3,
-      "from": "Kawasaki dealer",
-      "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "price": 26.09,
+      "ship": null,
+      "days": null,
+      "from": "Babbitts",
+      "used": [
+        {
+          "from": "eBay",
+          "url": "https://www.ebay.com/itm/365405756099",
+          "price": 17.5,
+          "currency": "USD",
+          "note": "Used, very good condition, normal wear",
+          "where": "Miami, Florida, United States",
+          "retrieved": "2026-09-19"
+        },
+        {
+          "from": "eBay",
+          "url": "https://www.ebay.com/itm/267611510223",
+          "price": 24.99,
+          "currency": "USD",
+          "note": "Used, good overall; scratches, no cracks; or Best Offer",
+          "where": "Dallas, Texas, United States",
+          "retrieved": "2026-09-19"
+        }
+      ],
+      "alts": [],
+      "new": {
+        "from": "Babbitts",
+        "url": "https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd669787a866100c839716/handlebar",
+        "price": 26.09,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "46092-0569",
+        "oemVerified": true
+      }
     },
     {
       "id": "kawasaki-z650-2020/mirrors",
       "bikeId": "kawasaki-z650-2020",
       "partId": "mirrors",
       "manualId": "kawasaki-z650-2020-om",
-      "oem": "rear view mirror",
-      "oemVerified": false,
+      "oem": "56001-0336 (LH)",
+      "oemVerified": true,
       "title": "Rear View Mirrors",
       "pages": [
         103
@@ -3520,14 +4155,23 @@
         }
       ],
       "related": [],
-      "price": 54.0,
-      "ship": 8.0,
-      "days": 3,
-      "from": "Kawasaki dealer",
+      "price": 85.31,
+      "ship": null,
+      "days": null,
+      "from": "Babbitts",
       "used": [],
-      "alts": [
-        "Dealer parts desk"
-      ]
+      "alts": [],
+      "new": {
+        "from": "Babbitts",
+        "url": "https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd669787a866100c839716/handlebar",
+        "price": 85.31,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "56001-0336 (LH)",
+        "oemVerified": true
+      }
     }
   ]
 }
