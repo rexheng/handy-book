@@ -1,0 +1,233 @@
+[data-screen="invoice"] .inv {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+[data-screen="invoice"] .inv-head {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  gap: 10px 12px;
+  align-items: start;
+  padding: 12px 0 0;
+}
+
+[data-screen="invoice"] .inv-photo {
+  width: 88px;
+  height: 88px;
+  border: 3px solid var(--ink);
+  overflow: hidden;
+  background: var(--card);
+  flex-shrink: 0;
+}
+
+[data-screen="invoice"] .inv-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+[data-screen="invoice"] .inv-meta {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+[data-screen="invoice"] .inv-name {
+  font-family: Barlow, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+[data-screen="invoice"] .inv-oem {
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  margin-top: 4px;
+  word-break: break-word;
+}
+
+[data-screen="invoice"] .inv-head .stamp {
+  justify-self: end;
+  white-space: nowrap;
+}
+
+[data-screen="invoice"] .inv-ch {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+}
+
+[data-screen="invoice"] .inv-ch .btn {
+  min-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+[data-screen="invoice"] .inv-ch .btn + .btn {
+  border-left-width: 0;
+}
+
+[data-screen="invoice"] .inv-quote {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+[data-screen="invoice"] .inv-quote input {
+  min-height: 52px;
+  width: 100%;
+  padding: 0 12px;
+  border: 3px solid var(--ink);
+  border-right-width: 0;
+  background: var(--card);
+  color: var(--ink);
+  font-family: Barlow, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  border-radius: 0;
+  appearance: none;
+}
+
+[data-screen="invoice"] .inv-new {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 12px;
+  font-family: Barlow, system-ui, sans-serif;
+  font-weight: 800;
+}
+
+[data-screen="invoice"] .inv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+[data-screen="invoice"] .inv-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 8px 12px;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  text-align: left;
+  font-family: Barlow, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--card);
+  cursor: pointer;
+  appearance: none;
+  border-radius: 0;
+}
+
+[data-screen="invoice"] .inv-list[data-kind="alts"] .inv-row {
+  grid-template-columns: 1fr;
+}
+
+[data-screen="invoice"] .inv-amt {
+  font-family: ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+[data-screen="invoice"] .inv-ticket {
+  border-top: 3px dashed var(--ink);
+  padding: 12px;
+  font-family: ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-screen="invoice"] .inv-tix-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+[data-screen="invoice"] .inv-tix-bike {
+  font-family: Barlow, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+[data-screen="invoice"] .inv-tix-no {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 800;
+  font-size: 1.6rem;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+[data-screen="invoice"] .inv-tix-part {
+  font-family: Barlow, system-ui, sans-serif;
+  font-weight: 800;
+}
+
+[data-screen="invoice"] .inv-ticket .inv-oem {
+  margin: 0 0 12px;
+}
+
+[data-screen="invoice"] .inv-tix-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  min-height: 28px;
+}
+
+[data-screen="invoice"] .inv-due {
+  margin-top: 8px;
+  margin-left: -12px;
+  margin-right: -12px;
+  margin-bottom: -12px;
+  padding: 10px 12px;
+  background: var(--yellow);
+  font-weight: 800;
+}
+
+[data-screen="invoice"] .inv-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+[data-screen="invoice"] .inv-foot .btn + .btn,
+[data-screen="invoice"] .inv-foot a + .btn {
+  border-left-width: 0;
+}
+
+[data-screen="invoice"] .inv-foot .btn,
+[data-screen="invoice"] .inv-foot a.btn {
+  text-decoration: none;
+}
+
+[data-screen="invoice"] .inv-quote a.btn {
+  text-decoration: none;
+}
+
+@media (min-width: 720px) {
+  [data-screen="invoice"] .inv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  [data-screen="invoice"] .inv-head,
+  [data-screen="invoice"] .inv-ch,
+  [data-screen="invoice"] .inv-foot {
+    grid-column: 1 / -1;
+  }
+
+  [data-screen="invoice"] .inv-ticket {
+    grid-column: 2;
+    grid-row: 3 / span 4;
+  }
+}
