@@ -7,7 +7,7 @@
   height: calc(100dvh - 9rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   max-height: calc(100dvh - 9rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   min-height: 0;
-  overflow: hidden;
+  overflow: auto;
 }
 
 [data-screen="book"] .book-head {
@@ -48,7 +48,7 @@
 
 [data-screen="book"] .page-view {
   flex: 1 1 auto;
-  min-height: 0;
+  min-height: 160px;
   overflow: auto;
   border: 3px solid var(--ink);
   background: var(--card);

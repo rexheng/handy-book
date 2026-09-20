@@ -192,22 +192,34 @@ function tocSpanContains(tocPages, n) {
   return { start, end };
 }
 
+function isJobPage(pdfIndex) {
+  if (pdfIndex == null || !jobRec || !jobRec.pages) return false;
+  const n = Number(pdfIndex);
+  return jobRec.pages.some((page) => Number(page) === n);
+}
+
 function printedLabel(pdfIndex) {
   if (pdfIndex == null || !jobRec) return null;
   const raw = jobRec.printedPage;
   const base = jobRec.pages && jobRec.pages[0];
   if (raw == null || String(raw).trim() === "" || base == null) return null;
   const printed = String(raw).trim();
+  const pdf = Number(pdfIndex);
+  const origin = Number(base);
   if (/^\d+$/.test(printed)) {
-    return String(pdfIndex - Number(base) + Number(printed));
+    return String(pdf - origin + Number(printed));
   }
-  if (pdfIndex === Number(base)) return printed;
   const sec = printed.match(/^(\d+)-(\d+)$/);
-  if (!sec) return null;
-  const tocPages = tocPagesOf(manualRec);
-  const here = tocSpanContains(tocPages, Number(base));
-  if (pdfIndex < here.start || pdfIndex >= here.end) return null;
-  return `${sec[1]}-${Number(sec[2]) + (pdfIndex - Number(base))}`;
+  if (sec) {
+    const label = `${sec[1]}-${Number(sec[2]) + (pdf - origin)}`;
+    if (isJobPage(pdf)) return label;
+    const tocPages = tocPagesOf(manualRec);
+    const here = tocSpanContains(tocPages, origin);
+    if (pdf < here.start || pdf >= here.end) return null;
+    return label;
+  }
+  if (pdf === origin) return printed;
+  return null;
 }
 
 function stampText(n) {
@@ -408,8 +420,8 @@ function scaleFor(media) {
   const availH = viewEl.clientHeight;
   if (!availW) return 0;
   if (fit === "height") {
-    if (!availH) return 0;
-    return availH / media.h;
+    const h = availH > 0 ? availH : 160;
+    return h / media.h;
   }
   return availW / media.w;
 }
