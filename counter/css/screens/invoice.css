@@ -59,6 +59,49 @@
   white-space: nowrap;
 }
 
+[data-screen="invoice"] .inv-qty {
+  display: grid;
+  grid-template-columns: 44px 44px 44px;
+  margin-top: 8px;
+  width: max-content;
+}
+
+[data-screen="invoice"] .inv-qty button {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 3px solid var(--ink);
+  background: var(--card);
+  color: var(--ink);
+  font-family: Barlow, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  appearance: none;
+  border-radius: 0;
+}
+
+[data-screen="invoice"] .inv-qty button + button {
+  border-left-width: 0;
+}
+
+[data-screen="invoice"] .inv-qty button[aria-label="Quantity"] {
+  font-family: ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  cursor: default;
+}
+
+[data-screen="invoice"] .inv-qty button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 [data-screen="invoice"] .inv-ch {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -75,26 +118,6 @@
 
 [data-screen="invoice"] .inv-ch .btn + .btn {
   border-left-width: 0;
-}
-
-[data-screen="invoice"] .inv-quote {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-}
-
-[data-screen="invoice"] .inv-quote input {
-  min-height: 52px;
-  width: 100%;
-  padding: 0 12px;
-  border: 3px solid var(--ink);
-  border-right-width: 0;
-  background: var(--card);
-  color: var(--ink);
-  font-family: Barlow, system-ui, sans-serif;
-  font-weight: 800;
-  font-size: 1rem;
-  border-radius: 0;
-  appearance: none;
 }
 
 [data-screen="invoice"] .inv-new {
@@ -118,7 +141,8 @@
 
 [data-screen="invoice"] .inv-listing[hidden],
 [data-screen="invoice"] .inv-oem[hidden],
-[data-screen="invoice"] .inv-prov[hidden] {
+[data-screen="invoice"] .inv-prov[hidden],
+[data-screen="invoice"] .inv-tix-src[hidden] {
   display: none;
 }
 
@@ -227,6 +251,13 @@
   white-space: nowrap;
 }
 
+[data-screen="invoice"] .inv-tix-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
 [data-screen="invoice"] .inv-ticket {
   border-top: 3px dashed var(--ink);
   padding: 12px;
@@ -261,23 +292,30 @@
   font-weight: 800;
 }
 
-[data-screen="invoice"] .inv-ticket .inv-oem {
-  margin: 0 0 12px;
+[data-screen="invoice"] .inv-tix-detail {
+  min-width: 0;
+}
+
+[data-screen="invoice"] .inv-tix-detail .inv-oem {
+  margin: 2px 0;
+}
+
+[data-screen="invoice"] .inv-tix-unit {
+  font-variant-numeric: tabular-nums;
 }
 
 [data-screen="invoice"] .inv-tix-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 8px 12px;
+  align-items: start;
   min-height: 28px;
+  margin-top: 6px;
 }
 
-[data-screen="invoice"] .inv-tix-amt {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
+[data-screen="invoice"] .inv-tix-lab {
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 [data-screen="invoice"] .inv-due {
@@ -288,6 +326,20 @@
   padding: 10px 12px;
   background: var(--yellow);
   font-weight: 800;
+  align-items: center;
+}
+
+[data-screen="invoice"] .inv-tix-src {
+  min-height: 44px;
+}
+
+[data-screen="invoice"] .inv-src {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+  text-decoration: underline;
+  font-size: 0.8rem;
 }
 
 [data-screen="invoice"] .inv-foot {
@@ -295,17 +347,17 @@
   grid-template-columns: 1fr 1fr;
 }
 
+[data-screen="invoice"] .inv-foot:not(:has(a.btn-primary:not([hidden]))) {
+  grid-template-columns: 1fr;
+}
+
 [data-screen="invoice"] .inv-foot .btn + .btn,
-[data-screen="invoice"] .inv-foot a + .btn {
+[data-screen="invoice"] .inv-foot a:not([hidden]) + .btn {
   border-left-width: 0;
 }
 
 [data-screen="invoice"] .inv-foot .btn,
 [data-screen="invoice"] .inv-foot a.btn {
-  text-decoration: none;
-}
-
-[data-screen="invoice"] .inv-quote a.btn {
   text-decoration: none;
 }
 
@@ -322,7 +374,7 @@
     grid-column: 1 / -1;
   }
 
-  [data-screen="invoice"] .inv-ticket {
+  [data-screen="invoice"] .inv-tix-wrap {
     grid-column: 2;
     grid-row: 3 / span 4;
   }

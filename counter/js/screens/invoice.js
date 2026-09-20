@@ -2,6 +2,8 @@ import { state, set, go, emit, registerScreen } from "../bus.js";
 import * as Q from "../query.js";
 
 const TAX = 0.0825;
+const QTY_MIN = 1;
+const QTY_MAX = 99;
 const CHANNELS = [
   ["quote", "Quote"],
   ["new", "New"],
@@ -63,8 +65,15 @@ function finite(n) {
   return Number.isFinite(Number(n));
 }
 
-function totals(price, ship) {
-  const pc = finite(price) ? Math.round(Number(price) * 100) : 0;
+function qtyOf() {
+  const n = Number(state.qty);
+  if (Number.isInteger(n) && n >= QTY_MIN) return Math.min(QTY_MAX, n);
+  return QTY_MIN;
+}
+
+function totals(price, ship, qty) {
+  const q = Number.isInteger(qty) && qty >= QTY_MIN ? qty : QTY_MIN;
+  const pc = finite(price) ? Math.round(Number(price) * 100) * q : 0;
   const sc = finite(ship) ? Math.round(Number(ship) * 100) : 0;
   const tc = Math.round((pc + sc) * TAX);
   return { price: pc / 100, ship: sc / 100, tax: tc / 100, total: (pc + sc + tc) / 100 };
@@ -72,6 +81,11 @@ function totals(price, ship) {
 
 function jobOf() {
   return state.jobId ? Q.jobById(state.jobId) : undefined;
+}
+
+function newRecord(job) {
+  if (!job || job.new == null || typeof job.new !== "object") return null;
+  return job.new;
 }
 
 function listingNew(job) {
@@ -89,6 +103,13 @@ function listingNew(job) {
     oem: job.oem,
     oemVerified: job.oemVerified,
   };
+}
+
+function strField(row, key) {
+  if (!row || typeof row !== "object") return "";
+  const val = row[key];
+  if (val == null || val === "") return "";
+  return String(val);
 }
 
 function oemOf(job) {
@@ -114,7 +135,7 @@ function provText(from, retrieved) {
   const a = from != null && from !== "" ? String(from) : "";
   const b = retrieved != null && retrieved !== "" ? String(retrieved) : "";
   if (a && b) return a + " · " + b;
-  return b;
+  return a || b;
 }
 
 function daysText(days) {
@@ -122,6 +143,13 @@ function daysText(days) {
   const n = Number(days);
   if (!Number.isFinite(n)) return "";
   return n + " d";
+}
+
+function shipDetail(line) {
+  const from = line && line.from != null && line.from !== "" ? String(line.from) : "";
+  const days = daysText(line && line.days);
+  if (from && days) return from + "  " + days;
+  return from || days;
 }
 
 function lineOf(job) {
@@ -136,6 +164,7 @@ function lineOf(job) {
         from: row.from,
         retrieved: row.retrieved,
         url: hrefOf(row),
+        days: row.days,
         shipKnown: true,
       };
     }
@@ -143,7 +172,7 @@ function lineOf(job) {
   if (ch === "other" && pickAlt >= 0 && Array.isArray(job.alts) && job.alts[pickAlt] != null) {
     const row = job.alts[pickAlt];
     if (typeof row === "string") {
-      return { price: 0, ship: 0, dash: true, from: "", retrieved: "", url: "", shipKnown: true };
+      return { price: 0, ship: 0, dash: true, from: "", retrieved: "", url: "", days: "", shipKnown: true };
     }
     return {
       price: 0,
@@ -152,12 +181,13 @@ function lineOf(job) {
       from: row.from,
       retrieved: row.retrieved,
       url: hrefOf(row),
+      days: row.days,
       shipKnown: true,
     };
   }
   const neu = listingNew(job);
   if (neu == null) {
-    return { price: 0, ship: 0, dash: true, from: "", retrieved: "", url: "", shipKnown: false };
+    return { price: 0, ship: 0, dash: true, from: "", retrieved: "", url: "", days: "", shipKnown: false };
   }
   return {
     price: neu.price,
@@ -166,6 +196,7 @@ function lineOf(job) {
     from: neu.from,
     retrieved: neu.retrieved,
     url: hrefOf(neu),
+    days: neu.days,
     shipKnown: neu.ship != null && neu.ship !== "",
   };
 }
@@ -176,32 +207,58 @@ function shipText(line, t, dash) {
   return money(t.ship, false);
 }
 
-function ticketLines(job, part, bike, dash, t, line) {
-  const bikeLine = [bike.make, bike.model, bike.year].filter((x) => x != null && x !== "").join(" ");
-  const partLine = [part.name, oemOf(job)].filter((x) => x != null && x !== "").join("  ");
-  const prov = provText(line.from, line.retrieved);
-  const partAmt = money(t.price, dash);
-  const partRow = prov ? `Part  ${partAmt}  ${prov}` : `Part  ${partAmt}`;
-  const shipAmt = shipText(line, t, dash);
-  const shipRow = shipAmt === "" ? "Ship" : `Ship  ${shipAmt}`;
-  const rows = [
-    String(state.ticket || ""),
-    bikeLine,
-    partLine,
-    partRow,
-    shipRow,
-    `Tax 8.25%  ${money(t.tax, dash)}`,
-    `Total  ${money(t.total, dash)}`,
-  ];
-  if (line.url) rows.push(line.url);
-  return rows.filter((x) => x != null && x !== "");
+function qtyUnitText(line, qty, dash) {
+  return String(qty) + " × " + money(line.price, dash || !finite(line.price));
 }
 
-function mailtoHref(job, part, bike, dash, t, line) {
-  const to = String(state.email || "").trim();
-  const subject = `Handy Book ${state.ticket}`;
-  const body = ticketLines(job, part, bike, dash, t, line).join("\n");
-  return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+function priceRef(neu) {
+  if (!neu || !finite(neu.price)) return "";
+  return String(Number(neu.price));
+}
+
+function quoteMailto(job, part, bike) {
+  const neu = newRecord(job);
+  const email = strField(neu, "email").trim();
+  const merchant = strField(neu, "from");
+  const oem = oemOf(job);
+  const qty = qtyOf();
+  const year = bike.year != null && bike.year !== "" ? String(bike.year) : "";
+  const make = bike.make != null && bike.make !== "" ? String(bike.make) : "";
+  const model = bike.model != null && bike.model !== "" ? String(bike.model) : "";
+  const name = part.name != null && part.name !== "" ? String(part.name) : "";
+  const url = hrefOf(neu);
+  const retrieved = strField(neu, "retrieved");
+  const currency = strField(neu, "currency");
+  const price = priceRef(neu);
+  const bikePhrase = [year, make, model].filter(Boolean).join(" ");
+  const subject = "Quote request — " + bikePhrase + " — " + name + " " + oem;
+  const body = [
+    "Hello " + merchant + " parts desk,",
+    "",
+    "Please quote the following for a " + bikePhrase + ":",
+    "",
+    "Part:      " + name,
+    "OEM no.:   " + oem,
+    "Quantity:  " + qty,
+    "Ship to:   (please advise shipping options and ETA)",
+    "",
+    "Reference listing: " + url + " (seen " + retrieved + ", " + price + " " + currency + ")",
+    "",
+    "Kindly reply with unit price, availability and lead time.",
+    "",
+    "Thank you",
+  ].join("\r\n");
+  return "mailto:" + email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+}
+
+function quoteTarget(job) {
+  const neu = newRecord(job);
+  if (!neu) return { hidden: true, href: "", external: false };
+  const email = strField(neu, "email").trim();
+  const contactUrl = strField(neu, "contactUrl").trim();
+  if (email) return { hidden: false, href: "", external: false, email: true };
+  if (contactUrl) return { hidden: false, href: contactUrl, external: true };
+  return { hidden: true, href: "", external: false };
 }
 
 function setChannel(ch) {
@@ -209,6 +266,13 @@ function setChannel(ch) {
   set({ channel: ch });
   emit("channel", { ch });
   paint();
+}
+
+function setQty(next) {
+  const n = Math.max(QTY_MIN, Math.min(QTY_MAX, Math.floor(Number(next) || QTY_MIN)));
+  if (n !== qtyOf() || state.qty !== n) set({ qty: n });
+  paintQty();
+  paintTicket();
 }
 
 function listKey(rows) {
@@ -308,6 +372,28 @@ function markOem(node, oem, verified) {
   node.classList.toggle("is-dash", verified === false);
 }
 
+function fillSources(line) {
+  const text = provText(line.from, line.retrieved);
+  if (!text) {
+    els.tixSrc.replaceChildren();
+    els.tixSrc.hidden = true;
+    return;
+  }
+  els.tixSrc.hidden = false;
+  const url = line.url;
+  const node = url ? h("a", { class: "inv-prov inv-src" }) : h("div", { class: "inv-prov inv-src" });
+  node.textContent = text;
+  if (url) bindHref(node, url, text);
+  els.tixSrc.replaceChildren(node);
+}
+
+function paintQty() {
+  const qty = qtyOf();
+  els.qtyN.textContent = String(qty);
+  els.qtyDec.disabled = qty <= QTY_MIN;
+  els.qtyInc.disabled = qty >= QTY_MAX;
+}
+
 function paintTicket() {
   if (!els) return;
   const job = jobOf();
@@ -315,27 +401,45 @@ function paintTicket() {
   const part = Q.part(job.partId) || {};
   const bike = Q.bike(job.bikeId) || Q.bike(state.bikeId) || {};
   const line = lineOf(job);
-  const t = line.dash ? { price: 0, ship: 0, tax: 0, total: 0 } : totals(line.price, line.ship);
+  const qty = qtyOf();
+  const t = line.dash ? { price: 0, ship: 0, tax: 0, total: 0 } : totals(line.price, line.ship, qty);
   const dash = line.dash;
   const oem = oemOf(job);
   els.tixNo.textContent = state.ticket || "";
   els.tixBike.textContent = [bike.make, bike.model, bike.year].filter((x) => x != null && x !== "").join(" ");
   els.tixPart.textContent = part.name || "";
   markOem(els.tixOem, oem, oemVerifiedOf(job));
+  els.tixQty.textContent = qtyUnitText(line, qty, dash);
   els.amtPart.textContent = money(t.price, dash);
+  els.tixShip.textContent = shipDetail(line);
   els.amtShip.textContent = shipText(line, t, dash);
   els.amtTax.textContent = money(t.tax, dash);
   els.amtTotal.textContent = money(t.total, dash);
-  const prov = provText(line.from, line.retrieved);
-  els.tixProv.textContent = prov;
-  els.tixProv.hidden = !prov;
-  syncMail(job, part, bike, dash, t, line);
+  fillSources(line);
+  syncQuote(job, part, bike);
 }
 
-function syncMail(job, part, bike, dash, t, line) {
-  const href = mailtoHref(job, part, bike, dash, t, line);
-  els.quoteSend.href = href;
-  els.send.href = href;
+function syncQuote(job, part, bike) {
+  const target = quoteTarget(job);
+  if (target.hidden) {
+    els.send.hidden = true;
+    els.send.removeAttribute("href");
+    els.send.removeAttribute("target");
+    els.send.removeAttribute("rel");
+    els.send.removeAttribute("aria-label");
+    return;
+  }
+  els.send.hidden = false;
+  els.send.removeAttribute("aria-label");
+  if (target.email) {
+    els.send.setAttribute("href", quoteMailto(job, part, bike));
+    els.send.removeAttribute("target");
+    els.send.removeAttribute("rel");
+  } else {
+    els.send.setAttribute("href", target.href);
+    els.send.setAttribute("target", "_blank");
+    els.send.setAttribute("rel", "noopener");
+  }
 }
 
 function paintNew(job) {
@@ -404,13 +508,11 @@ function paint() {
     btn.setAttribute("aria-pressed", on ? "true" : "false");
   }
 
-  els.quote.hidden = ch !== "quote";
   els.fresh.hidden = ch !== "new";
   els.used.hidden = ch !== "used";
   els.alts.hidden = ch !== "other";
 
-  if (document.activeElement !== els.email) els.email.value = state.email || "";
-
+  paintQty();
   paintNew(job);
 
   const used = Array.isArray(job.used) ? job.used : [];
@@ -446,7 +548,19 @@ function wrapUrl(ctx, text, maxWidth) {
   return out;
 }
 
-function drawTicket(ctx, w, h, job, part, bike, dash, t, img, line) {
+function contactLines(job) {
+  const neu = newRecord(job);
+  const lines = [];
+  const merchant = strField(neu, "from");
+  const email = strField(neu, "email").trim();
+  const contactUrl = strField(neu, "contactUrl").trim();
+  if (merchant) lines.push(merchant);
+  if (email) lines.push(email);
+  if (contactUrl) lines.push(contactUrl);
+  return lines;
+}
+
+function drawTicket(ctx, w, h, job, part, bike, dash, t, img, line, qty) {
   ctx.fillStyle = "#ece7dc";
   ctx.fillRect(0, 0, w, h);
   const x = 24;
@@ -512,14 +626,11 @@ function drawTicket(ctx, w, h, job, part, bike, dash, t, img, line) {
     ctx.setLineDash([]);
   }
 
-  const prov = provText(line.from, line.retrieved);
-  const partAmt = money(t.price, dash);
-  const partRight = prov ? partAmt + "  " + prov : partAmt;
   const rows = [
-    ["Part", partRight],
-    ["Ship", shipText(line, t, dash)],
-    ["Tax 8.25%", money(t.tax, dash)],
-    ["Total", money(t.total, dash)],
+    ["Part", qtyUnitText(line, qty, dash), money(t.price, dash)],
+    ["Ship", shipDetail(line), shipText(line, t, dash)],
+    ["Tax 8.25%", "", money(t.tax, dash)],
+    ["Total", "", money(t.total, dash)],
   ];
   let ry = py + 112;
   rows.forEach((row, i) => {
@@ -531,21 +642,26 @@ function drawTicket(ctx, w, h, job, part, bike, dash, t, img, line) {
     ctx.font = i === 3 ? "800 18px ui-monospace, monospace" : "16px ui-monospace, monospace";
     ctx.textAlign = "left";
     ctx.fillText(row[0], px, ry);
+    if (row[1]) ctx.fillText(row[1], px + 88, ry);
     ctx.textAlign = "right";
-    ctx.fillText(row[1], x + tw - 16, ry);
+    ctx.fillText(row[2], x + tw - 16, ry);
     ry += 36;
   });
 
-  if (line.url) {
-    ctx.textAlign = "left";
-    ctx.font = "12px ui-monospace, monospace";
-    ctx.fillStyle = "#141414";
-    const urlLines = wrapUrl(ctx, line.url, tw - 32);
-    urlLines.forEach((u) => {
-      ctx.fillText(u, px, ry);
+  ctx.textAlign = "left";
+  ctx.font = "12px ui-monospace, monospace";
+  ctx.fillStyle = "#141414";
+  const extra = [];
+  const prov = provText(line.from, line.retrieved);
+  if (prov) extra.push(prov);
+  if (line.url) extra.push(line.url);
+  extra.push.apply(extra, contactLines(job));
+  extra.forEach((u) => {
+    wrapUrl(ctx, u, tw - 32).forEach((bit) => {
+      ctx.fillText(bit, px, ry);
       ry += 16;
     });
-  }
+  });
 }
 
 async function savePng() {
@@ -554,7 +670,8 @@ async function savePng() {
   const part = Q.part(job.partId) || {};
   const bike = Q.bike(job.bikeId) || {};
   const line = lineOf(job);
-  const t = line.dash ? { price: 0, ship: 0, tax: 0, total: 0 } : totals(line.price, line.ship);
+  const qty = qtyOf();
+  const t = line.dash ? { price: 0, ship: 0, tax: 0, total: 0 } : totals(line.price, line.ship, qty);
   if (document.fonts && document.fonts.ready) {
     try {
       await document.fonts.ready;
@@ -571,8 +688,8 @@ async function savePng() {
   }
   const canvas = document.createElement("canvas");
   canvas.width = 780;
-  canvas.height = line.url ? 680 : 560;
-  drawTicket(canvas.getContext("2d"), canvas.width, canvas.height, job, part, bike, line.dash, t, els.photo, line);
+  canvas.height = 760;
+  drawTicket(canvas.getContext("2d"), canvas.width, canvas.height, job, part, bike, line.dash, t, els.photo, line, qty);
   await new Promise((resolve) => {
     canvas.toBlob((blob) => {
       if (!blob) {
@@ -603,7 +720,14 @@ function mount(node) {
   const meta = h("div", { class: "inv-meta" });
   const name = h("div", { class: "inv-name" });
   const oem = h("div", { class: "inv-oem" });
-  meta.append(name, oem);
+  const qtyBox = h("div", { class: "inv-qty", role: "group" });
+  const qtyDec = h("button", { type: "button", "aria-label": "Decrease", text: "−" });
+  const qtyN = h("button", { type: "button", "aria-label": "Quantity", text: "1" });
+  const qtyInc = h("button", { type: "button", "aria-label": "Increase", text: "+" });
+  qtyDec.addEventListener("click", () => setQty(qtyOf() - 1));
+  qtyInc.addEventListener("click", () => setQty(qtyOf() + 1));
+  qtyBox.append(qtyDec, qtyN, qtyInc);
+  meta.append(name, oem, qtyBox);
   const stamp = h("span", { class: "stamp" });
   head.append(frame, meta, stamp);
 
@@ -614,26 +738,6 @@ function mount(node) {
     ch.append(btn);
     return btn;
   });
-
-  const quote = h("div", { class: "inv-quote" });
-  const email = h("input", {
-    type: "email",
-    placeholder: "you@shop.com",
-    inputmode: "email",
-    autocomplete: "email",
-  });
-  email.addEventListener("input", () => {
-    set({ email: email.value });
-    const job = jobOf();
-    if (!job) return;
-    const part = Q.part(job.partId) || {};
-    const bike = Q.bike(job.bikeId) || {};
-    const line = lineOf(job);
-    const t = line.dash ? { price: 0, ship: 0, tax: 0, total: 0 } : totals(line.price, line.ship);
-    syncMail(job, part, bike, line.dash, t, line);
-  });
-  const quoteSend = h("a", { class: "btn btn-primary", text: "Send", href: "mailto:" });
-  quote.append(email, quoteSend);
 
   const fresh = h("div", { class: "card inv-new" });
   const freshOem = h("div", { class: "inv-oem", hidden: true });
@@ -650,31 +754,43 @@ function mount(node) {
   const used = h("div", { class: "inv-list", "data-kind": "used" });
   const alts = h("div", { class: "inv-list", "data-kind": "alts" });
 
+  const wrapTix = h("div", { class: "inv-tix-wrap" });
   const ticket = h("div", { class: "card inv-ticket" });
   const tixTop = h("div", { class: "inv-tix-top" });
   const tixBike = h("div", { class: "inv-tix-bike" });
   const tixNo = h("b", { class: "inv-tix-no" });
   tixTop.append(tixBike, tixNo);
-  const tixPart = h("div", { class: "inv-tix-part" });
-  const tixOem = h("div", { class: "inv-oem" });
-  function row(label, amtRef) {
+  function row(label, detail, amtRef) {
     const r = h("div", { class: "inv-tix-row" });
-    r.append(h("span", { text: label }), amtRef);
+    r.append(h("span", { class: "inv-tix-lab", text: label }), detail, amtRef);
     return r;
   }
+  const tixPart = h("div", { class: "inv-tix-part" });
+  const tixOem = h("div", { class: "inv-oem" });
+  const tixQty = h("div", { class: "inv-tix-unit" });
+  const partDetail = h("div", { class: "inv-tix-detail" });
+  partDetail.append(tixPart, tixOem, tixQty);
   const amtPart = h("span", { class: "inv-amt" });
-  const tixProv = h("div", { class: "inv-prov" });
-  const amtPartWrap = h("span", { class: "inv-tix-amt" });
-  amtPartWrap.append(amtPart, tixProv);
+  const tixShip = h("div", { class: "inv-tix-detail" });
   const amtShip = h("span", { class: "inv-amt" });
   const amtTax = h("span", { class: "inv-amt" });
   const amtTotal = h("span", { class: "inv-amt" });
-  const totalRow = row("Total", amtTotal);
+  const taxDetail = h("div", { class: "inv-tix-detail" });
+  const totalDetail = h("div", { class: "inv-tix-detail" });
+  const totalRow = row("Total", totalDetail, amtTotal);
   totalRow.classList.add("inv-due");
-  ticket.append(tixTop, tixPart, tixOem, row("Part", amtPartWrap), row("Ship", amtShip), row("Tax 8.25%", amtTax), totalRow);
+  ticket.append(
+    tixTop,
+    row("Part", partDetail, amtPart),
+    row("Ship", tixShip, amtShip),
+    row("Tax 8.25%", taxDetail, amtTax),
+    totalRow
+  );
+  const tixSrc = h("div", { class: "inv-tix-src", hidden: true });
+  wrapTix.append(ticket, tixSrc);
 
   const foot = h("div", { class: "inv-foot" });
-  const send = h("a", { class: "btn btn-primary", text: "Send", href: "mailto:" });
+  const send = h("a", { class: "btn btn-primary", text: "Quote", href: "mailto:", hidden: true });
   const save = h("button", { type: "button", class: "btn", text: "Save" });
   save.addEventListener("click", () => {
     savePng().catch(() => {});
@@ -682,7 +798,7 @@ function mount(node) {
   foot.append(send, save);
 
   const wrap = h("div", { class: "inv" });
-  wrap.append(head, ch, quote, fresh, used, alts, ticket, foot);
+  wrap.append(head, ch, fresh, used, alts, wrapTix, foot);
   root.append(wrap);
 
   els = {
@@ -690,10 +806,10 @@ function mount(node) {
     name,
     oem,
     stamp,
+    qtyDec,
+    qtyN,
+    qtyInc,
     chBtns,
-    quote,
-    email,
-    quoteSend,
     fresh,
     freshOem,
     listing,
@@ -708,11 +824,13 @@ function mount(node) {
     tixBike,
     tixPart,
     tixOem,
+    tixQty,
+    tixShip,
     amtPart,
-    tixProv,
     amtShip,
     amtTax,
     amtTotal,
+    tixSrc,
     send,
     save,
   };
@@ -728,6 +846,9 @@ function enter() {
     seenJob = job.id;
     pickUsed = -1;
     pickAlt = -1;
+    set({ qty: QTY_MIN });
+  } else if (!Number.isInteger(Number(state.qty)) || Number(state.qty) < QTY_MIN) {
+    set({ qty: QTY_MIN });
   }
   if (!CHANNEL_IDS.includes(state.channel)) {
     set({ channel: "new" });
