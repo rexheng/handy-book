@@ -61,17 +61,35 @@ Captured **2026-09-19**. Every `new.price` is from the linked product or dealer 
 | `kawasaki-z650-2020/seat` | https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd669787a866100c839726/seat | $211.60 | 2026-09-19 | 0 | 0 | true |
 | `kawasaki-z650-2020/clutch-lever` | https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd669787a866100c839716/handlebar | $26.09 | 2026-09-19 | 2 | 0 | true |
 | `kawasaki-z650-2020/mirrors` | https://www.kawasakipartshouse.com/oemparts/a/kaw/5ebd669787a866100c839716/handlebar | $85.31 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/spark-plugs` | https://www.partzilla.com/product/yamaha/LMA-R8A9S-00-00 | $12.25 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/engine-oil` | https://www.partzilla.com/product/yamaha/LUB-10W40-AP-12 | $11.49 | 2026-09-19 | 0 | 0 | false |
+| `yamaha-yzf-r7-2022/oil-filter` | https://www.partzilla.com/product/yamaha/5GH-13440-61-00 | $9.69 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/coolant` | https://www.partzilla.com/product/yamaha/ACC-YAMAC-BL-32 | $10.44 | 2026-09-19 | 0 | 0 | false |
+| `yamaha-yzf-r7-2022/air-filter` | https://www.partzilla.com/product/yamaha/1WS-14450-00-00 | $33.43 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/tires` | https://www.partzilla.com/product/yamaha/94118-17089-00 | $276.65 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/clutch-lever` | https://www.partzilla.com/product/yamaha/5EB-83912-03-00 | $49.01 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/front-brake-pads` | https://www.partzilla.com/product/yamaha/5SL-25805-00-00 | $59.84 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/rear-brake-pads` | https://www.partzilla.com/product/yamaha/5VX-25806-00-00 | $48.19 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/brake-fluid` | https://www.partzilla.com/product/yamaha/ACC-BRAKE-FL-UD | $10.66 | 2026-09-19 | 0 | 0 | false |
+| `yamaha-yzf-r7-2022/drive-chain` | https://www.partzilla.com/product/yamaha/94A40-16108-00 | $155.79 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/battery` | https://www.partzilla.com/product/yamaha/5TJ-82100-01-00 | $191.56 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/fuses` | https://www.partzilla.com/product/yamaha/5JJ-82151-00-00 | $5.69 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/headlight` | https://www.partzilla.com/product/yamaha/BEB-84300-00-00 | $492.39 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/seat` | https://www.partzilla.com/product/yamaha/BEB-24710-00-00 | $138.31 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/mirrors` | https://www.partzilla.com/product/yamaha/BEB-26280-00-00 | $74.47 | 2026-09-19 | 0 | 0 | true |
+| `yamaha-yzf-r7-2022/side-cover` | https://www.partzilla.com/product/yamaha/BEB-21711-00-P0 | $135.40 | 2026-09-19 | 0 | 0 | true |
 
 ## Totals
-- jobs: 57
-- new listings: 56
+- jobs: 74
+- new listings: 73
 - new null: 1
 - used listings: 10
 - alts listings: 14
-- oemVerified true: 44
+- oemVerified true: 58
 
 ## Notes
 - Yamaha MT-07 tires: no OEM tire PN on the 2021 wheel fiche → `new: null`.
 - Fluids (oil/coolant/brake fluid) use official chemical SKUs with live prices; they are not on exploded bike fiches so `oemVerified` is false.
 - Suzuki OEM chain `27600-44H10-112` lists free shipping and ships in 200–210 days.
 - eBay item pages often block scrapers; used coverage is sparse.
+- YZF-R7 2022 listings are Partzilla USD captured 2026-09-19 from the YZFR7NL BEB1 fiche or the matching product page. Fluids stay `oemVerified` false.

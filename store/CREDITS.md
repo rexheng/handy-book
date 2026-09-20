@@ -14,6 +14,8 @@ checked against Bikez (Bikez images were not downloaded).
 | `store/img/bikes/kawasaki-z650-2020-thumb.webp` | Kawasaki Z650 schwarz 2020.jpg | Gamemaster669 | https://commons.wikimedia.org/wiki/File:Kawasaki_Z650_schwarz_2020.jpg | CC BY-SA 3.0 | https://bikez.com/motorcycles/kawasaki_z650_2020.php |
 | `store/img/bikes/suzuki-sv650-2019.webp` | SV 650 AL7.jpg | Highbrow | https://commons.wikimedia.org/wiki/File:SV_650_AL7.jpg | CC BY-SA 4.0 | https://bikez.com/motorcycles/suzuki_sv650_2019.php |
 | `store/img/bikes/suzuki-sv650-2019-thumb.webp` | SV 650 AL7.jpg | Highbrow | https://commons.wikimedia.org/wiki/File:SV_650_AL7.jpg | CC BY-SA 4.0 | https://bikez.com/motorcycles/suzuki_sv650_2019.php |
+| `store/img/bikes/yamaha-yzf-r7-2022.webp` | Yamaha YZF-R7 (55048319395).jpg | Alexandre Prevot | https://commons.wikimedia.org/wiki/File:Yamaha_YZF-R7_(55048319395).jpg | CC BY-SA 4.0 | https://bikez.com/motorcycles/yamaha_yzf-r7_2022.php |
+| `store/img/bikes/yamaha-yzf-r7-2022-thumb.webp` | Yamaha YZF-R7 (55048319395).jpg | Alexandre Prevot | https://commons.wikimedia.org/wiki/File:Yamaha_YZF-R7_(55048319395).jpg | CC BY-SA 4.0 | https://bikez.com/motorcycles/yamaha_yzf-r7_2022.php |
 | `store/img/systems/engine.webp` | 2019 Honda CB650R (20190428).jpg | オーバードライブ83 | https://commons.wikimedia.org/wiki/File:2019_Honda_CB650R_(20190428).jpg | CC BY-SA 4.0 |  |
 | `store/img/systems/engine-thumb.webp` | 2019 Honda CB650R (20190428).jpg | オーバードライブ83 | https://commons.wikimedia.org/wiki/File:2019_Honda_CB650R_(20190428).jpg | CC BY-SA 4.0 |  |
 | `store/img/systems/brakes.webp` | Brembo motorcycle brake.jpg | Hu Nhu | https://commons.wikimedia.org/wiki/File:Brembo_motorcycle_brake.jpg | CC0 |  |

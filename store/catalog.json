@@ -71,6 +71,23 @@
       "thumb": "store/img/bikes/suzuki-sv650-2019-thumb.webp",
       "manualId": "suzuki-sv650-2019-om",
       "bikez": "https://bikez.com/motorcycles/suzuki_sv650_2022.php"
+    },
+    {
+      "id": "yamaha-yzf-r7-2022",
+      "make": "Yamaha",
+      "model": "YZF-R7",
+      "year": 2022,
+      "cc": 689,
+      "aliases": [
+        "yzf r7",
+        "yzf-r7",
+        "r7",
+        "yamaha r7"
+      ],
+      "image": "store/img/bikes/yamaha-yzf-r7-2022.webp",
+      "thumb": "store/img/bikes/yamaha-yzf-r7-2022-thumb.webp",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "bikez": "https://bikez.com/motorcycles/yamaha_yzf-r7_2022.php"
     }
   ],
   "manuals": [
@@ -322,7 +339,9 @@
         }
       ],
       "source": "https://cdn.powersports.honda.com/documentum/MWOM/ml.remawmom.2021_31mkyg0_cb650r.pdf",
-      "pubCode": "31MKYG00"
+      "pubCode": "31MKYG00",
+      "diagramPage": 18,
+      "textDir": "store/manuals/honda-cb650r-2021-om/text/"
     },
     {
       "id": "yamaha-mt-07-2021-om",
@@ -696,7 +715,9 @@
         }
       ],
       "source": "https://library.ymcapps.net/library/om/contents/pdf/10/BAT-28199-10_02.pdf",
-      "pubCode": "LIT-11626-34-63 / BAT-28199-10"
+      "pubCode": "LIT-11626-34-63 / BAT-28199-10",
+      "diagramPage": 16,
+      "textDir": "store/manuals/yamaha-mt-07-2021-om/text/"
     },
     {
       "id": "kawasaki-z650-2020-om",
@@ -711,6 +732,10 @@
         {
           "title": "TABLE OF CONTENTS",
           "page": 14
+        },
+        {
+          "title": "Location of Parts",
+          "page": 44
         },
         {
           "title": "SAFETY INFORMATION",
@@ -854,7 +879,10 @@
         }
       ],
       "source": "https://pws.ktivs.net/manuals",
-      "pubCode": "99803-0033"
+      "pubCode": "99803-0033",
+      "diagramPage": 44,
+      "textDir": "store/manuals/kawasaki-z650-2020-om/text/",
+      "ocr": false
     },
     {
       "id": "suzuki-sv650-2019-om",
@@ -1244,7 +1272,381 @@
         }
       ],
       "source": "https://www.suzukimotorcycles.com.au/wp-content/uploads/2021/11/99011-18K55-01A_SV650M2.pdf",
-      "pubCode": "99011-18K55-01A"
+      "pubCode": "99011-18K55-01A",
+      "diagramPage": 15,
+      "textDir": "store/manuals/suzuki-sv650-2019-om/text/"
+    },
+    {
+      "id": "yamaha-yzf-r7-2022-om",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "title": "MOTORCYCLE OWNER’S MANUAL — YZFR7AN (YZF-R7)",
+      "kind": "owner",
+      "publisher": "Yamaha Motor Corporation, U.S.A.",
+      "file": "store/manuals/yamaha-yzf-r7-2022-om/manual.pdf",
+      "pages": 106,
+      "pagesDir": "store/manuals/yamaha-yzf-r7-2022-om/pages/",
+      "toc": [
+        {
+          "title": "Introduction",
+          "page": 3
+        },
+        {
+          "title": "Important manual information",
+          "page": 4
+        },
+        {
+          "title": "Table of contents",
+          "page": 6
+        },
+        {
+          "title": "Location of important labels",
+          "page": 8
+        },
+        {
+          "title": "Safety information",
+          "page": 11
+        },
+        {
+          "title": "Description",
+          "page": 16
+        },
+        {
+          "title": "Left view",
+          "page": 16
+        },
+        {
+          "title": "Right view",
+          "page": 17
+        },
+        {
+          "title": "Controls and instruments",
+          "page": 18
+        },
+        {
+          "title": "Instrument and control functions",
+          "page": 19
+        },
+        {
+          "title": "Main switch/steering lock",
+          "page": 19
+        },
+        {
+          "title": "Indicator lights and warning lights",
+          "page": 20
+        },
+        {
+          "title": "Multi-function meter unit",
+          "page": 22
+        },
+        {
+          "title": "Handlebar switches",
+          "page": 28
+        },
+        {
+          "title": "Clutch lever",
+          "page": 30
+        },
+        {
+          "title": "Shift pedal",
+          "page": 30
+        },
+        {
+          "title": "Brake lever",
+          "page": 30
+        },
+        {
+          "title": "Brake pedal",
+          "page": 31
+        },
+        {
+          "title": "ABS",
+          "page": 31
+        },
+        {
+          "title": "Fuel tank cap",
+          "page": 32
+        },
+        {
+          "title": "Fuel",
+          "page": 33
+        },
+        {
+          "title": "Fuel tank breather hose and overflow hose",
+          "page": 34
+        },
+        {
+          "title": "Catalytic converter",
+          "page": 35
+        },
+        {
+          "title": "Seats",
+          "page": 35
+        },
+        {
+          "title": "Rear view mirrors",
+          "page": 37
+        },
+        {
+          "title": "Adjusting the front fork",
+          "page": 37
+        },
+        {
+          "title": "Adjusting the shock absorber assembly",
+          "page": 40
+        },
+        {
+          "title": "Auxiliary DC connector",
+          "page": 41
+        },
+        {
+          "title": "Sidestand",
+          "page": 42
+        },
+        {
+          "title": "Ignition circuit cut-off system",
+          "page": 42
+        },
+        {
+          "title": "For your safety – pre-operation checks",
+          "page": 44
+        },
+        {
+          "title": "Operation and important riding points",
+          "page": 47
+        },
+        {
+          "title": "Engine break-in",
+          "page": 47
+        },
+        {
+          "title": "Starting the engine",
+          "page": 48
+        },
+        {
+          "title": "Shifting",
+          "page": 49
+        },
+        {
+          "title": "Parking",
+          "page": 50
+        },
+        {
+          "title": "Periodic maintenance and adjustment",
+          "page": 51
+        },
+        {
+          "title": "Tool kits",
+          "page": 52
+        },
+        {
+          "title": "Periodic maintenance chart for the emission control system",
+          "page": 53
+        },
+        {
+          "title": "General maintenance and lubrication chart",
+          "page": 54
+        },
+        {
+          "title": "Removing and installing cowlings",
+          "page": 59
+        },
+        {
+          "title": "Checking the spark plugs",
+          "page": 60
+        },
+        {
+          "title": "Engine oil and oil filter cartridge",
+          "page": 61
+        },
+        {
+          "title": "Why Yamalube",
+          "page": 64
+        },
+        {
+          "title": "Coolant",
+          "page": 64
+        },
+        {
+          "title": "Replacing the air filter element and cleaning the check hose",
+          "page": 65
+        },
+        {
+          "title": "Checking the engine idling speed",
+          "page": 66
+        },
+        {
+          "title": "Checking the throttle grip free play",
+          "page": 66
+        },
+        {
+          "title": "Valve clearance",
+          "page": 67
+        },
+        {
+          "title": "Tires",
+          "page": 67
+        },
+        {
+          "title": "Cast wheels",
+          "page": 69
+        },
+        {
+          "title": "Adjusting the clutch lever free play",
+          "page": 70
+        },
+        {
+          "title": "Checking the brake lever free play",
+          "page": 70
+        },
+        {
+          "title": "Brake light switches",
+          "page": 71
+        },
+        {
+          "title": "Checking the front and rear brake pads",
+          "page": 71
+        },
+        {
+          "title": "Checking the brake fluid level",
+          "page": 72
+        },
+        {
+          "title": "Changing the brake fluid",
+          "page": 73
+        },
+        {
+          "title": "Drive chain slack",
+          "page": 74
+        },
+        {
+          "title": "Cleaning and lubricating the drive chain",
+          "page": 75
+        },
+        {
+          "title": "Checking and lubricating the cables",
+          "page": 76
+        },
+        {
+          "title": "Checking and lubricating the throttle grip and cable",
+          "page": 76
+        },
+        {
+          "title": "Checking and lubricating the brake and shift pedals",
+          "page": 77
+        },
+        {
+          "title": "Checking and lubricating the brake and clutch levers",
+          "page": 77
+        },
+        {
+          "title": "Checking and lubricating the sidestand",
+          "page": 78
+        },
+        {
+          "title": "Lubricating the rear suspension",
+          "page": 78
+        },
+        {
+          "title": "Lubricating the swingarm pivots",
+          "page": 79
+        },
+        {
+          "title": "Checking the front fork",
+          "page": 79
+        },
+        {
+          "title": "Checking the steering",
+          "page": 80
+        },
+        {
+          "title": "Checking the wheel bearings",
+          "page": 80
+        },
+        {
+          "title": "Battery",
+          "page": 80
+        },
+        {
+          "title": "Replacing the fuses",
+          "page": 82
+        },
+        {
+          "title": "Vehicle lights",
+          "page": 83
+        },
+        {
+          "title": "Replacing a license plate light bulb",
+          "page": 83
+        },
+        {
+          "title": "Supporting the motorcycle",
+          "page": 84
+        },
+        {
+          "title": "Troubleshooting",
+          "page": 84
+        },
+        {
+          "title": "Troubleshooting chart",
+          "page": 86
+        },
+        {
+          "title": "Motorcycle care and storage",
+          "page": 88
+        },
+        {
+          "title": "Matte color caution",
+          "page": 88
+        },
+        {
+          "title": "Care",
+          "page": 88
+        },
+        {
+          "title": "Storage",
+          "page": 90
+        },
+        {
+          "title": "Specifications",
+          "page": 92
+        },
+        {
+          "title": "Consumer information",
+          "page": 94
+        },
+        {
+          "title": "Identification numbers",
+          "page": 94
+        },
+        {
+          "title": "Diagnostic connector",
+          "page": 96
+        },
+        {
+          "title": "Vehicle data recording",
+          "page": 96
+        },
+        {
+          "title": "Reporting safety defects",
+          "page": 98
+        },
+        {
+          "title": "Maintenance record",
+          "page": 99
+        },
+        {
+          "title": "YAMAHA MOTOR CANADA LTD. MOTORCYCLE WARRANTY GUIDE",
+          "page": 101
+        },
+        {
+          "title": "Index",
+          "page": 103
+        }
+      ],
+      "source": "https://library.ymcapps.net/library/om/contents/pdf/10/BEB-28199-70_02.pdf",
+      "pubCode": "BEB-28199-70",
+      "diagramPage": 16,
+      "textDir": "store/manuals/yamaha-yzf-r7-2022-om/text/"
     }
   ],
   "systems": [
@@ -1484,7 +1886,10 @@
         "days": 2,
         "retrieved": "2026-09-19",
         "oem": "08C35-A131M02",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -1529,7 +1934,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "08CLA-999-0E0A8",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -1580,7 +1988,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "08203-0004",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -1630,7 +2041,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "06455-MKN-D51",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -1675,7 +2089,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "06435-MGZ-J02",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -1726,7 +2143,10 @@
         "days": 2,
         "retrieved": "2026-09-19",
         "oem": "40540-MJE-D01",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -1775,7 +2195,10 @@
         "days": 2,
         "retrieved": "2026-09-19",
         "oem": "44711-MKN-D52",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -1839,7 +2262,10 @@
         "days": 2,
         "retrieved": "2026-09-19",
         "oem": "31500-MCJ-643AH",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -1884,7 +2310,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "38221-SNA-A81",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -1930,7 +2359,10 @@
         "days": 2,
         "retrieved": "2026-09-19",
         "oem": "33100-MKY-D51",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -1980,7 +2412,10 @@
         "days": 2,
         "retrieved": "2026-09-19",
         "oem": "77100-MKY-D51ZA",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2024,7 +2459,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "53178-MJE-D00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2085,7 +2523,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "990A0-01E40-01Q",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2155,7 +2596,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "16510-07J00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2208,7 +2652,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "09482-00646",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2252,7 +2699,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "13780-44H00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2293,7 +2743,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "990A0-02E00-01Q",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2333,7 +2786,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "990A0-01E91-12Z",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2369,7 +2825,10 @@
         "days": 4,
         "retrieved": "2026-09-19",
         "oem": "59100-35800",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2414,7 +2873,10 @@
         "days": 4,
         "retrieved": "2026-09-19",
         "oem": "69101-44850",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2462,7 +2924,10 @@
         "days": 210,
         "retrieved": "2026-09-19",
         "oem": "27600-44H10-112",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2515,7 +2980,10 @@
         "days": 4,
         "retrieved": "2026-09-19",
         "oem": "55110-18K00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2568,7 +3036,10 @@
         "days": 1,
         "retrieved": "2026-09-19",
         "oem": "33610-14G11",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": null,
+        "contactUrl": "https://www.revzilla.com/contact-us",
+        "phone": "877-792-9455"
       }
     },
     {
@@ -2608,7 +3079,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "09481-30101",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2660,7 +3134,10 @@
         "days": 4,
         "retrieved": "2026-09-19",
         "oem": "09471-12185",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2696,7 +3173,10 @@
         "days": 4,
         "retrieved": "2026-09-19",
         "oem": "45100-18K01-BBC",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2747,7 +3227,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "57621-25D10",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2800,7 +3283,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "LUB-10W40-AP-12",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2862,7 +3348,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "5GH-13440-61-00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2898,7 +3387,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "LMA-R8A9S-00-00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2943,7 +3435,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "1WS-14450-00-00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -2988,7 +3483,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "ACC-YAMAC-BL-32",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3028,7 +3526,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "ACC-BRAKE-FL-UD",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": null,
+        "contactUrl": "https://www.revzilla.com/contact-us",
+        "phone": "877-792-9455"
       }
     },
     {
@@ -3073,7 +3574,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "1WS-25805-00-00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3118,7 +3622,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "5VX-25806-00-00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3163,7 +3670,10 @@
         "days": 3,
         "retrieved": "2026-09-19",
         "oem": "94582-49108-00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3247,7 +3757,10 @@
         "days": 3,
         "retrieved": "2026-09-19",
         "oem": "YTZ-10S00-00-00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3292,7 +3805,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "5JJ-82151-00-00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3332,7 +3848,10 @@
         "days": 3,
         "retrieved": "2026-09-19",
         "oem": "BAT-84300-00-00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3372,7 +3891,10 @@
         "days": 3,
         "retrieved": "2026-09-19",
         "oem": "B4C-24710-01-00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3413,7 +3935,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "B90-83912-00-00",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3474,7 +3999,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "K61021-202A",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3546,7 +4074,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "16097-0008",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3582,7 +4113,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "11013-0745",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "orderinfo@babbittsonline.com",
+        "contactUrl": "https://www.babbittsonline.com/contact-us",
+        "phone": "(231) 737-4542"
       }
     },
     {
@@ -3631,7 +4165,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "K61081-004B",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3676,7 +4213,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "K61081-002A",
-        "oemVerified": false
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -3716,7 +4256,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "43082-0165",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "orderinfo@babbittsonline.com",
+        "contactUrl": "https://www.babbittsonline.com/contact-us",
+        "phone": "(231) 737-4542"
       }
     },
     {
@@ -3765,7 +4308,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "43082-0166",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "orderinfo@babbittsonline.com",
+        "contactUrl": "https://www.babbittsonline.com/contact-us",
+        "phone": "(231) 737-4542"
       }
     },
     {
@@ -3821,7 +4367,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "92057-0695",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "orderinfo@babbittsonline.com",
+        "contactUrl": "https://www.babbittsonline.com/contact-us",
+        "phone": "(231) 737-4542"
       }
     },
     {
@@ -3865,7 +4414,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "41009-0832 (FR 120/70ZR17)",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "orderinfo@babbittsonline.com",
+        "contactUrl": "https://www.babbittsonline.com/contact-us",
+        "phone": "(231) 737-4542"
       }
     },
     {
@@ -3930,7 +4482,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "26012-0689",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "orderinfo@babbittsonline.com",
+        "contactUrl": "https://www.babbittsonline.com/contact-us",
+        "phone": "(231) 737-4542"
       }
     },
     {
@@ -3982,7 +4537,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "26006-1006",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     },
     {
@@ -4026,7 +4584,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "23004-0414",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "orderinfo@babbittsonline.com",
+        "contactUrl": "https://www.babbittsonline.com/contact-us",
+        "phone": "(231) 737-4542"
       }
     },
     {
@@ -4070,7 +4631,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "53066-0689-MA",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "orderinfo@babbittsonline.com",
+        "contactUrl": "https://www.babbittsonline.com/contact-us",
+        "phone": "(231) 737-4542"
       }
     },
     {
@@ -4134,7 +4698,10 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "46092-0569",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "orderinfo@babbittsonline.com",
+        "contactUrl": "https://www.babbittsonline.com/contact-us",
+        "phone": "(231) 737-4542"
       }
     },
     {
@@ -4170,7 +4737,790 @@
         "days": null,
         "retrieved": "2026-09-19",
         "oem": "56001-0336 (LH)",
-        "oemVerified": true
+        "oemVerified": true,
+        "email": "orderinfo@babbittsonline.com",
+        "contactUrl": "https://www.babbittsonline.com/contact-us",
+        "phone": "(231) 737-4542"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/spark-plugs",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "spark-plugs",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "LMA-R8A9S-00-00",
+      "oemVerified": true,
+      "title": "Checking the spark plugs",
+      "pages": [
+        60
+      ],
+      "printedPage": "7-10",
+      "steps": [
+        {
+          "page": 60
+        }
+      ],
+      "related": [
+        {
+          "page": 92,
+          "title": "Specifications"
+        }
+      ],
+      "price": 12.25,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/LMA-R8A9S-00-00",
+        "price": 12.25,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "LMA-R8A9S-00-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/engine-oil",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "engine-oil",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "LUB-10W40-AP-12",
+      "oemVerified": false,
+      "title": "Engine oil and oil filter cartridge",
+      "pages": [
+        61,
+        62,
+        63
+      ],
+      "printedPage": "7-11",
+      "steps": [
+        {
+          "page": 61
+        },
+        {
+          "page": 62
+        },
+        {
+          "page": 63
+        }
+      ],
+      "related": [
+        {
+          "page": 92,
+          "title": "Specifications"
+        }
+      ],
+      "price": 11.49,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/LUB-10W40-AP-12",
+        "price": 11.49,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "LUB-10W40-AP-12",
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/oil-filter",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "oil-filter",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "5GH-13440-61-00",
+      "oemVerified": true,
+      "title": "Engine oil and oil filter cartridge",
+      "pages": [
+        61,
+        62,
+        63
+      ],
+      "printedPage": "7-11",
+      "steps": [
+        {
+          "page": 61
+        },
+        {
+          "page": 62
+        },
+        {
+          "page": 63
+        }
+      ],
+      "related": [
+        {
+          "page": 92,
+          "title": "Specifications"
+        }
+      ],
+      "price": 9.69,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/5GH-13440-61-00",
+        "price": 9.69,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "5GH-13440-61-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/coolant",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "coolant",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "ACC-YAMAC-BL-32",
+      "oemVerified": false,
+      "title": "Coolant",
+      "pages": [
+        64,
+        65
+      ],
+      "printedPage": "7-14",
+      "steps": [
+        {
+          "page": 64
+        },
+        {
+          "page": 65
+        }
+      ],
+      "related": [
+        {
+          "page": 92,
+          "title": "Specifications"
+        }
+      ],
+      "price": 10.44,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/ACC-YAMAC-BL-32",
+        "price": 10.44,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "ACC-YAMAC-BL-32",
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/air-filter",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "air-filter",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "1WS-14450-00-00",
+      "oemVerified": true,
+      "title": "Replacing the air filter element and cleaning the check hose",
+      "pages": [
+        65,
+        66
+      ],
+      "printedPage": "7-15",
+      "steps": [
+        {
+          "page": 65
+        },
+        {
+          "page": 66
+        }
+      ],
+      "related": [],
+      "price": 33.43,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/1WS-14450-00-00",
+        "price": 33.43,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "1WS-14450-00-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/tires",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "tires",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "94118-17089-00",
+      "oemVerified": true,
+      "title": "Tires",
+      "pages": [
+        67,
+        68,
+        69
+      ],
+      "printedPage": "7-17",
+      "steps": [
+        {
+          "page": 67
+        },
+        {
+          "page": 68
+        },
+        {
+          "page": 69
+        }
+      ],
+      "related": [
+        {
+          "page": 92,
+          "title": "Specifications"
+        }
+      ],
+      "price": 276.65,
+      "ship": null,
+      "days": 3,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/94118-17089-00",
+        "price": 276.65,
+        "currency": "USD",
+        "ship": null,
+        "days": 3,
+        "retrieved": "2026-09-19",
+        "oem": "94118-17089-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/clutch-lever",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "clutch-lever",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "5EB-83912-03-00",
+      "oemVerified": true,
+      "title": "Adjusting the clutch lever free play",
+      "pages": [
+        70
+      ],
+      "printedPage": "7-20",
+      "steps": [
+        {
+          "page": 70
+        }
+      ],
+      "related": [
+        {
+          "page": 30,
+          "title": "Clutch lever"
+        }
+      ],
+      "price": 49.01,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/5EB-83912-03-00",
+        "price": 49.01,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "5EB-83912-03-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/front-brake-pads",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "front-brake-pads",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "5SL-25805-00-00",
+      "oemVerified": true,
+      "title": "Checking the front and rear brake pads",
+      "pages": [
+        71,
+        72
+      ],
+      "printedPage": "7-21",
+      "steps": [
+        {
+          "page": 71
+        },
+        {
+          "page": 72
+        }
+      ],
+      "related": [],
+      "price": 59.84,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/5SL-25805-00-00",
+        "price": 59.84,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "5SL-25805-00-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/rear-brake-pads",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "rear-brake-pads",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "5VX-25806-00-00",
+      "oemVerified": true,
+      "title": "Checking the front and rear brake pads",
+      "pages": [
+        71,
+        72
+      ],
+      "printedPage": "7-21",
+      "steps": [
+        {
+          "page": 71
+        },
+        {
+          "page": 72
+        }
+      ],
+      "related": [],
+      "price": 48.19,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/5VX-25806-00-00",
+        "price": 48.19,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "5VX-25806-00-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/brake-fluid",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "brake-fluid",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "ACC-BRAKE-FL-UD",
+      "oemVerified": false,
+      "title": "Checking the brake fluid level",
+      "pages": [
+        72,
+        73
+      ],
+      "printedPage": "7-22",
+      "steps": [
+        {
+          "page": 72
+        },
+        {
+          "page": 73
+        }
+      ],
+      "related": [],
+      "price": 10.66,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/ACC-BRAKE-FL-UD",
+        "price": 10.66,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "ACC-BRAKE-FL-UD",
+        "oemVerified": false,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/drive-chain",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "drive-chain",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "94A40-16108-00",
+      "oemVerified": true,
+      "title": "Drive chain slack",
+      "pages": [
+        74,
+        75
+      ],
+      "printedPage": "7-24",
+      "steps": [
+        {
+          "page": 74
+        },
+        {
+          "page": 75
+        }
+      ],
+      "related": [
+        {
+          "page": 75,
+          "title": "Cleaning and lubricating the drive chain"
+        }
+      ],
+      "price": 155.79,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/94A40-16108-00",
+        "price": 155.79,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "94A40-16108-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/battery",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "battery",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "5TJ-82100-01-00",
+      "oemVerified": true,
+      "title": "Battery",
+      "pages": [
+        80,
+        81,
+        82
+      ],
+      "printedPage": "7-30",
+      "steps": [
+        {
+          "page": 80
+        },
+        {
+          "page": 81
+        },
+        {
+          "page": 82
+        }
+      ],
+      "related": [
+        {
+          "page": 92,
+          "title": "Specifications"
+        },
+        {
+          "page": 35,
+          "title": "Seats"
+        }
+      ],
+      "price": 191.56,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/5TJ-82100-01-00",
+        "price": 191.56,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "5TJ-82100-01-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/fuses",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "fuses",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "5JJ-82151-00-00",
+      "oemVerified": true,
+      "title": "Replacing the fuses",
+      "pages": [
+        82,
+        83
+      ],
+      "printedPage": "7-32",
+      "steps": [
+        {
+          "page": 82
+        },
+        {
+          "page": 83
+        }
+      ],
+      "related": [
+        {
+          "page": 35,
+          "title": "Seats"
+        }
+      ],
+      "price": 5.69,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/5JJ-82151-00-00",
+        "price": 5.69,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "5JJ-82151-00-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/headlight",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "headlight",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "BEB-84300-00-00",
+      "oemVerified": true,
+      "title": "Vehicle lights",
+      "pages": [
+        83
+      ],
+      "printedPage": "7-33",
+      "steps": [
+        {
+          "page": 83
+        }
+      ],
+      "related": [],
+      "price": 492.39,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/BEB-84300-00-00",
+        "price": 492.39,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "BEB-84300-00-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/seat",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "seat",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "BEB-24710-00-00",
+      "oemVerified": true,
+      "title": "Seats",
+      "pages": [
+        35,
+        36,
+        37
+      ],
+      "printedPage": "4-17",
+      "steps": [
+        {
+          "page": 35
+        },
+        {
+          "page": 36
+        },
+        {
+          "page": 37
+        }
+      ],
+      "related": [],
+      "price": 138.31,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/BEB-24710-00-00",
+        "price": 138.31,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "BEB-24710-00-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/mirrors",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "mirrors",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "BEB-26280-00-00",
+      "oemVerified": true,
+      "title": "Rear view mirrors",
+      "pages": [
+        37
+      ],
+      "printedPage": "4-19",
+      "steps": [
+        {
+          "page": 37
+        }
+      ],
+      "related": [],
+      "price": 74.47,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/BEB-26280-00-00",
+        "price": 74.47,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "BEB-26280-00-00",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
+      }
+    },
+    {
+      "id": "yamaha-yzf-r7-2022/side-cover",
+      "bikeId": "yamaha-yzf-r7-2022",
+      "partId": "side-cover",
+      "manualId": "yamaha-yzf-r7-2022-om",
+      "oem": "BEB-21711-00-P0",
+      "oemVerified": true,
+      "title": "Removing and installing cowlings",
+      "pages": [
+        59
+      ],
+      "printedPage": "7-9",
+      "steps": [
+        {
+          "page": 59
+        }
+      ],
+      "related": [],
+      "price": 135.4,
+      "ship": null,
+      "days": null,
+      "from": "Partzilla",
+      "used": [],
+      "alts": [],
+      "new": {
+        "from": "Partzilla",
+        "url": "https://www.partzilla.com/product/yamaha/BEB-21711-00-P0",
+        "price": 135.4,
+        "currency": "USD",
+        "ship": null,
+        "days": null,
+        "retrieved": "2026-09-19",
+        "oem": "BEB-21711-00-P0",
+        "oemVerified": true,
+        "email": "customerservice@partzilla.com",
+        "contactUrl": "https://www.partzilla.com/help/contact",
+        "phone": "877-473-4595"
       }
     }
   ]

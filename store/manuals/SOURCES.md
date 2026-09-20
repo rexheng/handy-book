@@ -47,3 +47,15 @@ Downloaded 2026-09-19. Owner’s manuals only; manufacturer / official regional 
 - Bikez: https://bikez.com/motorcycles/suzuki_sv650_2022.php
 - Omitted jobs (no dedicated heading): side-cover, mirrors
 - Note: oil-filter job uses the printed heading ENGINE OIL AND FILTER CHANGE (PDF p87–90); OEM 16510-07J00
+
+## yamaha-yzf-r7-2022-om
+
+- Cover title: MOTORCYCLE OWNER’S MANUAL — YZFR7AN (YZF-R7)
+- Publisher: Yamaha Motor Corporation, U.S.A. (cover ©2022 Yamaha; 1st edition January 2021)
+- Publication code: BEB-28199-70
+- Year: 2022 (no swap; first-year RM39 / YZFR7AN)
+- Source: https://library.ymcapps.net/library/om/contents/pdf/10/BEB-28199-70_02.pdf (Yamaha official OM library)
+- Pages: 106 (text PDF, unencrypted)
+- Bikez: https://bikez.com/motorcycles/yamaha_yzf-r7_2022.php
+- Omitted jobs: none of the contract part ids; all 17 have a printed heading
+- Note: engine-oil and oil-filter share the printed heading “Engine oil and oil filter cartridge”; front- and rear-brake-pads share “Checking the front and rear brake pads”. Consumer-information warranty pages print Yamaha Motor Canada Ltd.; the PDF was served from the same US library used for the MT-07 OM.
