@@ -1,5 +1,6 @@
 import { state, set, go, emit, registerScreen } from "../bus.js";
 import * as Q from "../query.js";
+import { loadAsk, ask, fetchJobPages, contextWindow } from "../ask.js";
 
 registerScreen("book", {
   mount(root) {
@@ -41,6 +42,13 @@ let imgEl = null;
 let canvasEl = null;
 let stripEl = null;
 let followEl = null;
+let toolsEl = null;
+let askBtn = null;
+let askSheet = null;
+let askInput = null;
+let askBar = null;
+let askBarFill = null;
+let askHits = null;
 
 let jobRec = null;
 let manualRec = null;
@@ -50,6 +58,11 @@ let drag = null;
 let ro = null;
 let gen = 0;
 let fitLocked = false;
+let askPages = [];
+let askFetchTok = 0;
+let askRunTok = 0;
+let askFlashTimer = 0;
+let askBusy = false;
 
 function bounce(id) {
   queueMicrotask(() => go(id));
@@ -90,7 +103,16 @@ function build(root) {
   });
   titleEl = el("p", { class: "book-title" });
   stampEl = el("span", { class: "stamp book-stamp" });
-  head.append(coverEl, titleEl, stampEl);
+  toolsEl = el("div", { class: "book-tools" });
+  askBtn = el("button", {
+    class: "btn btn-icon book-ask",
+    type: "button",
+    "aria-label": "Ask",
+    hidden: true,
+  });
+  askBtn.append(askGlyph());
+  toolsEl.append(stampEl, askBtn);
+  head.append(coverEl, titleEl, toolsEl);
 
   viewEl = el("div", {
     class: "page-view",
@@ -117,7 +139,21 @@ function build(root) {
     text: "Follow",
   });
 
-  root.append(head, viewEl, stripEl, followEl);
+  askSheet = el("div", { class: "sheet ask-sheet", hidden: true, role: "dialog", "aria-label": "Ask" });
+  askInput = el("input", {
+    class: "ask-q",
+    type: "search",
+    placeholder: "torque",
+    autocomplete: "off",
+    enterkeyhint: "search",
+  });
+  askBar = el("div", { class: "ask-bar", hidden: true });
+  askBarFill = el("i");
+  askBar.append(askBarFill);
+  askHits = el("div", { class: "ask-hits" });
+  askSheet.append(askInput, askBar, askHits);
+
+  root.append(head, viewEl, stripEl, followEl, askSheet);
 
   imgEl.addEventListener("load", onImgLoad);
   imgEl.addEventListener("error", onImgError);
@@ -130,6 +166,9 @@ function build(root) {
   viewEl.addEventListener("click", onViewClick);
   viewEl.addEventListener("keydown", onViewKey);
   followEl.addEventListener("click", () => go("follow"));
+  askBtn.addEventListener("click", onAskToggle);
+  askInput.addEventListener("keydown", onAskKey);
+  window.addEventListener("keydown", onAskEsc);
   window.addEventListener("resize", applyZoom);
 
   ro = new ResizeObserver(() => applyZoom());
@@ -139,6 +178,7 @@ function build(root) {
 function teardown() {
   fit = "width";
   drag = null;
+  closeAsk();
   if (viewEl) {
     viewEl.setAttribute("aria-pressed", "false");
     viewEl.classList.remove("fit-h");
@@ -276,6 +316,7 @@ function paint(job) {
 
   paintStrip(job);
   showPage(currentPage, job.title);
+  syncAsk(job);
 }
 
 function paintStrip(job) {
@@ -494,4 +535,195 @@ function onViewKey(e) {
   if (e.key !== "Enter" && e.key !== " ") return;
   e.preventDefault();
   toggleFit();
+}
+
+function askGlyph() {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("width", "22");
+  svg.setAttribute("height", "22");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("focusable", "false");
+  const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  g.setAttribute("fill", "none");
+  g.setAttribute("stroke", "currentColor");
+  g.setAttribute("stroke-width", "2.4");
+  g.setAttribute("stroke-linecap", "square");
+  g.setAttribute("stroke-linejoin", "miter");
+  const lens = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  lens.setAttribute("cx", "10");
+  lens.setAttribute("cy", "10");
+  lens.setAttribute("r", "6");
+  const handle = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  handle.setAttribute("d", "M15 15 20 20");
+  const q = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  q.setAttribute("d", "M8.4 8.6c0-1.1.9-1.9 1.8-1.9s1.8.8 1.8 1.8c0 1.1-1.8 1.3-1.8 2.6");
+  const dot = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  dot.setAttribute("d", "M10.2 14.6v.2");
+  g.append(lens, handle, q, dot);
+  svg.append(g);
+  return svg;
+}
+
+function setAskBar(pct) {
+  if (!askBarFill) return;
+  const n = Math.max(0, Math.min(1, Number(pct) || 0));
+  askBarFill.style.width = `${Math.round(n * 100)}%`;
+}
+
+function onAskProgress(info) {
+  if (!info || !askBar) return;
+  if (info.status === "progress" && Number(info.total) > 0) {
+    askBar.hidden = false;
+    setAskBar(Number(info.loaded) / Number(info.total));
+    return;
+  }
+  if (info.status === "progress_total" && Number.isFinite(Number(info.progress))) {
+    askBar.hidden = false;
+    setAskBar(Number(info.progress) / 100);
+    return;
+  }
+  if (info.status === "done" || info.status === "ready") {
+    setAskBar(1);
+  }
+}
+
+async function syncAsk(job) {
+  askPages = [];
+  askFetchTok += 1;
+  const token = askFetchTok;
+  const man = job && Q.manual(job.manualId);
+  if (!askBtn) return;
+  if (man && man.ocr === false) {
+    askBtn.hidden = true;
+    closeAsk();
+    return;
+  }
+  askBtn.hidden = true;
+  closeAsk();
+  const pages = await fetchJobPages(job);
+  if (token !== askFetchTok) return;
+  askPages = pages;
+  askBtn.hidden = pages.length === 0;
+}
+
+function openAsk() {
+  if (!askSheet || !askBtn || askBtn.hidden) return;
+  askSheet.hidden = false;
+  askSheet.classList.add("open");
+  askSheet.dataset.state = "idle";
+  askBtn.setAttribute("aria-expanded", "true");
+  if (askInput) {
+    askInput.value = "";
+    askInput.focus();
+  }
+  if (askHits) askHits.replaceChildren();
+  askBar.hidden = false;
+  setAskBar(0);
+  loadAsk(onAskProgress)
+    .then(() => {
+      setAskBar(1);
+      window.setTimeout(() => {
+        if (askBar) askBar.hidden = true;
+      }, 120);
+    })
+    .catch(() => {
+      if (askBar) askBar.hidden = true;
+    });
+}
+
+function closeAsk() {
+  if (!askSheet) return;
+  askSheet.hidden = true;
+  askSheet.classList.remove("open");
+  askSheet.dataset.state = "";
+  if (askBtn) askBtn.setAttribute("aria-expanded", "false");
+  if (askHits) askHits.replaceChildren();
+  if (askBar) askBar.hidden = true;
+  askBusy = false;
+}
+
+function onAskToggle() {
+  if (!askSheet || askSheet.hidden) openAsk();
+  else closeAsk();
+}
+
+function onAskEsc(e) {
+  if (e.key !== "Escape") return;
+  if (!askSheet || askSheet.hidden) return;
+  closeAsk();
+}
+
+function onAskKey(e) {
+  if (e.key !== "Enter") return;
+  e.preventDefault();
+  runAsk();
+}
+
+function paintAskHits(rows) {
+  if (!askHits) return;
+  askHits.replaceChildren();
+  for (const row of rows || []) {
+    const pageText = (askPages.find((p) => p.n === row.page) || {}).text || "";
+    const win = contextWindow(pageText, row.start, row.end, 160);
+    const btn = el("button", { class: "card ask-hit", type: "button" });
+    const ctx = el("p", { class: "ask-ctx" });
+    const before = win.text.slice(0, Math.max(0, win.start));
+    const mid = win.text.slice(Math.max(0, win.start), Math.max(0, win.end));
+    const after = win.text.slice(Math.max(0, win.end));
+    if (before) ctx.append(document.createTextNode(before));
+    const bold = el("b", { class: "ask-span" });
+    bold.textContent = mid || row.answer;
+    ctx.append(bold);
+    if (after) ctx.append(document.createTextNode(after));
+    const stamp = el("span", { class: "stamp" });
+    writeStamp(stamp, row.page);
+    btn.append(ctx, stamp);
+    btn.addEventListener("click", () => {
+      showPage(row.page, jobRec && jobRec.title);
+      flashStage();
+      closeAsk();
+    });
+    askHits.append(btn);
+  }
+}
+
+function flashStage() {
+  if (!stageEl) return;
+  if (askFlashTimer) window.clearTimeout(askFlashTimer);
+  stageEl.classList.remove("ask-flash");
+  void stageEl.offsetWidth;
+  stageEl.classList.add("ask-flash");
+  askFlashTimer = window.setTimeout(() => {
+    if (stageEl) stageEl.classList.remove("ask-flash");
+    askFlashTimer = 0;
+  }, 900);
+}
+
+async function runAsk() {
+  if (askBusy || !askInput) return;
+  const q = String(askInput.value || "").trim();
+  if (!q || !askPages.length) {
+    if (askHits) askHits.replaceChildren();
+    if (askSheet) askSheet.dataset.state = "done";
+    return;
+  }
+  askBusy = true;
+  askRunTok += 1;
+  const token = askRunTok;
+  if (askSheet) askSheet.dataset.state = "run";
+  if (askHits) askHits.replaceChildren();
+  askBar.hidden = false;
+  setAskBar(0.15);
+  let rows = [];
+  try {
+    rows = await ask(q, askPages);
+  } catch {
+    rows = [];
+  }
+  if (token !== askRunTok) return;
+  askBusy = false;
+  askBar.hidden = true;
+  paintAskHits(rows);
+  if (askSheet) askSheet.dataset.state = "done";
 }

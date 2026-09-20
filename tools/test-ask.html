@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>test-ask</title>
+  <style>
+    body { font-family: ui-monospace, Consolas, monospace; margin: 16px; }
+    pre { white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <pre id="out">loading</pre>
+  <script type="module">
+    import { loadAsk, ask, bm25Top, splitPassages, pageTextUrl } from "../counter/js/ask.js";
+
+    const out = document.getElementById("out");
+    const FALLBACK = [{"manualId": "honda-cb650r-2021-om", "n": 85, "text": "Engine Oil\nChecking the Engine Oil\n1. If the engine is cold, idle the engine for 3\nto 5 minutes.\n2. Turn the ignition switch to the OFF\nposition and wait for 2 to 3 minutes.\n3. Place your vehicle in an upright position\non a firm, level surface.\n4. Remove the oil fill cap/dipstick and wipe it\nclean.\n5. Insert the oil fill cap/dipstick until it seats,\nbut don't screw it in.\n6. Check that the oil level is between the\nupper level and lower level marks on the\noil fill cap/dipstick.\n7. Securely install the oil fill cap/dipstick.\nMaintenance\n83\nOil fill cap/dipstick\nUpper\nlevel\nLower\nlevel\n"}, {"manualId": "honda-cb650r-2021-om", "n": 86, "text": "Adding Engine Oil\nIf the engine oil is below or near the lower\nlevel mark, add the recommended engine oil.\n2 P. 73, 2 P. 135\n1. Remove the oil fill cap/dipstick. Add the\nrecommended oil until it reaches the\nupper level mark.\nu Place your vehicle in an upright\nposition on a firm, level surface when\nchecking the oil level.\nu Do not overfill above the upper level\nmark.\nu Make sure no foreign objects enter the\noil filler opening.\nu Wipe up any spills immediately.\n2. Securely reinstall the oil fill cap/dipstick.\nNOTICE\nOverfilling with oil or operating with insufficient\noil can cause damage to your engine. Do not mix\ndifferent brands and grades of oil. They may\naffect lubrication and clutch operation.\nFor the recommended oil and oil selection\nguidelines, see “Maintenance Fundamentals.”\n2 P. 73\nEngine Oil u Adding Engine Oil\nMaintenance\n84\n"}, {"manualId": "honda-cb650r-2021-om", "n": 75, "text": "Engine Oil\nEngine oil consumption varies and oil quality\ndeteriorates according to riding conditions and\ntime elapsed.\nCheck the engine oil level regularly, and add the\nrecommended engine oil if necessary. Dirty oil or\nold oil should be changed as soon as possible.\n# Selecting the Engine Oil\nFor recommended engine oil, see\n“Specifications.” 2 P. 135\nIf you use non-Honda engine oil, check the\nlabel to make sure that the oil satisfies all of the\nfollowing standards:\n●JASO T 903 standard*1: MA\n●SAE standard*2: 10W-30\n●API classification*3: SG or higher\n*1. The JASO T 903 standard is an index for engine\noils for 4-stroke motorcycle engines. There are\ntwo classes: MA and MB. For example, the\nfollowing label shows the MA classification.\n*2. The SAE standard grades oils by their viscosity.\n*3. The API classification specifies the quality and\nperformance rating of engine oils. Use SG or\nhigher oils, excluding oils marked as “Energy\nConserving” or “Resource Conserving” on the\ncircular API service symbol.\nMaintenance Fundamentals\nMaintenance\n73\nOil code\nOil classification\nNot recommended\nRecommended\n"}, {"manualId": "honda-cb650r-2021-om", "n": 137, "text": "■Service Data\nTire size\nFront\n120/70ZR17M/C(58W)\nRear\n180/55ZR17M/C(73W)\nTire type\nRadial, tubeless\nRecommended\nTires\nFront\nDUNLOP D214F Z\nRear\nDUNLOP D214 Q\nTire air pressure\nFront\n36 psi (250 kPa, 2.50 kgf/cm2)\nRear\n42 psi (290 kPa, 2.90 kgf/cm2)\nMinimum tread\ndepth\nFront\n0.06 in (1.5 mm)\nRear\n0.08 in (2.0 mm)\nSpark plug\n(standard)\nIMR9E-9HES (NGK) or\nVUH27ES (DENSO)\nSpark plug gap\n(non-\nadjustable)\n0.03 - 0.04 in (0.8 - 0.9 mm)\nIdle speed\n(non-\nadjustable)\n1,250 ± 100 rpm\nRecommended\nengine oil\nAPI Service Classification SG or higher\nexcept oils labeled as energy conserving or\nresource conserving on the circular API\nservice label, SAE 10W-30, JASO T 903\nstandard MA, Pro Honda GN4 4-stroke oil\n(USA & Canada) or Honda 4-stroke oil, or\nan equivalent motorcycle oil\nEngine oil capacity\nAfter draining 2.4 US qt (2.3 L)\nAfter draining\n& engine oil\nfilter change\n2.7 US qt (2.6 L)\nAfter\ndisassembly\n3.2 US qt (3.0 L)\nRecommended\nbrake fluid\nHonda DOT 4 Brake Fluid\nRecommended\ncoolant\nPro Honda HP Coolant\nCooling system\ncapacity\n2.64 US qt (2.50 L)\nRecommended\ndrive chain\nlubricant\nPro Honda HP Chain Lube or equivalent\nDrive chain slack\n1 - 1 3/8 in (25 - 35 mm)\nStandard drive\nchain\nDID 525V11 or RK 525KRW\nNo. of links\n118\nStandard sprocket\nsizes\nDrive sprocket\n15T\nDriven sprocket\n42T\nSpecifications\nSpecifications\n135\n"}];
+
+    function log(line) {
+      out.textContent += line + "\n";
+    }
+
+    async function hondaPages() {
+      const nums = [85, 86, 75, 137];
+      const pages = [];
+      for (const n of nums) {
+        try {
+          const res = await fetch(pageTextUrl("honda-cb650r-2021-om", n));
+          if (!res.ok) continue;
+          const text = await res.text();
+          if (String(text).trim()) pages.push({ manualId: "honda-cb650r-2021-om", n, text: String(text) });
+        } catch {
+          /* use fallback */
+        }
+      }
+      return pages.length ? pages : FALLBACK;
+    }
+
+    const report = { status: "run", source: "", modelBytes: 0, loadMs: 0, bm25: {}, qa: [] };
+
+    async function main() {
+    out.textContent = "";
+    const pages = await hondaPages();
+    report.source = pages === FALLBACK ? "fallback" : "pageTextUrl";
+    log("pages " + pages.map((p) => p.n + ":" + p.text.length).join(" "));
+
+    const capacityPassages = bm25Top("what is the oil capacity", splitPassages(pages), 3);
+    report.bm25.capacity = capacityPassages.map((p) => ({ n: p.n, score: Number(p.bm25.toFixed(4)) }));
+    log("BM25 oil capacity -> " + JSON.stringify(report.bm25.capacity));
+
+    const torquePassages = bm25Top("drain bolt torque", splitPassages(pages), 3);
+    report.bm25.torque = torquePassages.map((p) => ({ n: p.n, score: Number(p.bm25.toFixed(4)) }));
+    log("BM25 drain bolt torque -> " + JSON.stringify(report.bm25.torque));
+
+    const gradePassages = bm25Top("which oil grade", splitPassages(pages), 3);
+    report.bm25.grade = gradePassages.map((p) => ({ n: p.n, score: Number(p.bm25.toFixed(4)) }));
+    log("BM25 oil grade -> " + JSON.stringify(report.bm25.grade));
+
+    const t0 = performance.now();
+    try {
+      await loadAsk((info) => {
+        if (info && info.status === "progress" && Number(info.total) > Number(report.modelBytes)) {
+          report.modelBytes = Number(info.total);
+        }
+        if (info && info.file && /onnx/i.test(info.file) && Number(info.total) > Number(report.modelBytes)) {
+          report.modelBytes = Number(info.total);
+        }
+      });
+    } catch (err) {
+      report.status = "model-fail";
+      report.error = String(err && err.message || err);
+      log("MODEL FAIL " + report.error);
+      window.__ASK_REPORT__ = report;
+      return;
+    }
+    report.loadMs = Math.round(performance.now() - t0);
+    log("model loadMs=" + report.loadMs + " bytes=" + report.modelBytes);
+
+    const questions = [
+      "what is the oil capacity",
+      "drain bolt torque",
+      "which oil grade",
+    ];
+    for (const q of questions) {
+      const t1 = performance.now();
+      const rows = await ask(q, pages);
+      const ms = Math.round(performance.now() - t1);
+      const slim = rows.map((r) => ({ answer: r.answer, page: r.page, start: r.start, end: r.end, score: Number(r.score.toFixed(4)) }));
+      report.qa.push({ q, ms, rows: slim });
+      log("Q " + q);
+      log("A " + JSON.stringify(slim) + " (" + ms + "ms)");
+    }
+
+    report.status = "ok";
+    window.__ASK_REPORT__ = report;
+    log("DONE " + JSON.stringify({ loadMs: report.loadMs, modelBytes: report.modelBytes, source: report.source }));
+    }
+
+    main().catch((err) => {
+      report.status = "model-fail";
+      report.error = String(err && err.message || err);
+      window.__ASK_REPORT__ = report;
+      log("FAIL " + report.error);
+    });
+  </script>
+</body>
+</html>
