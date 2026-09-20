@@ -1,98 +1,19 @@
-const DEFAULT_URL = "../store/catalog.json";
-const TOP_KEYS = ["bikes", "manuals", "systems", "parts", "jobs"];
+import { buildIndex, search as instantSearch, highlight } from "./search.js";
 
-const RANK_EXACT_ALIAS = 0;
-const RANK_PREFIX = 1;
-const RANK_SUBSTRING = 2;
-const RANK_TOKEN = 3;
+const DEFAULT_URL = "../store/catalog.json";
+const DEFAULT_COLLECTION_URL = "../store/collection.json";
+const TOP_KEYS = ["bikes", "manuals", "systems", "parts", "jobs"];
 
 let loadPromise;
 let data = null;
+let roster = [];
 let bikeIndex = new Map();
 let manualIndex = new Map();
 let systemIndex = new Map();
 let partIndex = new Map();
 let jobIndex = new Map();
 
-function fold(value) {
-  return String(value ?? "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "");
-}
-
-function tokens(value) {
-  return String(value ?? "")
-    .toLowerCase()
-    .split(/[^a-z0-9]+/)
-    .filter(Boolean);
-}
-
-function textFieldsOf(bike) {
-  const aliases = Array.isArray(bike.aliases) ? bike.aliases : [];
-  return [bike.make, bike.model, ...aliases];
-}
-
-function yearFoldOf(bike) {
-  return fold(bike.year);
-}
-
-function tokenHit(hayToken, queryToken, yearFold) {
-  if (yearFold && hayToken === yearFold) return hayToken === queryToken;
-  if (hayToken === queryToken) return true;
-  return queryToken.length >= 3 && hayToken.startsWith(queryToken);
-}
-
-function overlapCount(hay, qTokens, yearFold) {
-  return qTokens.filter((qt) => hay.some((ht) => tokenHit(ht, qt, yearFold))).length;
-}
-
-function haystackOf(bike) {
-  const yearFold = yearFoldOf(bike);
-  const fields = textFieldsOf(bike);
-  const hay = [];
-  for (const field of fields) hay.push(...tokens(field));
-  if (yearFold) hay.push(yearFold);
-
-  const makeFold = fold(bike.make);
-  const glued = new Set();
-  const joined = fold(fields.join(""));
-  if (joined) glued.add(joined);
-  if (makeFold) {
-    for (const ht of hay) {
-      if (ht && ht !== makeFold) glued.add(makeFold + ht);
-    }
-  }
-  for (const extra of glued) hay.push(extra);
-
-  return { hay, yearFold };
-}
-
-function rankBike(bike, qFold, qTokens) {
-  const aliases = Array.isArray(bike.aliases) ? bike.aliases : [];
-  const { hay, yearFold } = haystackOf(bike);
-  const overlap = overlapCount(hay, qTokens, yearFold);
-
-  for (const alias of aliases) {
-    if (fold(alias) === qFold) return { rank: RANK_EXACT_ALIAS, overlap };
-  }
-
-  let best = Infinity;
-  for (const field of textFieldsOf(bike)) {
-    const folded = fold(field);
-    if (!folded) continue;
-    if (folded.startsWith(qFold)) best = Math.min(best, RANK_PREFIX);
-    else if (folded.includes(qFold)) best = Math.min(best, RANK_SUBSTRING);
-  }
-  if (yearFold && yearFold.startsWith(qFold) && qFold.length === yearFold.length) {
-    best = Math.min(best, RANK_PREFIX);
-  }
-  if (best !== Infinity) return { rank: best, overlap };
-
-  if (qTokens.length && overlap === qTokens.length) {
-    return { rank: RANK_TOKEN, overlap };
-  }
-  return { rank: Infinity, overlap: 0 };
-}
+export { highlight };
 
 function resetIndexes() {
   bikeIndex = new Map();
@@ -100,6 +21,8 @@ function resetIndexes() {
   systemIndex = new Map();
   partIndex = new Map();
   jobIndex = new Map();
+  roster = [];
+  buildIndex([]);
 }
 
 function indexRows(rows, key) {
@@ -113,8 +36,29 @@ function indexRows(rows, key) {
   return next;
 }
 
-function indexCatalog(catalog) {
-  const nextBikes = indexRows(catalog.bikes, "bikes");
+function mergeBikes(collectionBikes, catalogBikes) {
+  const catalogById = new Map();
+  for (const row of catalogBikes) {
+    if (row && typeof row === "object" && typeof row.id === "string") catalogById.set(row.id, row);
+  }
+  const seen = new Set();
+  const out = [];
+  const source = Array.isArray(collectionBikes) ? collectionBikes : [];
+  for (const row of source) {
+    if (!row || typeof row !== "object" || typeof row.id !== "string") continue;
+    seen.add(row.id);
+    const over = catalogById.get(row.id);
+    out.push(over ? { ...row, ...over } : row);
+  }
+  for (const row of catalogBikes) {
+    if (!row || typeof row !== "object" || typeof row.id !== "string") continue;
+    if (!seen.has(row.id)) out.push(row);
+  }
+  return out;
+}
+
+function indexCatalog(catalog, mergedBikes) {
+  const nextBikes = indexRows(mergedBikes, "bikes");
   const nextManuals = indexRows(catalog.manuals, "manuals");
   const nextSystems = indexRows(catalog.systems, "systems");
   const nextParts = indexRows(catalog.parts, "parts");
@@ -124,6 +68,8 @@ function indexCatalog(catalog) {
   systemIndex = nextSystems;
   partIndex = nextParts;
   jobIndex = nextJobs;
+  roster = mergedBikes;
+  buildIndex(mergedBikes);
 }
 
 function validateCatalog(catalog) {
@@ -149,6 +95,27 @@ function pagesDirOf(manualId) {
   return `store/manuals/${manualId}/pages/`;
 }
 
+function textDirOf(manualId) {
+  const dir = manualIndex.get(manualId)?.textDir;
+  if (dir) {
+    const value = String(dir);
+    return value.endsWith("/") ? value : `${value}/`;
+  }
+  return `store/manuals/${manualId}/text/`;
+}
+
+function fetchCollection(url) {
+  return fetch(url)
+    .then((res) => {
+      if (!res.ok) return null;
+      return res.json().then((json) => {
+        if (!json || !Array.isArray(json.bikes)) return null;
+        return json.bikes;
+      });
+    })
+    .catch(() => null);
+}
+
 export function asset(path) {
   if (path == null || path === "") return path;
   const value = String(path);
@@ -157,7 +124,7 @@ export function asset(path) {
   return `../${value.replace(/^\.\//, "")}`;
 }
 
-export function loadCatalog(url = DEFAULT_URL) {
+export function loadCatalog(url = DEFAULT_URL, collectionUrl = DEFAULT_COLLECTION_URL) {
   if (!loadPromise) {
     loadPromise = fetch(url)
       .then((res) => {
@@ -166,9 +133,12 @@ export function loadCatalog(url = DEFAULT_URL) {
       })
       .then((catalog) => {
         validateCatalog(catalog);
-        indexCatalog(catalog);
-        data = catalog;
-        return catalog;
+        return fetchCollection(collectionUrl).then((collectionBikes) => {
+          const merged = mergeBikes(collectionBikes ?? catalog.bikes, catalog.bikes);
+          indexCatalog(catalog, merged);
+          data = catalog;
+          return catalog;
+        });
       })
       .catch((err) => {
         data = null;
@@ -184,23 +154,21 @@ export function catalog() {
   return data;
 }
 
-export function findBikes(text) {
-  const bikes = data?.bikes ?? [];
-  const qFold = fold(text ?? "");
-  if (!qFold) return bikes.slice();
-  const qTokens = tokens(text ?? "");
-  return bikes
-    .map((bike, order) => {
-      const scored = rankBike(bike, qFold, qTokens);
-      return { bike, order, rank: scored.rank, overlap: scored.overlap };
-    })
-    .filter((row) => row.rank !== Infinity)
-    .sort((a, b) => a.rank - b.rank || b.overlap - a.overlap || a.order - b.order)
-    .map((row) => row.bike);
+export function bikes() {
+  return roster;
+}
+
+export function findBikes(text, opts) {
+  return instantSearch(text, opts);
 }
 
 export function bike(id) {
   return bikeIndex.get(id);
+}
+
+export function hasManual(id) {
+  const rec = bikeIndex.get(id);
+  return !!(rec && rec.manualId);
 }
 
 export function manual(id) {
@@ -245,4 +213,8 @@ export function pageUrl(manualId, n) {
 
 export function thumbUrl(manualId, n) {
   return asset(`${pagesDirOf(manualId)}t-${padPage(n)}.webp`);
+}
+
+export function pageTextUrl(manualId, n) {
+  return asset(`${textDirOf(manualId)}p-${padPage(n)}.txt`);
 }

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>search tests</title>
+  <style>
+    body { font: 16px/1.4 ui-monospace, monospace; margin: 16px; background: #ece7dc; color: #141414; }
+    h1 { font: 800 20px/1 Barlow, sans-serif; text-transform: uppercase; }
+    .ok { color: #0a7a28; }
+    .fail { color: #b42318; }
+    #summary { font-weight: 800; margin: 12px 0; }
+  </style>
+</head>
+<body>
+  <h1>Search</h1>
+  <p id="summary">running…</p>
+  <ol id="out"></ol>
+  <script type="module">
+    import {
+      loadCatalog, findBikes, bikes, bike, hasManual, highlight
+    } from "../counter/js/query.js";
+    import { search } from "../counter/js/search.js";
+
+    const rows = [];
+    const out = document.getElementById("out");
+    const summary = document.getElementById("summary");
+
+    function same(a, b) {
+      return Object.is(a, b) || JSON.stringify(a) === JSON.stringify(b);
+    }
+
+    function check(name, got, expected) {
+      const pass = arguments.length === 3 ? same(got, expected) : !!got;
+      rows.push({ name, pass, got, expected });
+      const li = document.createElement("li");
+      li.className = pass ? "ok" : "fail";
+      li.textContent = (pass ? "PASS " : "FAIL ") + name + (pass ? "" : ` got=${JSON.stringify(got)} expected=${JSON.stringify(expected)}`);
+      out.appendChild(li);
+    }
+
+    function ids(list) {
+      return (list ?? []).map((row) => row.id);
+    }
+
+    try {
+      await loadCatalog("./fixtures/catalog.sample.json", "./fixtures/collection.sample.json");
+      const all = bikes();
+      const syntheticish = all.length;
+      check("collection has ≥ 1000 bikes", syntheticish >= 1000, true);
+      check("collection includes 5 manual bikes", ["honda-cb650r-2021", "yamaha-mt-07-2021", "kawasaki-z650-2020", "suzuki-sv650-2019", "yamaha-yzf-r7-2022"].every((id) => all.some((b) => b.id === id)), true);
+
+      check("yamha r7 → YZF-R7 first", findBikes("yamha r7")[0]?.id, "yamaha-yzf-r7-2022");
+      check("cb65 → CB650R first", findBikes("cb65")[0]?.id, "honda-cb650r-2021");
+      check("z 650 → Z650 first", findBikes("z 650")[0]?.id, "kawasaki-z650-2020");
+      check("z 650 excludes SV650", ids(findBikes("z 650")).includes("suzuki-sv650-2019"), false);
+      check("ninja400 glued → Ninja 400", /ninja\s*400/i.test(findBikes("ninja400")[0]?.model ?? ""), true);
+      check("ducati monster 2019", findBikes("ducati monster 2019")[0]?.id, "ducati-monster-2019");
+      check("sv prefix → SV650 first", findBikes("sv")[0]?.id, "suzuki-sv650-2019");
+
+      const kawa = ids(findBikes("kawasaki", { limit: 60 }));
+      const kawaTypo = ids(findBikes("kawasakki", { limit: 60 }));
+      check("kawasaki matches Z650", kawa.includes("kawasaki-z650-2020"), true);
+      check("kawasakki typo matches Z650", kawaTypo.includes("kawasaki-z650-2020"), true);
+
+      const empty = findBikes("");
+      check("empty → all", empty.length, all.length);
+      check("empty roster order", empty[0]?.id, all[0]?.id);
+      check("whitespace → all", findBikes("   ").length, all.length);
+
+      check("findBikes delegates to search", findBikes("yamha r7", { limit: 5 })[0]?.id, search("yamha r7", { limit: 5 })[0]?.id);
+      check("hasManual R7", hasManual("yamaha-yzf-r7-2022"), true);
+      check("hasManual ninja400 first is false or true boolean", typeof hasManual(findBikes("ninja400")[0]?.id) === "boolean", true);
+      check("bike(id) resolves collection R7", bike("yamaha-yzf-r7-2022")?.model, "YZF-R7");
+      check("catalog fields win on merge", bike("honda-cb650r-2021")?.manualId, "honda-cb650r-2021-om");
+
+      const r7 = bike("yamaha-yzf-r7-2022");
+      const marks = highlight(r7, "yamha r7");
+      check("highlight yamha r7 returns ranges", Array.isArray(marks) && marks.length >= 1, true);
+      check("highlight ranges are in the label", marks.every((r) => Number.isInteger(r.start) && Number.isInteger(r.end) && r.start < r.end), true);
+
+      const q = "ducati monster 2019";
+      search(q, { limit: 60 });
+      const times = [];
+      for (let i = 0; i < 200; i++) {
+        const t0 = performance.now();
+        search(q, { limit: 60 });
+        times.push(performance.now() - t0);
+      }
+      times.sort((a, b) => a - b);
+      const median = times[Math.floor(times.length / 2)];
+      document.body.dataset.medianMs = String(median);
+      document.body.dataset.runs = "200";
+      check("perf median ≤ 5 ms over 200 runs (3-token, 1k bikes)", median <= 5, true);
+      check("median ms recorded", Number.isFinite(median), true);
+    } catch (err) {
+      check("runner threw: " + (err && err.message), false, true);
+    }
+
+    const passed = rows.filter((r) => r.pass).length;
+    const total = rows.length;
+    const line = `${passed}/${total}`;
+    summary.textContent = line + (document.body.dataset.medianMs ? `  median ${Number(document.body.dataset.medianMs).toFixed(3)} ms` : "");
+    summary.className = passed === total ? "ok" : "fail";
+    document.title = `search tests ${line}`;
+    document.body.dataset.passed = String(passed);
+    document.body.dataset.total = String(total);
+  </script>
+</body>
+</html>

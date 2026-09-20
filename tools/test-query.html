@@ -17,9 +17,9 @@
   <p id="summary">running…</p>
   <ol id="out"></ol>
   <script type="module">
-    import {
-      loadCatalog, findBikes, bike, manual, systems, partsFor, part, job, jobById,
-      pageUrl, thumbUrl, catalog, asset
+      import {
+      loadCatalog, findBikes, bike, bikes, hasManual, manual, systems, partsFor, part, job, jobById,
+      pageUrl, thumbUrl, pageTextUrl, catalog, asset, highlight
     } from "../counter/js/query.js";
 
     const rows = [];
@@ -43,8 +43,10 @@
       return (list ?? []).map((row) => row.id);
     }
 
+    const NO_COLLECTION = "./fixtures/collection.missing.json";
+
     try {
-      const first = loadCatalog("./fixtures/catalog.sample.json");
+      const first = loadCatalog("./fixtures/catalog.sample.json", NO_COLLECTION);
       const second = loadCatalog("../store/catalog.json");
       check("loadCatalog memoises the same promise", first === second, true);
 
@@ -106,7 +108,10 @@
       check("findBikes 2021 full year token", ids(findBikes("2021")), ["honda-cb650r-2021", "yamaha-mt-07-2021"]);
       check("findBikes 2020 full year token", ids(findBikes("2020")), ["kawasaki-z650-2020"]);
       check("findBikes 2019 full year token", ids(findBikes("2019")), ["suzuki-sv650-2019"]);
-      check("findBikes 649 cc is not a search field", ids(findBikes("649")), []);
+      check("findBikes 649 cc matches displacement", ids(findBikes("649")), [
+        "honda-cb650r-2021",
+        "kawasaki-z650-2020"
+      ]);
 
       check("bike(id) Honda", bike("honda-cb650r-2021")?.model, "CB650R");
       check("bike(id) missing is undefined", bike("nope"), undefined);
@@ -172,6 +177,25 @@
       check("asset prefixes store path", asset("store/img/bikes/honda-cb650r-2021.webp"), "../store/img/bikes/honda-cb650r-2021.webp");
       check("asset leaves ../ paths", asset("../store/x.webp"), "../store/x.webp");
 
+      check("bikes() roster when collection missing", ids(bikes()), roster);
+      check("hasManual honda", hasManual("honda-cb650r-2021"), true);
+      check("hasManual missing id", hasManual("nope"), false);
+      check(
+        "pageTextUrl zero-pad 4",
+        pageTextUrl("honda-cb650r-2021-om", 91),
+        "../store/manuals/honda-cb650r-2021-om/text/p-0091.txt"
+      );
+      check(
+        "pageTextUrl falls back to contract template",
+        pageTextUrl("suzuki-sv650-2019-om", 7),
+        "../store/manuals/suzuki-sv650-2019-om/text/p-0007.txt"
+      );
+      check("findBikes limit 1", ids(findBikes("650", { limit: 1 })), ["honda-cb650r-2021"]);
+      {
+        const ranges = highlight(bike("honda-cb650r-2021"), "cb65");
+        check("highlight cb65 returns a range", Array.isArray(ranges) && ranges.length >= 1, true);
+      }
+
       {
         const fresh = await import(`../counter/js/query.js?retry=${Date.now()}`);
         let rejected = false;
@@ -182,7 +206,7 @@
         }
         check("loadCatalog 404 rejects", rejected, true);
         check("rejected load does not publish catalog", fresh.catalog(), null);
-        const recovered = await fresh.loadCatalog("./fixtures/catalog.sample.json");
+        const recovered = await fresh.loadCatalog("./fixtures/catalog.sample.json", NO_COLLECTION);
         check("loadCatalog retries after 404", Array.isArray(recovered?.bikes) && recovered.bikes.length === 4, true);
         check("retried catalog() is the loaded catalog", fresh.catalog() === recovered, true);
         check("retried findBikes sees bikes", fresh.findBikes("")[0]?.id, "honda-cb650r-2021");
