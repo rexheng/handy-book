@@ -10,6 +10,7 @@
  * GET /api/pages/:manualId/:n
  * GET /api/search?q=
  * GET /api/parts/:id
+ * GET /api/catalog  ({bikes, systems, parts, manuals}; no jobs)
  */
 
 const CACHE = "public, max-age=60";
@@ -241,6 +242,45 @@ async function handleGet(context) {
       const part = await getPart(env, parts[1]);
       if (!part) return json(request, { error: "not found" }, 404);
       return json(request, part);
+    }
+
+    if (parts[0] === "catalog" && parts.length === 1) {
+      const [bikesRes, systemsRes, partsRes] = await Promise.all([
+        esFetch(env, "POST", "/hb-bikes/_search", {
+          query: { match_all: {} },
+          size: 50,
+          sort: [{ seq: "asc" }],
+        }),
+        esFetch(env, "POST", "/hb-systems/_search", {
+          query: { match_all: {} },
+          size: 50,
+          sort: [{ seq: "asc" }],
+        }),
+        esFetch(env, "POST", "/hb-parts/_search", {
+          query: { match_all: {} },
+          size: 200,
+          sort: [{ seq: "asc" }],
+        }),
+      ]);
+      if (!bikesRes.ok || !systemsRes.ok || !partsRes.ok) {
+        return json(request, { remote: true, error: "search failed" }, 502);
+      }
+      const bikes = sources(bikesRes.data);
+      const manuals = [];
+      const seen = new Set();
+      for (const b of bikes) {
+        const m = b?.manual;
+        const id = m?.id;
+        if (!m || !id || seen.has(id)) continue;
+        seen.add(id);
+        manuals.push(m);
+      }
+      return json(request, {
+        bikes,
+        systems: sources(systemsRes.data),
+        parts: sources(partsRes.data),
+        manuals,
+      });
     }
 
     return json(request, { error: "not found" }, 404);

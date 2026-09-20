@@ -1,8 +1,9 @@
 /**
  * Remote Query layer adapter — same function names as query.js, backed by /api/*.
  * Lookups that hit /api/* are async (fetch). pageUrl / thumbUrl / asset are sync
- * and use the same path rules as query.js. loadCatalog is a no-op that resolves true
- * (the remote catalog lives in Elastic, not store/catalog.json).
+ * and use the same path rules as query.js. loadCatalog fetches GET /api/catalog
+ * and resolves true; catalog() then returns {bikes, systems, parts, manuals}
+ * (no jobs) so Q.catalog()?.bikes works for Identify.
  *
  * On 503 or network failure, list helpers return [] and single-record helpers
  * return undefined — they never throw. Do not import this from query.js.
@@ -38,12 +39,42 @@ export function thumbUrl(manualId, n) {
   return asset(`${pagesDirOf(manualId)}t-${padPage(n)}.webp`);
 }
 
+const EMPTY_CATALOG = Object.freeze({
+  bikes: [],
+  systems: [],
+  parts: [],
+  manuals: [],
+});
+
+let cachedCatalog;
+let loadPromise;
+
+function catalogShape(body) {
+  if (!body || typeof body !== "object") return { ...EMPTY_CATALOG };
+  return {
+    bikes: Array.isArray(body.bikes) ? body.bikes : [],
+    systems: Array.isArray(body.systems) ? body.systems : [],
+    parts: Array.isArray(body.parts) ? body.parts : [],
+    manuals: Array.isArray(body.manuals) ? body.manuals : [],
+  };
+}
+
 export async function loadCatalog(_url) {
-  return true;
+  if (!loadPromise) {
+    loadPromise = (async () => {
+      cachedCatalog = catalogShape(await api(`${API}/catalog`));
+      return true;
+    })().catch(() => {
+      cachedCatalog = { ...EMPTY_CATALOG };
+      loadPromise = undefined;
+      return true;
+    });
+  }
+  return loadPromise;
 }
 
 export function catalog() {
-  return undefined;
+  return cachedCatalog;
 }
 
 function emptyFor(list) {

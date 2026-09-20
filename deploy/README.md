@@ -136,9 +136,10 @@ out of the published directory. Functions stay at repo root (`functions/`) —
 Pages compiles them from cwd, not from the asset directory.
 
 `wrangler.toml` `pages_build_output_dir = ".pages-publish"` (created by the
-assemble script). `_headers` and `_redirects` are copied into that directory
-(Pages reads them from the output dir). Copies under `deploy/` are the same
-rules for reference. Pages allows one `*` per header rule; manuals use
+assemble script). That directory is gitignored (it copies `store/`, including
+PDFs). `_headers` and `_redirects` are copied into that directory (Pages reads
+them from the output dir). Copies under `deploy/` are the same rules for
+reference. Pages allows one `*` per header rule; manuals use
 `/store/manuals/:manual/pages/*`.
 
 Limits: 25 MiB per file, 20k files. Manual PDFs must stay under 25 MiB.
@@ -157,8 +158,11 @@ npx wrangler pages dev . --ip 127.0.0.1 --port 8788
 - `/` redirects to `/counter/`
 - `/counter/` loads the app
 - `/api/bikes?q=cb` returns Honda when Elastic is configured
-- Without `.dev.vars` (or missing key), **every** `/api/*` GET returns **503** JSON
-  `{ "remote": false }` and the UI keeps using local `store/`
+- `/api/catalog` returns `{ bikes, systems, parts, manuals }` (no `jobs`) when
+  Elastic is configured; Identify photo-ID uses `Q.catalog()?.bikes`
+- Without `.dev.vars` (or missing key), **every** `/api/*` GET (including
+  `/api/catalog`) returns **503** JSON `{ "remote": false }` and the UI keeps
+  using local `store/`
 
 The `.` directory argument serves the repo for local Functions + static assets.
 It does not change the production assemble step.
@@ -171,10 +175,13 @@ exports the same surface as `query.js`:
 `loadCatalog`, `catalog`, `findBikes`, `bike`, `manual`, `systems`, `partsFor`,
 `part`, `job`, `jobById`, `pageUrl`, `thumbUrl`, `asset`, plus `isRemoteAvailable()`.
 
-`loadCatalog` resolves `true` (no local fetch). `pageUrl` / `thumbUrl` / `asset`
-are **sync** and use the same path rules as `query.js`. Lookups that hit `/api/*`
-are **async**. On 503 or network failure they return `[]` / `undefined` and do
-not throw.
+`loadCatalog` fetches `GET /api/catalog` and resolves `true`. After it
+resolves, `catalog()` returns `{ bikes, systems, parts, manuals }` (no `jobs`)
+so `Q.catalog()?.bikes` works for Identify; on 503 or network failure that
+object still has empty arrays. `pageUrl` / `thumbUrl` / `asset` are **sync**
+and use the same path rules as `query.js`. Lookups that hit `/api/*` are
+**async**. On 503 or network failure they return `[]` / `undefined` (or the
+empty catalog shape) and do not throw.
 
 One-line switch for a later task in `counter/js/app.js`:
 

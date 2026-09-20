@@ -6,7 +6,7 @@
  * test-vision.html, test-imgs/, model/.
  *
  * Identical exported API and result shapes, nothing loaded:
- *   loadPartModel(options, onProgress) → { ready: false, stub: true }
+ *   loadPartModel(options, onProgress) → { provider: null, meta: null, ready: false, stub: true }
  *   classifyPart()                     → []
  *   identifyBike()                     → null
  *   isVisionAvailable()                → false
@@ -25,7 +25,7 @@ function progressFn(options, onProgress) {
 export async function loadPartModel(options = {}, onProgress) {
   const cb = progressFn(options, onProgress);
   if (cb) cb(1);
-  return { ready: false, stub: true };
+  return { provider: null, meta: null, ready: false, stub: true };
 }
 
 /** @param {HTMLImageElement | HTMLCanvasElement | ImageBitmap} [imageSource] */
