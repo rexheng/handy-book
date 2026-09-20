@@ -8,3 +8,6 @@ tools/hf-moto-parts/
 .firecrawl/
 .dev.vars
 .wrangler/
+.pages-publish/
+.playwright-mcp/
+__pycache__/
